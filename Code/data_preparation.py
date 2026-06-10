@@ -113,12 +113,12 @@ def filter_attention_checks(df, group):
     failed_both = df[(df['attention_1_failed'] == 1) & (df['attention_2_failed'] == 1)]
     logger.info(f"Number of participants that failed both attention checks: {failed_both.shape[0]}")
     if failed_both.shape[0] > 0:
-        failed_both.to_csv(f"../../Data/processed/pilot2/{group}_filtered_attention_checks.csv", index=False)
+        failed_both.to_csv(f"../Data/processed/pilot2/{group}_filtered_attention_checks.csv", index=False)
         df = df.drop(failed_both.index).reset_index(drop=True)
         logger.info(f"Dropped participants that failed both attention")
     elif df['attention_1_failed'].sum() > 0:
         failed_first = df[df['attention_1_failed'] == 1]
-        failed_first.to_csv(f"../../Data/processed/pilot2/{group}_filtered_attention_checks.csv", index=False)
+        failed_first.to_csv(f"../Data/processed/pilot2/{group}_filtered_attention_checks.csv", index=False)
         df = df.drop(df[df['attention_1_failed'] == 1].index).reset_index(drop=True)
         logger.info(f"Dropped participants that failed first attention check")
 
@@ -130,7 +130,7 @@ def filter_attention_checks(df, group):
     if df['honesty_1_failed'].sum() > 0 or df['honesty_2_failed'].sum() > 0:
         failed_either = df[((df['honesty_1_failed'] == 1) | (df['honesty_2_failed'] == 1))]
     if failed_both.shape[0] > 0:
-        failed_both.to_csv(f"../../Data/processed/pilot2/{group}_filtered_honesty_checks.csv", index=False)
+        failed_both.to_csv(f"../Data/processed/pilot2/{group}_filtered_honesty_checks.csv", index=False)
         df = df.drop(failed_both.index).reset_index(drop=True) # change to failed_either if filtering needs to change
         logger.info(f"Dropped participants that failed either honesty check")
     logger.debug(f"Number of participants after filtering attention and honesty checks: {df.shape[0]}")
@@ -248,7 +248,7 @@ def prep_data(file_path, group):
     # Filter same answers
     if 'emotion' not in df['intervention_group'].unique():
         df = filter_same_answers(df, image_ratings_columns)
-        df.to_csv(f"../../Data/processed/pilot2/{group}_before_validation_filter.csv", index=False)
+        df.to_csv(f"../Data/processed/pilot2/{group}_before_validation_filter.csv", index=False)
         # Set NaN based on validation
         df = set_nan_based_on_validation(df, image_ratings_columns, image_sharing_columns, validation_columns)
 
@@ -281,7 +281,7 @@ def prep_follow_up(file_path, group):
     # df = set_nan_based_on_validation(df, image_ratings_columns, image_sharing_columns, validation_columns)
     if group == 'group1_followup' or group == 'group2_followup':
         df = filter_same_answers(df, image_ratings_columns)
-        df.to_csv(f"../../Data/processed/pilot2/{group}_before_validation_filter.csv", index=False)
+        df.to_csv(f"../Data/processed/pilot2/{group}_before_validation_filter.csv", index=False)
         # Set NaN based on validation
         df = set_nan_based_on_validation(df, image_ratings_columns, image_sharing_columns, validation_columns)
     else:

@@ -1,0 +1,380 @@
+2026-06-09 10:10:49,365 - data_preparation - DEBUG - Loaded ../Data/group1_data_raw.zip data with 602 rows and 327 columns
+2026-06-09 10:10:49,367 - data_preparation - DEBUG - Cleaned main data with 602 rows and 164 columns
+2026-06-09 10:10:49,376 - data_preparation - INFO - Cleaned timer columns
+2026-06-09 10:10:49,379 - data_preparation - DEBUG - Number of participants per intervention group: intervention_group
+intervention_4    102
+intervention_2    101
+intervention_1    101
+intervention_5    100
+intervention_3     99
+control            99
+Name: count, dtype: int64
+2026-06-09 10:10:49,382 - data_preparation - DEBUG - Number of participants per intervention group after filtering time outliers: intervention_group
+intervention_4    96
+intervention_2    95
+intervention_1    95
+intervention_5    95
+intervention_3    94
+control           94
+Name: count, dtype: int64
+2026-06-09 10:10:49,385 - data_preparation - DEBUG - Number of participants filtered out per intervention group time outliers: intervention_group
+intervention_4    6
+intervention_2    6
+intervention_1    6
+intervention_5    5
+intervention_3    5
+control           5
+Name: count, dtype: int64
+2026-06-09 10:10:49,385 - data_preparation - INFO - Filtered outliers
+2026-06-09 10:10:49,385 - data_preparation - INFO - Number of participants that failed first attention check: 10
+2026-06-09 10:10:49,385 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-09 10:10:49,387 - data_preparation - INFO - Number of participants that failed both attention checks: 1
+2026-06-09 10:10:49,391 - data_preparation - INFO - Dropped participants that failed both attention
+2026-06-09 10:10:49,391 - data_preparation - INFO - Number of participants that failed first honesty check: 15
+2026-06-09 10:10:49,391 - data_preparation - INFO - Number of participants that failed second honesty check: 17
+2026-06-09 10:10:49,392 - data_preparation - INFO - Number of participants that failed both honesty checks: 6
+2026-06-09 10:10:49,397 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-09 10:10:49,397 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 562
+2026-06-09 10:10:49,420 - data_preparation - DEBUG - Participants that answered the same for all images: ['G1_P0546']
+2026-06-09 10:10:49,422 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 1
+2026-06-09 10:10:49,448 - data_preparation - DEBUG - Number of real image nan counts: 67
+2026-06-09 10:10:49,448 - data_preparation - DEBUG - Number of fake image nan counts: 191
+2026-06-09 10:10:49,448 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   10_task_real_or_fake: 9 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   11_task_real_or_fake: 11 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   12_task_real_or_fake: 26 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   13_task_real_or_fake: 21 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   14_task_real_or_fake: 39 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   15_task_real_or_fake: 17 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   16_task_real_or_fake: 16 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   17_task_real_or_fake: 21 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   3_task_real_or_fake: 13 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   4_task_real_or_fake: 12 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   5_task_real_or_fake: 22 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   6_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   7_task_real_or_fake: 6 participants validated
+2026-06-09 10:10:49,448 - data_preparation - DEBUG -   8_task_real_or_fake: 16 participants validated
+2026-06-09 10:10:49,449 - data_preparation - DEBUG -   9_task_real_or_fake: 15 participants validated
+2026-06-09 10:10:49,451 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 3
+2026-06-09 10:10:49,451 - data_preparation - DEBUG - Remaining participants: 558
+2026-06-09 10:10:49,452 - data_preparation - INFO - Remaining participants per intervention group: intervention_group
+intervention_2    94
+intervention_1    94
+intervention_4    93
+intervention_5    93
+control           93
+intervention_3    91
+Name: count, dtype: int64
+2026-06-09 10:10:49,474 - data_preparation - DEBUG - Loaded ../Data/group2_data_raw.zip data with 598 rows and 327 columns
+2026-06-09 10:10:49,476 - data_preparation - DEBUG - Cleaned main data with 598 rows and 164 columns
+2026-06-09 10:10:49,482 - data_preparation - INFO - Cleaned timer columns
+2026-06-09 10:10:49,485 - data_preparation - DEBUG - Number of participants per intervention group: intervention_group
+intervention_2    101
+intervention_5    101
+intervention_3    101
+control           100
+intervention_4     99
+intervention_1     96
+Name: count, dtype: int64
+2026-06-09 10:10:49,490 - data_preparation - DEBUG - Number of participants per intervention group after filtering time outliers: intervention_group
+intervention_2    95
+intervention_5    95
+intervention_3    95
+control           95
+intervention_4    94
+intervention_1    91
+Name: count, dtype: int64
+2026-06-09 10:10:49,491 - data_preparation - DEBUG - Number of participants filtered out per intervention group time outliers: intervention_group
+intervention_2    6
+intervention_5    6
+intervention_3    6
+control           5
+intervention_4    5
+intervention_1    5
+Name: count, dtype: int64
+2026-06-09 10:10:49,491 - data_preparation - INFO - Filtered outliers
+2026-06-09 10:10:49,491 - data_preparation - INFO - Number of participants that failed first attention check: 12
+2026-06-09 10:10:49,491 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-09 10:10:49,492 - data_preparation - INFO - Number of participants that failed both attention checks: 1
+2026-06-09 10:10:49,496 - data_preparation - INFO - Dropped participants that failed both attention
+2026-06-09 10:10:49,496 - data_preparation - INFO - Number of participants that failed first honesty check: 17
+2026-06-09 10:10:49,496 - data_preparation - INFO - Number of participants that failed second honesty check: 9
+2026-06-09 10:10:49,498 - data_preparation - INFO - Number of participants that failed both honesty checks: 2
+2026-06-09 10:10:49,504 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-09 10:10:49,504 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 562
+2026-06-09 10:10:49,524 - data_preparation - DEBUG - Participants that answered the same for all images: []
+2026-06-09 10:10:49,525 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 0
+2026-06-09 10:10:49,551 - data_preparation - DEBUG - Number of real image nan counts: 75
+2026-06-09 10:10:49,551 - data_preparation - DEBUG - Number of fake image nan counts: 211
+2026-06-09 10:10:49,551 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   10_task_real_or_fake: 12 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   11_task_real_or_fake: 11 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   12_task_real_or_fake: 15 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   13_task_real_or_fake: 15 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   14_task_real_or_fake: 26 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   15_task_real_or_fake: 27 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   16_task_real_or_fake: 19 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   17_task_real_or_fake: 42 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   3_task_real_or_fake: 17 participants validated
+2026-06-09 10:10:49,551 - data_preparation - DEBUG -   4_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,552 - data_preparation - DEBUG -   5_task_real_or_fake: 20 participants validated
+2026-06-09 10:10:49,552 - data_preparation - DEBUG -   6_task_real_or_fake: 13 participants validated
+2026-06-09 10:10:49,552 - data_preparation - DEBUG -   7_task_real_or_fake: 11 participants validated
+2026-06-09 10:10:49,552 - data_preparation - DEBUG -   8_task_real_or_fake: 25 participants validated
+2026-06-09 10:10:49,552 - data_preparation - DEBUG -   9_task_real_or_fake: 19 participants validated
+2026-06-09 10:10:49,554 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 8
+2026-06-09 10:10:49,554 - data_preparation - DEBUG - Remaining participants: 554
+2026-06-09 10:10:49,555 - data_preparation - INFO - Remaining participants per intervention group: intervention_group
+intervention_2    94
+control           94
+intervention_5    92
+intervention_3    92
+intervention_4    91
+intervention_1    91
+Name: count, dtype: int64
+2026-06-09 10:10:49,555 - __main__ - DEBUG - Filtered data lengths: Group1 main:558, Group2 main: 554
+2026-06-09 10:10:49,564 - data_preparation - INFO - Loaded follow-up data with 436 rows and 178 columns
+2026-06-09 10:10:49,567 - data_preparation - INFO - Number of participants that failed first attention check: 1
+2026-06-09 10:10:49,567 - data_preparation - INFO - Number of participants that failed second attention check: 3
+2026-06-09 10:10:49,568 - data_preparation - INFO - Number of participants that failed both attention checks: 0
+2026-06-09 10:10:49,572 - data_preparation - INFO - Dropped participants that failed first attention check
+2026-06-09 10:10:49,572 - data_preparation - INFO - Number of participants that failed first honesty check: 15
+2026-06-09 10:10:49,572 - data_preparation - INFO - Number of participants that failed second honesty check: 7
+2026-06-09 10:10:49,573 - data_preparation - INFO - Number of participants that failed both honesty checks: 6
+2026-06-09 10:10:49,576 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-09 10:10:49,576 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 429
+2026-06-09 10:10:49,593 - data_preparation - DEBUG - Participants that answered the same for all images: []
+2026-06-09 10:10:49,594 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 0
+2026-06-09 10:10:49,609 - data_preparation - DEBUG - Number of real image nan counts: 67
+2026-06-09 10:10:49,609 - data_preparation - DEBUG - Number of fake image nan counts: 178
+2026-06-09 10:10:49,609 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   10_task_real_or_fake: 17 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   11_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   12_task_real_or_fake: 12 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   13_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   14_task_real_or_fake: 18 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   15_task_real_or_fake: 15 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   16_task_real_or_fake: 19 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   17_task_real_or_fake: 33 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   3_task_real_or_fake: 13 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   4_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   5_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   6_task_real_or_fake: 12 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   7_task_real_or_fake: 14 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   8_task_real_or_fake: 20 participants validated
+2026-06-09 10:10:49,609 - data_preparation - DEBUG -   9_task_real_or_fake: 16 participants validated
+2026-06-09 10:10:49,610 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 5
+2026-06-09 10:10:49,610 - data_preparation - DEBUG - Remaining participants: 424
+2026-06-09 10:10:49,619 - data_preparation - INFO - Loaded follow-up data with 395 rows and 178 columns
+2026-06-09 10:10:49,625 - data_preparation - INFO - Number of participants that failed first attention check: 1
+2026-06-09 10:10:49,625 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-09 10:10:49,625 - data_preparation - INFO - Number of participants that failed both attention checks: 0
+2026-06-09 10:10:49,629 - data_preparation - INFO - Dropped participants that failed first attention check
+2026-06-09 10:10:49,629 - data_preparation - INFO - Number of participants that failed first honesty check: 11
+2026-06-09 10:10:49,629 - data_preparation - INFO - Number of participants that failed second honesty check: 2
+2026-06-09 10:10:49,630 - data_preparation - INFO - Number of participants that failed both honesty checks: 1
+2026-06-09 10:10:49,633 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-09 10:10:49,633 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 393
+2026-06-09 10:10:49,647 - data_preparation - DEBUG - Participants that answered the same for all images: ['G2_P0598', 'G2_P0565']
+2026-06-09 10:10:49,648 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 2
+2026-06-09 10:10:49,662 - data_preparation - DEBUG - Number of real image nan counts: 33
+2026-06-09 10:10:49,662 - data_preparation - DEBUG - Number of fake image nan counts: 104
+2026-06-09 10:10:49,662 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   10_task_real_or_fake: 6 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   11_task_real_or_fake: 10 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   12_task_real_or_fake: 17 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   13_task_real_or_fake: 11 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   14_task_real_or_fake: 26 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   15_task_real_or_fake: 6 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   16_task_real_or_fake: 8 participants validated
+2026-06-09 10:10:49,662 - data_preparation - DEBUG -   17_task_real_or_fake: 5 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   3_task_real_or_fake: 4 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   4_task_real_or_fake: 7 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   5_task_real_or_fake: 10 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   6_task_real_or_fake: 7 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   7_task_real_or_fake: 5 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   8_task_real_or_fake: 6 participants validated
+2026-06-09 10:10:49,663 - data_preparation - DEBUG -   9_task_real_or_fake: 9 participants validated
+2026-06-09 10:10:49,664 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 4
+2026-06-09 10:10:49,664 - data_preparation - DEBUG - Remaining participants: 387
+2026-06-09 10:10:49,664 - __main__ - DEBUG - Filtered data lengths: Group1 followup: 424, Group2 followup: 387
+2026-06-09 10:10:49,666 - __main__ - INFO - Remaining participants per intervention group after follow up: intervention_group
+intervention_2    79
+intervention_1    73
+control           71
+intervention_5    71
+intervention_4    67
+intervention_3    63
+Name: count, dtype: int64, intervention_group
+intervention_5    71
+intervention_3    66
+intervention_2    65
+control           64
+intervention_4    61
+intervention_1    60
+Name: count, dtype: int64
+2026-06-09 10:10:49,690 - __main__ - INFO - Cleaned data saved to ../Data/group1_data_cleaned.zip
+2026-06-09 10:10:49,713 - __main__ - INFO - Cleaned data saved to ../Data/group2_data_cleaned.zip
+2026-06-09 10:10:49,723 - __main__ - INFO - Cleaned data saved to ../Data/group1_followup_data_cleaned.zip
+2026-06-09 10:10:49,731 - __main__ - INFO - Cleaned data saved to ../Data/group2_followup_data_cleaned.zip
+2026-06-09 10:10:49,798 - __main__ - INFO - Computing metrics for group 1+2
+2026-06-09 10:10:49,895 - compute_metrics - INFO - Metrics participants saved to ../Data/all_participant_metrics.zip
+2026-06-09 10:10:49,899 - compute_metrics - INFO - Metrics images saved to ../Data/all_image_metrics.zip
+2026-06-09 10:10:49,899 - __main__ - INFO - Computing metrics for follow up groups
+2026-06-09 10:10:49,968 - compute_metrics - INFO - Metrics participants saved to ../Data/all_participant_metrics_followup.zip
+2026-06-09 10:10:49,973 - compute_metrics - INFO - Metrics images saved to ../Data/all_image_metrics_followup.zip
+2026-06-09 10:10:49,984 - __main__ - INFO - Recode variables
+2026-06-09 10:10:49,991 - regression_prep - INFO - 
+Variable: social_status_q
+2026-06-09 10:10:49,991 - regression_prep - INFO - Data type: float64
+2026-06-09 10:10:49,991 - regression_prep - INFO - Unique values: [ 3.  7.  6.  8.  5.  2.  4.  1.  9. 10.]
+2026-06-09 10:10:49,991 - regression_prep - INFO - Number of unique values: 10
+2026-06-09 10:10:49,992 - regression_prep - INFO - Number of missing values: 0
+2026-06-09 10:10:49,992 - __main__ - INFO - Normality all:
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: control | Statistic: 0.7756, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.7855, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.7756, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.8038, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7887, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,993 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7583, p-value: 0.0000
+2026-06-09 10:10:49,993 - statistical_tests - INFO - The real_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: control | Statistic: 0.9666, p-value: 0.0002
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.9638, p-value: 0.0001
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.9368, p-value: 0.0000
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.9280, p-value: 0.0000
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.9540, p-value: 0.0000
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,994 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.9667, p-value: 0.0002
+2026-06-09 10:10:49,994 - statistical_tests - INFO - The fake_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: control | Statistic: 0.7472, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6914, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.7551, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.7144, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7011, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,996 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7022, p-value: 0.0000
+2026-06-09 10:10:49,996 - statistical_tests - INFO - The real_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: control | Statistic: 0.7416, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6925, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6958, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6778, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7187, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7065, p-value: 0.0000
+2026-06-09 10:10:49,997 - statistical_tests - INFO - The fake_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,997 - __main__ - INFO - Normality follow up:
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: control | Statistic: 0.7848, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.7982, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.8037, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.7892, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7575, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,998 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7371, p-value: 0.0000
+2026-06-09 10:10:49,998 - statistical_tests - INFO - The real_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: control | Statistic: 0.9575, p-value: 0.0003
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.9581, p-value: 0.0004
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.9547, p-value: 0.0001
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.9490, p-value: 0.0001
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.9673, p-value: 0.0035
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:49,999 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.9695, p-value: 0.0029
+2026-06-09 10:10:49,999 - statistical_tests - INFO - The fake_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,000 - statistical_tests - INFO - Group: control | Statistic: 0.6913, p-value: 0.0000
+2026-06-09 10:10:50,000 - statistical_tests - INFO - The real_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,000 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6716, p-value: 0.0000
+2026-06-09 10:10:50,000 - statistical_tests - INFO - The real_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,000 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6654, p-value: 0.0000
+2026-06-09 10:10:50,001 - statistical_tests - INFO - The real_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,001 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6623, p-value: 0.0000
+2026-06-09 10:10:50,001 - statistical_tests - INFO - The real_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,001 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.6776, p-value: 0.0000
+2026-06-09 10:10:50,001 - statistical_tests - INFO - The real_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,001 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.6814, p-value: 0.0000
+2026-06-09 10:10:50,001 - statistical_tests - INFO - The real_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: control | Statistic: 0.7149, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6521, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6859, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6149, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7302, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.6707, p-value: 0.0000
+2026-06-09 10:10:50,002 - statistical_tests - INFO - The fake_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-09 10:10:50,002 - __main__ - INFO - T-tests group1+group2:
+2026-06-09 10:10:50,004 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_2: Mean1 = 61.327349121466774, Mean2 = 68.80129179331307  U = 14302.0; p = 0.008524360450140845 **
+2026-06-09 10:10:50,005 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_3: Mean1 = 61.327349121466774, Mean2 = 74.3060976667534  U = 11665.0; p = 4.935532434897297e-07 ***
+2026-06-09 10:10:50,007 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_4: Mean1 = 61.327349121466774, Mean2 = 65.69811076604556  U = 15292.5; p = 0.3138361680093338 
+2026-06-09 10:10:50,008 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_5: Mean1 = 61.327349121466774, Mean2 = 60.0006435006435  U = 17872.5; p = 1.0 
+2026-06-09 10:10:50,010 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_1: Mean1 = 61.327349121466774, Mean2 = 64.48155298155298  U = 15964.0; p = 0.9805397728468151 
+2026-06-09 10:10:50,011 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_2: Mean1 = 20.069179186826247, Mean2 = 15.707531239446132  U = 18679.0; p = 1.0 
+2026-06-09 10:10:50,013 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_3: Mean1 = 20.069179186826247, Mean2 = 11.831685315291871  U = 19224.5; p = 0.11780927402474593 
+2026-06-09 10:10:50,014 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_4: Mean1 = 20.069179186826247, Mean2 = 15.003450655624567  U = 18404.0; p = 1.0 
+2026-06-09 10:10:50,016 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_5: Mean1 = 20.069179186826247, Mean2 = 16.71171171171171  U = 18138.0; p = 1.0 
+2026-06-09 10:10:50,017 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_1: Mean1 = 20.069179186826247, Mean2 = 16.336550836550835  U = 18321.0; p = 1.0 
+2026-06-09 10:10:50,017 - __main__ - INFO - T-tests follow up data group1+group2:
+2026-06-09 10:10:50,019 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_2: Mean1 = 63.5435038212816, Mean2 = 68.07153880070547  U = 8635.5; p = 0.5271705678621753 
+2026-06-09 10:10:50,021 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_3: Mean1 = 63.5435038212816, Mean2 = 68.4197735941922  U = 7724.0; p = 0.553880817564437 
+2026-06-09 10:10:50,022 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_4: Mean1 = 63.5435038212816, Mean2 = 61.52622767857142  U = 9132.5; p = 1.0 
+2026-06-09 10:10:50,023 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_5: Mean1 = 63.5435038212816, Mean2 = 63.58204784261122  U = 9654.5; p = 1.0 
+2026-06-09 10:10:50,025 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_1: Mean1 = 63.5435038212816, Mean2 = 63.95930301945339  U = 8915.5; p = 1.0 
+2026-06-09 10:10:50,026 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_2: Mean1 = 16.18665490887713, Mean2 = 14.811232363315696  U = 9991.5; p = 1.0 
+2026-06-09 10:10:50,028 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_3: Mean1 = 16.18665490887713, Mean2 = 9.682232065952995  U = 9759.5; p = 0.27435856915558654 
+2026-06-09 10:10:50,029 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_4: Mean1 = 16.18665490887713, Mean2 = 15.558345734126984  U = 8589.5; p = 1.0 
+2026-06-09 10:10:50,030 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_5: Mean1 = 16.18665490887713, Mean2 = 16.435837245696398  U = 9816.0; p = 1.0 
+2026-06-09 10:10:50,032 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_1: Mean1 = 16.18665490887713, Mean2 = 14.576620121732903  U = 9314.0; p = 1.0 
+2026-06-09 10:10:50,032 - __main__ - INFO - Equivalence test group1+group2:
+2026-06-09 10:10:50,032 - __main__ - INFO - Main data:
+2026-06-09 10:10:50,033 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = 0.9785, CI[98.0%] = [-3.9769, 5.9340])
+2026-06-09 10:10:50,033 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 3.9752, CI[98.0%] = [-1.2874, 9.2379])
+2026-06-09 10:10:50,034 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 2.6074, CI[98.0%] = [-2.5693, 7.7842])
+2026-06-09 10:10:50,035 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -0.2951, CI[98.0%] = [-5.1392, 4.5489])
+2026-06-09 10:10:50,037 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = -0.0339, CI[98.0%] = [-4.7303, 4.6626])
+2026-06-09 10:10:50,037 - __main__ - INFO - Follow up data:
+2026-06-09 10:10:50,038 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = 0.7222, CI[98.0%] = [-5.2185, 6.6630])
+2026-06-09 10:10:50,040 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 1.5082, CI[98.0%] = [-4.6853, 7.7016])
+2026-06-09 10:10:50,040 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = -0.9155, CI[98.0%] = [-7.1927, 5.3617])
+2026-06-09 10:10:50,041 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -3.1888, CI[98.0%] = [-8.8877, 2.5100])
+2026-06-09 10:10:50,042 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 0.3498, CI[98.0%] = [-5.7216, 6.4212])
+2026-06-09 10:10:50,042 - __main__ - INFO - Equivalence test for sharing intention group1+group2:
+2026-06-09 10:10:50,043 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = -1.5265, CI[98.0%] = [-10.0157, 6.9626])
+2026-06-09 10:10:50,044 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 4.0052, CI[98.0%] = [-4.1269, 12.1373])
+2026-06-09 10:10:50,044 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 3.8458, CI[98.0%] = [-4.3918, 12.0834])
+2026-06-09 10:10:50,045 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = 3.7512, CI[98.0%] = [-4.4673, 11.9697])
+2026-06-09 10:10:50,046 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 4.2647, CI[98.0%] = [-3.9632, 12.4927])
+2026-06-09 10:10:50,046 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = -0.5741, CI[98.0%] = [-9.6807, 8.5325])
+2026-06-09 10:10:50,047 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 2.6064, CI[98.0%] = [-6.1732, 11.3860])
+2026-06-09 10:10:50,048 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 0.4604, CI[98.0%] = [-8.6631, 9.5838])
+2026-06-09 10:10:50,049 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -2.5746, CI[98.0%] = [-11.9406, 6.7914])
+2026-06-09 10:10:50,049 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 0.2662, CI[98.0%] = [-8.8309, 9.3633])

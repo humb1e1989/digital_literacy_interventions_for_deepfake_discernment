@@ -66,7 +66,7 @@ def main():
         on=['id', 'intervention_group', 'attrition'],  # merge on both ID and group
         suffixes=('_t1', '_t2')
     )
-    df_time.to_csv('../../Data/processed/pilot2/metrics_results_over_time.csv', index=False)
+    df_time.to_csv('../Data/processed/pilot2/metrics_results_over_time.csv', index=False)
 
     # Merge the dataframes on id
     df_merged = pd.merge(df, results_participants, on=['id', 'intervention_group', 'attrition'])
