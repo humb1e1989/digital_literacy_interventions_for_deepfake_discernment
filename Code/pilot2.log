@@ -378,3 +378,1099 @@ Variable: social_status_q
 2026-06-09 10:10:50,048 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 0.4604, CI[98.0%] = [-8.6631, 9.5838])
 2026-06-09 10:10:50,049 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -2.5746, CI[98.0%] = [-11.9406, 6.7914])
 2026-06-09 10:10:50,049 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 0.2662, CI[98.0%] = [-8.8309, 9.3633])
+2026-06-12 13:15:25,311 - data_preparation - DEBUG - Loaded ../Data/group1_data_raw.zip data with 602 rows and 327 columns
+2026-06-12 13:15:25,313 - data_preparation - DEBUG - Cleaned main data with 602 rows and 164 columns
+2026-06-12 13:15:25,322 - data_preparation - INFO - Cleaned timer columns
+2026-06-12 13:15:25,328 - data_preparation - DEBUG - Number of participants per intervention group: intervention_group
+intervention_4    102
+intervention_2    101
+intervention_1    101
+intervention_5    100
+intervention_3     99
+control            99
+Name: count, dtype: int64
+2026-06-12 13:15:25,330 - data_preparation - DEBUG - Number of participants per intervention group after filtering time outliers: intervention_group
+intervention_4    96
+intervention_2    95
+intervention_5    95
+intervention_1    95
+intervention_3    94
+control           94
+Name: count, dtype: int64
+2026-06-12 13:15:25,331 - data_preparation - DEBUG - Number of participants filtered out per intervention group time outliers: intervention_group
+control           5
+intervention_1    6
+intervention_2    6
+intervention_3    5
+intervention_4    6
+intervention_5    5
+Name: count, dtype: int64
+2026-06-12 13:15:25,332 - data_preparation - INFO - Filtered outliers
+2026-06-12 13:15:25,332 - data_preparation - INFO - Number of participants that failed first attention check: 10
+2026-06-12 13:15:25,332 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-12 13:15:25,332 - data_preparation - INFO - Number of participants that failed both attention checks: 1
+2026-06-12 13:15:25,336 - data_preparation - INFO - Dropped participants that failed both attention
+2026-06-12 13:15:25,336 - data_preparation - INFO - Number of participants that failed first honesty check: 15
+2026-06-12 13:15:25,336 - data_preparation - INFO - Number of participants that failed second honesty check: 17
+2026-06-12 13:15:25,337 - data_preparation - INFO - Number of participants that failed both honesty checks: 6
+2026-06-12 13:15:25,339 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-12 13:15:25,339 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 562
+2026-06-12 13:15:25,346 - data_preparation - DEBUG - Participants that answered the same for all images: ['G1_P0546']
+2026-06-12 13:15:25,348 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 1
+2026-06-12 13:15:25,392 - data_preparation - DEBUG - Number of real image nan counts: 67
+2026-06-12 13:15:25,392 - data_preparation - DEBUG - Number of fake image nan counts: 191
+2026-06-12 13:15:25,392 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-12 13:15:25,392 - data_preparation - DEBUG -   10_task_real_or_fake: 9 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   11_task_real_or_fake: 11 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   12_task_real_or_fake: 26 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   13_task_real_or_fake: 21 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   14_task_real_or_fake: 39 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   15_task_real_or_fake: 17 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   16_task_real_or_fake: 16 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   17_task_real_or_fake: 21 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   3_task_real_or_fake: 13 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   4_task_real_or_fake: 12 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   5_task_real_or_fake: 22 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   6_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   7_task_real_or_fake: 6 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   8_task_real_or_fake: 16 participants validated
+2026-06-12 13:15:25,393 - data_preparation - DEBUG -   9_task_real_or_fake: 15 participants validated
+2026-06-12 13:15:25,394 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 3
+2026-06-12 13:15:25,394 - data_preparation - DEBUG - Remaining participants: 558
+2026-06-12 13:15:25,395 - data_preparation - INFO - Remaining participants per intervention group: intervention_group
+intervention_2    94
+intervention_1    94
+intervention_5    93
+intervention_4    93
+control           93
+intervention_3    91
+Name: count, dtype: int64
+2026-06-12 13:15:25,425 - data_preparation - DEBUG - Loaded ../Data/group2_data_raw.zip data with 598 rows and 327 columns
+2026-06-12 13:15:25,427 - data_preparation - DEBUG - Cleaned main data with 598 rows and 164 columns
+2026-06-12 13:15:25,437 - data_preparation - INFO - Cleaned timer columns
+2026-06-12 13:15:25,442 - data_preparation - DEBUG - Number of participants per intervention group: intervention_group
+intervention_2    101
+intervention_5    101
+intervention_3    101
+control           100
+intervention_4     99
+intervention_1     96
+Name: count, dtype: int64
+2026-06-12 13:15:25,446 - data_preparation - DEBUG - Number of participants per intervention group after filtering time outliers: intervention_group
+intervention_2    95
+intervention_5    95
+intervention_3    95
+control           95
+intervention_4    94
+intervention_1    91
+Name: count, dtype: int64
+2026-06-12 13:15:25,446 - data_preparation - DEBUG - Number of participants filtered out per intervention group time outliers: intervention_group
+intervention_2    6
+intervention_5    6
+intervention_3    6
+control           5
+intervention_4    5
+intervention_1    5
+Name: count, dtype: int64
+2026-06-12 13:15:25,447 - data_preparation - INFO - Filtered outliers
+2026-06-12 13:15:25,447 - data_preparation - INFO - Number of participants that failed first attention check: 12
+2026-06-12 13:15:25,447 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-12 13:15:25,447 - data_preparation - INFO - Number of participants that failed both attention checks: 1
+2026-06-12 13:15:25,448 - data_preparation - INFO - Dropped participants that failed both attention
+2026-06-12 13:15:25,448 - data_preparation - INFO - Number of participants that failed first honesty check: 17
+2026-06-12 13:15:25,449 - data_preparation - INFO - Number of participants that failed second honesty check: 9
+2026-06-12 13:15:25,449 - data_preparation - INFO - Number of participants that failed both honesty checks: 2
+2026-06-12 13:15:25,451 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-12 13:15:25,451 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 562
+2026-06-12 13:15:25,458 - data_preparation - DEBUG - Participants that answered the same for all images: []
+2026-06-12 13:15:25,459 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 0
+2026-06-12 13:15:25,494 - data_preparation - DEBUG - Number of real image nan counts: 75
+2026-06-12 13:15:25,494 - data_preparation - DEBUG - Number of fake image nan counts: 211
+2026-06-12 13:15:25,494 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   10_task_real_or_fake: 12 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   11_task_real_or_fake: 11 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   12_task_real_or_fake: 15 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   13_task_real_or_fake: 15 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   14_task_real_or_fake: 26 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   15_task_real_or_fake: 27 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   16_task_real_or_fake: 19 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   17_task_real_or_fake: 42 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   3_task_real_or_fake: 17 participants validated
+2026-06-12 13:15:25,494 - data_preparation - DEBUG -   4_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,495 - data_preparation - DEBUG -   5_task_real_or_fake: 20 participants validated
+2026-06-12 13:15:25,495 - data_preparation - DEBUG -   6_task_real_or_fake: 13 participants validated
+2026-06-12 13:15:25,495 - data_preparation - DEBUG -   7_task_real_or_fake: 11 participants validated
+2026-06-12 13:15:25,495 - data_preparation - DEBUG -   8_task_real_or_fake: 25 participants validated
+2026-06-12 13:15:25,495 - data_preparation - DEBUG -   9_task_real_or_fake: 19 participants validated
+2026-06-12 13:15:25,497 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 8
+2026-06-12 13:15:25,497 - data_preparation - DEBUG - Remaining participants: 554
+2026-06-12 13:15:25,498 - data_preparation - INFO - Remaining participants per intervention group: intervention_group
+intervention_2    94
+control           94
+intervention_5    92
+intervention_3    92
+intervention_4    91
+intervention_1    91
+Name: count, dtype: int64
+2026-06-12 13:15:25,498 - __main__ - DEBUG - Filtered data lengths: Group1 main:558, Group2 main: 554
+2026-06-12 13:15:25,508 - data_preparation - INFO - Loaded follow-up data with 436 rows and 178 columns
+2026-06-12 13:15:25,514 - data_preparation - INFO - Number of participants that failed first attention check: 1
+2026-06-12 13:15:25,514 - data_preparation - INFO - Number of participants that failed second attention check: 3
+2026-06-12 13:15:25,515 - data_preparation - INFO - Number of participants that failed both attention checks: 0
+2026-06-12 13:15:25,516 - data_preparation - INFO - Dropped participants that failed first attention check
+2026-06-12 13:15:25,516 - data_preparation - INFO - Number of participants that failed first honesty check: 15
+2026-06-12 13:15:25,516 - data_preparation - INFO - Number of participants that failed second honesty check: 7
+2026-06-12 13:15:25,517 - data_preparation - INFO - Number of participants that failed both honesty checks: 6
+2026-06-12 13:15:25,518 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-12 13:15:25,518 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 429
+2026-06-12 13:15:25,525 - data_preparation - DEBUG - Participants that answered the same for all images: []
+2026-06-12 13:15:25,525 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 0
+2026-06-12 13:15:25,545 - data_preparation - DEBUG - Number of real image nan counts: 67
+2026-06-12 13:15:25,545 - data_preparation - DEBUG - Number of fake image nan counts: 178
+2026-06-12 13:15:25,545 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-12 13:15:25,545 - data_preparation - DEBUG -   10_task_real_or_fake: 17 participants validated
+2026-06-12 13:15:25,545 - data_preparation - DEBUG -   11_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,545 - data_preparation - DEBUG -   12_task_real_or_fake: 12 participants validated
+2026-06-12 13:15:25,545 - data_preparation - DEBUG -   13_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,545 - data_preparation - DEBUG -   14_task_real_or_fake: 18 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   15_task_real_or_fake: 15 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   16_task_real_or_fake: 19 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   17_task_real_or_fake: 33 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   3_task_real_or_fake: 13 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   4_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   5_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   6_task_real_or_fake: 12 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   7_task_real_or_fake: 14 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   8_task_real_or_fake: 20 participants validated
+2026-06-12 13:15:25,546 - data_preparation - DEBUG -   9_task_real_or_fake: 16 participants validated
+2026-06-12 13:15:25,547 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 5
+2026-06-12 13:15:25,547 - data_preparation - DEBUG - Remaining participants: 424
+2026-06-12 13:15:25,559 - data_preparation - INFO - Loaded follow-up data with 395 rows and 178 columns
+2026-06-12 13:15:25,565 - data_preparation - INFO - Number of participants that failed first attention check: 1
+2026-06-12 13:15:25,565 - data_preparation - INFO - Number of participants that failed second attention check: 2
+2026-06-12 13:15:25,565 - data_preparation - INFO - Number of participants that failed both attention checks: 0
+2026-06-12 13:15:25,566 - data_preparation - INFO - Dropped participants that failed first attention check
+2026-06-12 13:15:25,567 - data_preparation - INFO - Number of participants that failed first honesty check: 11
+2026-06-12 13:15:25,567 - data_preparation - INFO - Number of participants that failed second honesty check: 2
+2026-06-12 13:15:25,567 - data_preparation - INFO - Number of participants that failed both honesty checks: 1
+2026-06-12 13:15:25,568 - data_preparation - INFO - Dropped participants that failed either honesty check
+2026-06-12 13:15:25,568 - data_preparation - DEBUG - Number of participants after filtering attention and honesty checks: 393
+2026-06-12 13:15:25,573 - data_preparation - DEBUG - Participants that answered the same for all images: ['G2_P0598', 'G2_P0565']
+2026-06-12 13:15:25,574 - data_preparation - DEBUG - Dropped participants that answered the same for all images: 2
+2026-06-12 13:15:25,591 - data_preparation - DEBUG - Number of real image nan counts: 33
+2026-06-12 13:15:25,591 - data_preparation - DEBUG - Number of fake image nan counts: 104
+2026-06-12 13:15:25,592 - data_preparation - DEBUG - 
+Validation counts per image:
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   10_task_real_or_fake: 6 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   11_task_real_or_fake: 10 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   12_task_real_or_fake: 17 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   13_task_real_or_fake: 11 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   14_task_real_or_fake: 26 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   15_task_real_or_fake: 6 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   16_task_real_or_fake: 8 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   17_task_real_or_fake: 5 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   3_task_real_or_fake: 4 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   4_task_real_or_fake: 7 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   5_task_real_or_fake: 10 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   6_task_real_or_fake: 7 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   7_task_real_or_fake: 5 participants validated
+2026-06-12 13:15:25,592 - data_preparation - DEBUG -   8_task_real_or_fake: 6 participants validated
+2026-06-12 13:15:25,593 - data_preparation - DEBUG -   9_task_real_or_fake: 9 participants validated
+2026-06-12 13:15:25,593 - data_preparation - DEBUG - Dropped participants with insufficient ratings: 4
+2026-06-12 13:15:25,593 - data_preparation - DEBUG - Remaining participants: 387
+2026-06-12 13:15:25,594 - __main__ - DEBUG - Filtered data lengths: Group1 followup: 424, Group2 followup: 387
+2026-06-12 13:15:25,597 - __main__ - INFO - Remaining participants per intervention group after follow up: intervention_group
+intervention_2    79
+intervention_1    73
+control           71
+intervention_5    71
+intervention_4    67
+intervention_3    63
+Name: count, dtype: int64, intervention_group
+intervention_5    71
+intervention_3    66
+intervention_2    65
+control           64
+intervention_4    61
+intervention_1    60
+Name: count, dtype: int64
+2026-06-12 13:15:25,627 - __main__ - INFO - Cleaned data saved to ../Data/group1_data_cleaned.zip
+2026-06-12 13:15:25,655 - __main__ - INFO - Cleaned data saved to ../Data/group2_data_cleaned.zip
+2026-06-12 13:15:25,667 - __main__ - INFO - Cleaned data saved to ../Data/group1_followup_data_cleaned.zip
+2026-06-12 13:15:25,678 - __main__ - INFO - Cleaned data saved to ../Data/group2_followup_data_cleaned.zip
+2026-06-12 13:15:25,771 - __main__ - INFO - Computing metrics for group 1+2
+2026-06-12 13:15:25,909 - compute_metrics - INFO - Metrics participants saved to ../Data/all_participant_metrics.zip
+2026-06-12 13:15:25,915 - compute_metrics - INFO - Metrics images saved to ../Data/all_image_metrics.zip
+2026-06-12 13:15:25,915 - __main__ - INFO - Computing metrics for follow up groups
+2026-06-12 13:15:26,011 - compute_metrics - INFO - Metrics participants saved to ../Data/all_participant_metrics_followup.zip
+2026-06-12 13:15:26,015 - compute_metrics - INFO - Metrics images saved to ../Data/all_image_metrics_followup.zip
+2026-06-12 13:15:26,028 - __main__ - INFO - Recode variables
+2026-06-12 13:15:26,036 - regression_prep - INFO - 
+Variable: social_status_q
+2026-06-12 13:15:26,037 - regression_prep - INFO - Data type: float64
+2026-06-12 13:15:26,037 - regression_prep - INFO - Unique values: [ 3.  7.  6.  8.  5.  2.  4.  1.  9. 10.]
+2026-06-12 13:15:26,037 - regression_prep - INFO - Number of unique values: 10
+2026-06-12 13:15:26,037 - regression_prep - INFO - Number of missing values: 0
+2026-06-12 13:15:26,037 - __main__ - INFO - Normality all:
+2026-06-12 13:15:26,039 - statistical_tests - INFO - Group: control | Statistic: 0.7756, p-value: 0.0000
+2026-06-12 13:15:26,039 - statistical_tests - INFO - The real_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,039 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.7855, p-value: 0.0000
+2026-06-12 13:15:26,039 - statistical_tests - INFO - The real_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,039 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.7756, p-value: 0.0000
+2026-06-12 13:15:26,039 - statistical_tests - INFO - The real_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,039 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.8038, p-value: 0.0000
+2026-06-12 13:15:26,039 - statistical_tests - INFO - The real_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,041 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7887, p-value: 0.0000
+2026-06-12 13:15:26,041 - statistical_tests - INFO - The real_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,041 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7583, p-value: 0.0000
+2026-06-12 13:15:26,041 - statistical_tests - INFO - The real_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,043 - statistical_tests - INFO - Group: control | Statistic: 0.9666, p-value: 0.0002
+2026-06-12 13:15:26,043 - statistical_tests - INFO - The fake_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,043 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.9638, p-value: 0.0001
+2026-06-12 13:15:26,043 - statistical_tests - INFO - The fake_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,043 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.9368, p-value: 0.0000
+2026-06-12 13:15:26,043 - statistical_tests - INFO - The fake_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,043 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.9280, p-value: 0.0000
+2026-06-12 13:15:26,043 - statistical_tests - INFO - The fake_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,043 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.9540, p-value: 0.0000
+2026-06-12 13:15:26,044 - statistical_tests - INFO - The fake_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,044 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.9667, p-value: 0.0002
+2026-06-12 13:15:26,044 - statistical_tests - INFO - The fake_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: control | Statistic: 0.7472, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6914, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.7551, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.7144, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7011, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,045 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7022, p-value: 0.0000
+2026-06-12 13:15:26,045 - statistical_tests - INFO - The real_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,046 - statistical_tests - INFO - Group: control | Statistic: 0.7416, p-value: 0.0000
+2026-06-12 13:15:26,046 - statistical_tests - INFO - The fake_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,046 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6925, p-value: 0.0000
+2026-06-12 13:15:26,046 - statistical_tests - INFO - The fake_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,047 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6958, p-value: 0.0000
+2026-06-12 13:15:26,047 - statistical_tests - INFO - The fake_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,047 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6778, p-value: 0.0000
+2026-06-12 13:15:26,047 - statistical_tests - INFO - The fake_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,047 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7187, p-value: 0.0000
+2026-06-12 13:15:26,047 - statistical_tests - INFO - The fake_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,047 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7065, p-value: 0.0000
+2026-06-12 13:15:26,047 - statistical_tests - INFO - The fake_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,047 - __main__ - INFO - Normality follow up:
+2026-06-12 13:15:26,048 - statistical_tests - INFO - Group: control | Statistic: 0.7848, p-value: 0.0000
+2026-06-12 13:15:26,048 - statistical_tests - INFO - The real_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,048 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.7982, p-value: 0.0000
+2026-06-12 13:15:26,049 - statistical_tests - INFO - The real_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,049 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.8037, p-value: 0.0000
+2026-06-12 13:15:26,049 - statistical_tests - INFO - The real_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,049 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.7892, p-value: 0.0000
+2026-06-12 13:15:26,049 - statistical_tests - INFO - The real_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,049 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7575, p-value: 0.0000
+2026-06-12 13:15:26,049 - statistical_tests - INFO - The real_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,049 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.7371, p-value: 0.0000
+2026-06-12 13:15:26,049 - statistical_tests - INFO - The real_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,050 - statistical_tests - INFO - Group: control | Statistic: 0.9575, p-value: 0.0003
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,051 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.9581, p-value: 0.0004
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,051 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.9547, p-value: 0.0001
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,051 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.9490, p-value: 0.0001
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,051 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.9673, p-value: 0.0035
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,051 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.9695, p-value: 0.0029
+2026-06-12 13:15:26,051 - statistical_tests - INFO - The fake_accuracy data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,052 - statistical_tests - INFO - Group: control | Statistic: 0.6913, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,054 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6716, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,054 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6654, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,054 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6623, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,054 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.6776, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,054 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.6814, p-value: 0.0000
+2026-06-12 13:15:26,054 - statistical_tests - INFO - The real_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,055 - statistical_tests - INFO - Group: control | Statistic: 0.7149, p-value: 0.0000
+2026-06-12 13:15:26,055 - statistical_tests - INFO - The fake_sharing_rate data for control is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,055 - statistical_tests - INFO - Group: intervention_1 | Statistic: 0.6521, p-value: 0.0000
+2026-06-12 13:15:26,056 - statistical_tests - INFO - The fake_sharing_rate data for intervention_1 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,056 - statistical_tests - INFO - Group: intervention_2 | Statistic: 0.6859, p-value: 0.0000
+2026-06-12 13:15:26,056 - statistical_tests - INFO - The fake_sharing_rate data for intervention_2 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,056 - statistical_tests - INFO - Group: intervention_3 | Statistic: 0.6149, p-value: 0.0000
+2026-06-12 13:15:26,056 - statistical_tests - INFO - The fake_sharing_rate data for intervention_3 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,056 - statistical_tests - INFO - Group: intervention_4 | Statistic: 0.7302, p-value: 0.0000
+2026-06-12 13:15:26,056 - statistical_tests - INFO - The fake_sharing_rate data for intervention_4 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,056 - statistical_tests - INFO - Group: intervention_5 | Statistic: 0.6707, p-value: 0.0000
+2026-06-12 13:15:26,056 - statistical_tests - INFO - The fake_sharing_rate data for intervention_5 is NOT normally distributed (reject H0).
+2026-06-12 13:15:26,056 - __main__ - INFO - T-tests group1+group2:
+2026-06-12 13:15:26,058 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_2: Mean1 = 61.327349121466774, Mean2 = 68.80129179331307  U = 14302.0; p = 0.008524360450140845 **
+2026-06-12 13:15:26,059 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_3: Mean1 = 61.327349121466774, Mean2 = 74.3060976667534  U = 11665.0; p = 4.935532434897297e-07 ***
+2026-06-12 13:15:26,061 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_4: Mean1 = 61.327349121466774, Mean2 = 65.69811076604556  U = 15292.5; p = 0.3138361680093338 
+2026-06-12 13:15:26,062 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_5: Mean1 = 61.327349121466774, Mean2 = 60.0006435006435  U = 17872.5; p = 1.0 
+2026-06-12 13:15:26,063 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_1: Mean1 = 61.327349121466774, Mean2 = 64.48155298155298  U = 15964.0; p = 0.9805397728468151 
+2026-06-12 13:15:26,065 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_2: Mean1 = 20.069179186826247, Mean2 = 15.707531239446132  U = 18679.0; p = 1.0 
+2026-06-12 13:15:26,066 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_3: Mean1 = 20.069179186826247, Mean2 = 11.831685315291871  U = 19224.5; p = 0.11780927402474593 
+2026-06-12 13:15:26,067 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_4: Mean1 = 20.069179186826247, Mean2 = 15.003450655624567  U = 18404.0; p = 1.0 
+2026-06-12 13:15:26,069 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_5: Mean1 = 20.069179186826247, Mean2 = 16.71171171171171  U = 18138.0; p = 1.0 
+2026-06-12 13:15:26,071 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_1: Mean1 = 20.069179186826247, Mean2 = 16.336550836550835  U = 18321.0; p = 1.0 
+2026-06-12 13:15:26,071 - __main__ - INFO - T-tests follow up data group1+group2:
+2026-06-12 13:15:26,073 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_2: Mean1 = 63.5435038212816, Mean2 = 68.07153880070547  U = 8635.5; p = 0.5271705678621753 
+2026-06-12 13:15:26,074 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_3: Mean1 = 63.5435038212816, Mean2 = 68.4197735941922  U = 7724.0; p = 0.553880817564437 
+2026-06-12 13:15:26,075 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_4: Mean1 = 63.5435038212816, Mean2 = 61.52622767857142  U = 9132.5; p = 1.0 
+2026-06-12 13:15:26,077 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_5: Mean1 = 63.5435038212816, Mean2 = 63.58204784261122  U = 9654.5; p = 1.0 
+2026-06-12 13:15:26,078 - statistical_tests - INFO - (Bonf) fake_accuracy - control vs intervention_1: Mean1 = 63.5435038212816, Mean2 = 63.95930301945339  U = 8915.5; p = 1.0 
+2026-06-12 13:15:26,079 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_2: Mean1 = 16.18665490887713, Mean2 = 14.811232363315696  U = 9991.5; p = 1.0 
+2026-06-12 13:15:26,081 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_3: Mean1 = 16.18665490887713, Mean2 = 9.682232065952995  U = 9759.5; p = 0.27435856915558654 
+2026-06-12 13:15:26,082 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_4: Mean1 = 16.18665490887713, Mean2 = 15.558345734126984  U = 8589.5; p = 1.0 
+2026-06-12 13:15:26,085 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_5: Mean1 = 16.18665490887713, Mean2 = 16.435837245696398  U = 9816.0; p = 1.0 
+2026-06-12 13:15:26,086 - statistical_tests - INFO - (Bonf) fake_sharing_rate - control vs intervention_1: Mean1 = 16.18665490887713, Mean2 = 14.576620121732903  U = 9314.0; p = 1.0 
+2026-06-12 13:15:26,086 - __main__ - INFO - Equivalence test group1+group2:
+2026-06-12 13:15:26,086 - __main__ - INFO - Main data:
+2026-06-12 13:15:26,087 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = 0.9785, CI[98.0%] = [-3.9769, 5.9340])
+2026-06-12 13:15:26,088 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 3.9752, CI[98.0%] = [-1.2874, 9.2379])
+2026-06-12 13:15:26,089 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 2.6074, CI[98.0%] = [-2.5693, 7.7842])
+2026-06-12 13:15:26,089 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -0.2951, CI[98.0%] = [-5.1392, 4.5489])
+2026-06-12 13:15:26,090 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = -0.0339, CI[98.0%] = [-4.7303, 4.6626])
+2026-06-12 13:15:26,090 - __main__ - INFO - Follow up data:
+2026-06-12 13:15:26,091 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = 0.7222, CI[98.0%] = [-5.2185, 6.6630])
+2026-06-12 13:15:26,092 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 1.5082, CI[98.0%] = [-4.6853, 7.7016])
+2026-06-12 13:15:26,092 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = -0.9155, CI[98.0%] = [-7.1927, 5.3617])
+2026-06-12 13:15:26,093 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -3.1888, CI[98.0%] = [-8.8877, 2.5100])
+2026-06-12 13:15:26,094 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 0.3498, CI[98.0%] = [-5.7216, 6.4212])
+2026-06-12 13:15:26,094 - __main__ - INFO - Equivalence test for sharing intention group1+group2:
+2026-06-12 13:15:26,095 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = -1.5265, CI[98.0%] = [-10.0157, 6.9626])
+2026-06-12 13:15:26,096 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 4.0052, CI[98.0%] = [-4.1269, 12.1373])
+2026-06-12 13:15:26,097 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 3.8458, CI[98.0%] = [-4.3918, 12.0834])
+2026-06-12 13:15:26,097 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = 3.7512, CI[98.0%] = [-4.4673, 11.9697])
+2026-06-12 13:15:26,098 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 4.2647, CI[98.0%] = [-3.9632, 12.4927])
+2026-06-12 13:15:26,099 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_2: 'undecided (p = 1.0000, mean difference = -0.5741, CI[98.0%] = [-9.6807, 8.5325])
+2026-06-12 13:15:26,101 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_3: 'undecided (p = 1.0000, mean difference = 2.6064, CI[98.0%] = [-6.1732, 11.3860])
+2026-06-12 13:15:26,102 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_4: 'undecided (p = 1.0000, mean difference = 0.4604, CI[98.0%] = [-8.6631, 9.5838])
+2026-06-12 13:15:26,103 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_5: 'undecided (p = 1.0000, mean difference = -2.5746, CI[98.0%] = [-11.9406, 6.7914])
+2026-06-12 13:15:26,103 - statistical_tests - INFO - Equivalence test (Bonf) for intervention_1: 'undecided (p = 1.0000, mean difference = 0.2662, CI[98.0%] = [-8.8309, 9.3633])
+2026-06-12 13:18:06,771 - regression_helper - INFO - Descriptives demographics main before filtering:
+2026-06-12 13:18:06,772 - regression_helper - INFO - Counts gender: 
+gender
+Female                           586
+Male                             515
+Non-binary/third gender/other     10
+Prefer not to say                  1
+Name: count, dtype: int64, 
+gender
+Female                           0.526978
+Male                             0.463129
+Non-binary/third gender/other    0.008993
+Prefer not to say                0.000899
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,775 - regression_helper - INFO - Counts age:
+count    1110.000000
+mean       41.682883
+std        13.283493
+min        18.000000
+25%        31.000000
+50%        39.500000
+75%        51.000000
+max        82.000000
+Name: age, dtype: float64, 
+age_group
+1.0    506
+0.0    410
+2.0    194
+Name: count, dtype: int64, 
+age_group
+1.0    0.455856
+0.0    0.369369
+2.0    0.174775
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,777 - regression_helper - INFO - Counts ethnicity groups:
+ethnicity
+White                                                                                                                                 786
+Black or African American                                                                                                             192
+Asian                                                                                                                                  39
+Hispanic, Latino or Spanish origin                                                                                                     26
+White,Hispanic, Latino or Spanish origin                                                                                               19
+White,Asian                                                                                                                             6
+White,Black or African American                                                                                                         5
+Hispanic, Latino or Spanish origin,Black or African American                                                                            5
+White,American Indian or Alaska Native                                                                                                  5
+Some other race, ethnicity or origin                                                                                                    4
+American Indian or Alaska Native                                                                                                        3
+Middle Eastern or North African                                                                                                         3
+White,Middle Eastern or North African                                                                                                   3
+White,Black or African American,American Indian or Alaska Native                                                                        3
+Hispanic, Latino or Spanish origin,American Indian or Alaska Native                                                                     2
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native,Some other race, ethnicity or origin      1
+White,Native Hawaiian or Other Pacific Islander                                                                                         1
+Asian,Some other race, ethnicity or origin                                                                                              1
+Native Hawaiian or Other Pacific Islander                                                                                               1
+White,Some other race, ethnicity or origin                                                                                              1
+Black or African American,American Indian or Alaska Native                                                                              1
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native                                           1
+White,Asian,Middle Eastern or North African                                                                                             1
+Asian,Native Hawaiian or Other Pacific Islander                                                                                         1
+Black or African American,Asian                                                                                                         1
+Asian,Middle Eastern or North African                                                                                                   1
+Name: count, dtype: int64, 
+ethnicity
+White                                                                                                                                 0.706835
+Black or African American                                                                                                             0.172662
+Asian                                                                                                                                 0.035072
+Hispanic, Latino or Spanish origin                                                                                                    0.023381
+White,Hispanic, Latino or Spanish origin                                                                                              0.017086
+White,Asian                                                                                                                           0.005396
+White,Black or African American                                                                                                       0.004496
+Hispanic, Latino or Spanish origin,Black or African American                                                                          0.004496
+White,American Indian or Alaska Native                                                                                                0.004496
+Some other race, ethnicity or origin                                                                                                  0.003597
+American Indian or Alaska Native                                                                                                      0.002698
+Middle Eastern or North African                                                                                                       0.002698
+White,Middle Eastern or North African                                                                                                 0.002698
+White,Black or African American,American Indian or Alaska Native                                                                      0.002698
+Hispanic, Latino or Spanish origin,American Indian or Alaska Native                                                                   0.001799
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native,Some other race, ethnicity or origin    0.000899
+White,Native Hawaiian or Other Pacific Islander                                                                                       0.000899
+Asian,Some other race, ethnicity or origin                                                                                            0.000899
+Native Hawaiian or Other Pacific Islander                                                                                             0.000899
+White,Some other race, ethnicity or origin                                                                                            0.000899
+Black or African American,American Indian or Alaska Native                                                                            0.000899
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native                                         0.000899
+White,Asian,Middle Eastern or North African                                                                                           0.000899
+Asian,Native Hawaiian or Other Pacific Islander                                                                                       0.000899
+Black or African American,Asian                                                                                                       0.000899
+Asian,Middle Eastern or North African                                                                                                 0.000899
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,778 - regression_helper - INFO - Counts education groups:
+education
+13-16 (college/undergraduate university/certificate training)    683
+More than 17 years (doctorate degree, medical degree, etc.)      269
+7-12 (up to High School)                                         153
+Prefer not to answer                                               6
+0-6 (up to Primary School)                                         1
+Name: count, dtype: int64, 
+education
+13-16 (college/undergraduate university/certificate training)    0.614209
+More than 17 years (doctorate degree, medical degree, etc.)      0.241906
+7-12 (up to High School)                                         0.137590
+Prefer not to answer                                             0.005396
+0-6 (up to Primary School)                                       0.000899
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,779 - regression_helper - INFO - Counts religion groups:
+religion
+A religious person        617
+Not a religious person    444
+Prefer not to answer       51
+Name: count, dtype: int64, 
+religion
+A religious person        0.554856
+Not a religious person    0.399281
+Prefer not to answer      0.045863
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,781 - regression_helper - INFO - Counts political orientation groups:
+political_orientation
+4.0    200
+6.0    161
+2.0    155
+1.0    110
+3.0     90
+7.0     88
+5.0     77
+2.5     55
+4.5     53
+5.5     44
+3.5     27
+6.5     27
+1.5     25
+Name: count, dtype: int64, 
+political_orientation
+4.0    0.179856
+6.0    0.144784
+2.0    0.139388
+1.0    0.098921
+3.0    0.080935
+7.0    0.079137
+5.0    0.069245
+2.5    0.049460
+4.5    0.047662
+5.5    0.039568
+3.5    0.024281
+6.5    0.024281
+1.5    0.022482
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,783 - regression_helper - INFO - Counts income groups:
+income_us
+US$100,000 to US$149,999    219
+US$150,000 or more          147
+US$40,000 to US$49,999       94
+US$50,000 to US$59,999       91
+US$70,000to US$79,999        84
+US$90,000 to US$99,999       83
+US$60,000 to US$69,999       81
+US$30,000 to US$39,999       72
+US$20,000 to US$29,999       62
+US$80,000 to US$89,999       54
+US$10,000 to US$19,999       54
+Less than US$10,000          48
+Prefer not to say            23
+Name: count, dtype: int64, 
+income_us
+US$100,000 to US$149,999    0.196942
+US$150,000 or more          0.132194
+US$40,000 to US$49,999      0.084532
+US$50,000 to US$59,999      0.081835
+US$70,000to US$79,999       0.075540
+US$90,000 to US$99,999      0.074640
+US$60,000 to US$69,999      0.072842
+US$30,000 to US$39,999      0.064748
+US$20,000 to US$29,999      0.055755
+US$80,000 to US$89,999      0.048561
+US$10,000 to US$19,999      0.048561
+Less than US$10,000         0.043165
+Prefer not to say           0.020683
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,784 - regression_helper - INFO - Descriptives demographics main before filtering:
+2026-06-12 13:18:06,785 - regression_helper - INFO - Counts gender: 
+gender
+Female                           416
+Male                             344
+Non-binary/third gender/other      4
+Name: count, dtype: int64, 
+gender
+Female                           0.544503
+Male                             0.450262
+Non-binary/third gender/other    0.005236
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,787 - regression_helper - INFO - Counts age:
+count    762.000000
+mean      43.115486
+std       13.391597
+min       18.000000
+25%       32.000000
+50%       42.000000
+75%       52.000000
+max       82.000000
+Name: age, dtype: float64, 
+age_group
+1.0    360
+0.0    248
+2.0    154
+Name: count, dtype: int64, 
+age_group
+1.0    0.472441
+0.0    0.325459
+2.0    0.202100
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,788 - regression_helper - INFO - Counts ethnicity groups:
+ethnicity
+White                                                                                                                                 545
+Black or African American                                                                                                             126
+Asian                                                                                                                                  28
+Hispanic, Latino or Spanish origin                                                                                                     15
+White,Hispanic, Latino or Spanish origin                                                                                               14
+White,Asian                                                                                                                             4
+White,Black or African American                                                                                                         4
+White,Black or African American,American Indian or Alaska Native                                                                        3
+Middle Eastern or North African                                                                                                         3
+White,Middle Eastern or North African                                                                                                   3
+White,American Indian or Alaska Native                                                                                                  3
+American Indian or Alaska Native                                                                                                        3
+Hispanic, Latino or Spanish origin,Black or African American                                                                            2
+Some other race, ethnicity or origin                                                                                                    2
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native,Some other race, ethnicity or origin      1
+White,Some other race, ethnicity or origin                                                                                              1
+White,Native Hawaiian or Other Pacific Islander                                                                                         1
+Asian,Some other race, ethnicity or origin                                                                                              1
+Native Hawaiian or Other Pacific Islander                                                                                               1
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native                                           1
+Black or African American,American Indian or Alaska Native                                                                              1
+White,Asian,Middle Eastern or North African                                                                                             1
+Asian,Middle Eastern or North African                                                                                                   1
+Name: count, dtype: int64, 
+ethnicity
+White                                                                                                                                 0.713351
+Black or African American                                                                                                             0.164921
+Asian                                                                                                                                 0.036649
+Hispanic, Latino or Spanish origin                                                                                                    0.019634
+White,Hispanic, Latino or Spanish origin                                                                                              0.018325
+White,Asian                                                                                                                           0.005236
+White,Black or African American                                                                                                       0.005236
+White,Black or African American,American Indian or Alaska Native                                                                      0.003927
+Middle Eastern or North African                                                                                                       0.003927
+White,Middle Eastern or North African                                                                                                 0.003927
+White,American Indian or Alaska Native                                                                                                0.003927
+American Indian or Alaska Native                                                                                                      0.003927
+Hispanic, Latino or Spanish origin,Black or African American                                                                          0.002618
+Some other race, ethnicity or origin                                                                                                  0.002618
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native,Some other race, ethnicity or origin    0.001309
+White,Some other race, ethnicity or origin                                                                                            0.001309
+White,Native Hawaiian or Other Pacific Islander                                                                                       0.001309
+Asian,Some other race, ethnicity or origin                                                                                            0.001309
+Native Hawaiian or Other Pacific Islander                                                                                             0.001309
+Hispanic, Latino or Spanish origin,Black or African American,American Indian or Alaska Native                                         0.001309
+Black or African American,American Indian or Alaska Native                                                                            0.001309
+White,Asian,Middle Eastern or North African                                                                                           0.001309
+Asian,Middle Eastern or North African                                                                                                 0.001309
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,789 - regression_helper - INFO - Counts education groups:
+education
+13-16 (college/undergraduate university/certificate training)    469
+More than 17 years (doctorate degree, medical degree, etc.)      180
+7-12 (up to High School)                                         112
+Prefer not to answer                                               2
+0-6 (up to Primary School)                                         1
+Name: count, dtype: int64, 
+education
+13-16 (college/undergraduate university/certificate training)    0.613874
+More than 17 years (doctorate degree, medical degree, etc.)      0.235602
+7-12 (up to High School)                                         0.146597
+Prefer not to answer                                             0.002618
+0-6 (up to Primary School)                                       0.001309
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,790 - regression_helper - INFO - Counts religion groups:
+religion
+A religious person        408
+Not a religious person    316
+Prefer not to answer       40
+Name: count, dtype: int64, 
+religion
+A religious person        0.534031
+Not a religious person    0.413613
+Prefer not to answer      0.052356
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,791 - regression_helper - INFO - Counts political orientation groups:
+political_orientation
+4.0    144
+6.0    110
+2.0    105
+1.0     69
+3.0     60
+7.0     57
+5.0     55
+4.5     42
+2.5     36
+5.5     34
+3.5     21
+1.5     17
+6.5     14
+Name: count, dtype: int64, 
+political_orientation
+4.0    0.188482
+6.0    0.143979
+2.0    0.137435
+1.0    0.090314
+3.0    0.078534
+7.0    0.074607
+5.0    0.071990
+4.5    0.054974
+2.5    0.047120
+5.5    0.044503
+3.5    0.027487
+1.5    0.022251
+6.5    0.018325
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,792 - regression_helper - INFO - Counts income groups:
+income_us
+US$100,000 to US$149,999    152
+US$150,000 or more           98
+US$40,000 to US$49,999       68
+US$50,000 to US$59,999       64
+US$30,000 to US$39,999       59
+US$60,000 to US$69,999       56
+US$70,000to US$79,999        53
+US$90,000 to US$99,999       52
+US$20,000 to US$29,999       44
+US$80,000 to US$89,999       38
+US$10,000 to US$19,999       35
+Less than US$10,000          27
+Prefer not to say            18
+Name: count, dtype: int64, 
+income_us
+US$100,000 to US$149,999    0.198953
+US$150,000 or more          0.128272
+US$40,000 to US$49,999      0.089005
+US$50,000 to US$59,999      0.083770
+US$30,000 to US$39,999      0.077225
+US$60,000 to US$69,999      0.073298
+US$70,000to US$79,999       0.069372
+US$90,000 to US$99,999      0.068063
+US$20,000 to US$29,999      0.057592
+US$80,000 to US$89,999      0.049738
+US$10,000 to US$19,999      0.045812
+Less than US$10,000         0.035340
+Prefer not to say           0.023560
+Name: proportion, dtype: float64
+2026-06-12 13:18:06,800 - regression_prep - INFO - 
+Variable: social_status_q
+2026-06-12 13:18:06,800 - regression_prep - INFO - Data type: float64
+2026-06-12 13:18:06,800 - regression_prep - INFO - Unique values: [ 3.  7.  6.  8.  5.  2.  4.  1.  9. 10.]
+2026-06-12 13:18:06,801 - regression_prep - INFO - Number of unique values: 10
+2026-06-12 13:18:06,801 - regression_prep - INFO - Number of missing values: 0
+2026-06-12 13:18:06,808 - regression_prep - INFO - 
+Variable: social_status_q
+2026-06-12 13:18:06,809 - regression_prep - INFO - Data type: float64
+2026-06-12 13:18:06,809 - regression_prep - INFO - Unique values: [ 3.  7.  6.  5.  2.  4.  8.  9.  1. 10.]
+2026-06-12 13:18:06,809 - regression_prep - INFO - Number of unique values: 10
+2026-06-12 13:18:06,809 - regression_prep - INFO - Number of missing values: 0
+2026-06-12 13:18:06,811 - __main__ - INFO - Running regressions for real sharing intention
+2026-06-12 13:18:06,816 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,816 - regression_helper - INFO - Intercept: Coefficient: 26.3458 (p = 0.0000)
+2026-06-12 13:18:06,817 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: -0.126
+2026-06-12 13:18:06,817 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: 0.045
+2026-06-12 13:18:06,817 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: -0.119
+2026-06-12 13:18:06,817 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: -0.114
+2026-06-12 13:18:06,817 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: -0.111
+2026-06-12 13:18:06,817 - __main__ - INFO - Finished regression for real sharing intention
+2026-06-12 13:18:06,817 - __main__ - INFO - Running regressions for fake sharing intention
+2026-06-12 13:18:06,817 - __main__ - INFO - Main data:
+2026-06-12 13:18:06,820 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,821 - regression_helper - INFO - Intercept: Coefficient: 20.0692 (p = 0.0000)
+2026-06-12 13:18:06,821 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: -0.153
+2026-06-12 13:18:06,821 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: -0.179
+2026-06-12 13:18:06,821 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: -0.339
+2026-06-12 13:18:06,822 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: -0.208
+2026-06-12 13:18:06,822 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: -0.138
+2026-06-12 13:18:06,822 - __main__ - INFO - Follow Up data:
+2026-06-12 13:18:06,825 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,825 - regression_helper - INFO - Intercept: Coefficient: 15.2378 (p = 0.0000)
+2026-06-12 13:18:06,825 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: -0.079
+2026-06-12 13:18:06,825 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: -0.035
+2026-06-12 13:18:06,826 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: -0.263
+2026-06-12 13:18:06,826 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: -0.016
+2026-06-12 13:18:06,826 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: -0.051
+2026-06-12 13:18:06,826 - __main__ - INFO - Finished regression for fake sharing intention
+2026-06-12 13:18:06,826 - __main__ - INFO - Running regressions for real accuracy
+2026-06-12 13:18:06,828 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,830 - regression_helper - INFO - Intercept: Coefficient: 83.9661 (p = 0.0000)
+2026-06-12 13:18:06,830 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: 0.002
+2026-06-12 13:18:06,830 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: -0.046
+2026-06-12 13:18:06,830 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: -0.188
+2026-06-12 13:18:06,830 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: -0.123
+2026-06-12 13:18:06,830 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: 0.014
+2026-06-12 13:18:06,831 - __main__ - INFO - Finished regression for real accuracy
+2026-06-12 13:18:06,831 - __main__ - INFO - Running regressions for fake accuracy
+2026-06-12 13:18:06,831 - __main__ - INFO - Main data:
+2026-06-12 13:18:06,833 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,833 - regression_helper - INFO - Intercept: Coefficient: 61.3273 (p = 0.0000)
+2026-06-12 13:18:06,835 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: 0.141
+2026-06-12 13:18:06,835 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: 0.333
+2026-06-12 13:18:06,835 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: 0.579
+2026-06-12 13:18:06,835 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: 0.195
+2026-06-12 13:18:06,835 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: -0.059
+2026-06-12 13:18:06,835 - __main__ - INFO - Follow Up data:
+2026-06-12 13:18:06,837 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,838 - regression_helper - INFO - Intercept: Coefficient: 64.3791 (p = 0.0000)
+2026-06-12 13:18:06,838 - regression_helper - DEBUG - Cohen's d for intervention_1 vs control: -0.005
+2026-06-12 13:18:06,838 - regression_helper - DEBUG - Cohen's d for intervention_2 vs control: 0.188
+2026-06-12 13:18:06,838 - regression_helper - DEBUG - Cohen's d for intervention_3 vs control: 0.244
+2026-06-12 13:18:06,839 - regression_helper - DEBUG - Cohen's d for intervention_4 vs control: -0.131
+2026-06-12 13:18:06,839 - regression_helper - DEBUG - Cohen's d for intervention_5 vs control: -0.022
+2026-06-12 13:18:06,839 - __main__ - INFO - Finished regression for fake accuracy
+2026-06-12 13:18:06,839 - __main__ - INFO - Running regression for demographics
+2026-06-12 13:18:06,847 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,848 - regression_helper - INFO - Intercept: Coefficient: 63.3996 (p = 0.0000)
+2026-06-12 13:18:06,855 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,855 - regression_helper - INFO -    Age: VIF = 7.81
+2026-06-12 13:18:06,855 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.28
+2026-06-12 13:18:06,855 - regression_helper - INFO -    Income: VIF = 4.82
+2026-06-12 13:18:06,855 - regression_helper - INFO -    Education: VIF = 4.73
+2026-06-12 13:18:06,855 - regression_helper - INFO -    Gender: VIF = 2.09
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Religion: VIF = 1.87
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Feedback: VIF = 1.87
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Textual: VIF = 1.85
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Knowledge: VIF = 1.85
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Gamified: VIF = 1.81
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Visual: VIF = 1.81
+2026-06-12 13:18:06,856 - regression_helper - INFO -    Ethnicity: VIF = 1.27
+2026-06-12 13:18:06,856 - __main__ - INFO - Finished regression for demographics
+2026-06-12 13:18:06,856 - __main__ - INFO - Running regression for social_media
+2026-06-12 13:18:06,861 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,862 - regression_helper - INFO - Intercept: Coefficient: 64.7081 (p = 0.0000)
+2026-06-12 13:18:06,864 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,864 - regression_helper - INFO -    PlatformCount: VIF = 5.73
+2026-06-12 13:18:06,864 - regression_helper - INFO -    SharingCount: VIF = 4.22
+2026-06-12 13:18:06,864 - regression_helper - INFO -    TimeOnline: VIF = 1.71
+2026-06-12 13:18:06,864 - regression_helper - INFO -    Gamified: VIF = 1.50
+2026-06-12 13:18:06,864 - regression_helper - INFO -    Textual: VIF = 1.49
+2026-06-12 13:18:06,864 - regression_helper - INFO -    Feedback: VIF = 1.47
+2026-06-12 13:18:06,865 - regression_helper - INFO -    Knowledge: VIF = 1.46
+2026-06-12 13:18:06,865 - regression_helper - INFO -    Visual: VIF = 1.44
+2026-06-12 13:18:06,865 - __main__ - INFO - Finished regression for social_media
+2026-06-12 13:18:06,865 - __main__ - INFO - Running regression for media_literacy
+2026-06-12 13:18:06,871 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,871 - regression_helper - INFO - Intercept: Coefficient: 50.5997 (p = 0.0000)
+2026-06-12 13:18:06,877 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,877 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 24.83
+2026-06-12 13:18:06,877 - regression_helper - INFO -    ExpDetecting: VIF = 18.84
+2026-06-12 13:18:06,877 - regression_helper - INFO -    ExpSearchEngine: VIF = 12.99
+2026-06-12 13:18:06,877 - regression_helper - INFO -    ExpImageSearch: VIF = 6.91
+2026-06-12 13:18:06,877 - regression_helper - INFO -    ExpGenAI: VIF = 5.31
+2026-06-12 13:18:06,878 - regression_helper - INFO -    Textual: VIF = 1.87
+2026-06-12 13:18:06,878 - regression_helper - INFO -    Visual: VIF = 1.87
+2026-06-12 13:18:06,878 - regression_helper - INFO -    Knowledge: VIF = 1.86
+2026-06-12 13:18:06,878 - regression_helper - INFO -    Feedback: VIF = 1.86
+2026-06-12 13:18:06,878 - regression_helper - INFO -    Gamified: VIF = 1.84
+2026-06-12 13:18:06,878 - __main__ - INFO - Finished regression for media_literacy
+2026-06-12 13:18:06,878 - __main__ - INFO - Running regression for demographics for the control group
+2026-06-12 13:18:06,884 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,886 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:06,887 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,887 - regression_helper - INFO -    Age: VIF = 6.63
+2026-06-12 13:18:06,887 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.63
+2026-06-12 13:18:06,887 - regression_helper - INFO -    Income: VIF = 4.39
+2026-06-12 13:18:06,888 - regression_helper - INFO -    Education: VIF = 4.02
+2026-06-12 13:18:06,888 - regression_helper - INFO -    Gender: VIF = 2.34
+2026-06-12 13:18:06,888 - regression_helper - INFO -    Religion: VIF = 1.77
+2026-06-12 13:18:06,888 - regression_helper - INFO -    Ethnicity: VIF = 1.20
+2026-06-12 13:18:06,888 - __main__ - INFO - Running regression for social_media for the control group
+2026-06-12 13:18:06,891 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,891 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:06,892 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,892 - regression_helper - INFO -    PlatformCount: VIF = 5.33
+2026-06-12 13:18:06,892 - regression_helper - INFO -    SharingCount: VIF = 4.54
+2026-06-12 13:18:06,892 - regression_helper - INFO -    TimeOnline: VIF = 2.85
+2026-06-12 13:18:06,892 - __main__ - INFO - Running regression for media_literacy for the control group
+2026-06-12 13:18:06,898 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,898 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
+2026-06-12 13:18:06,899 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,899 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 22.60
+2026-06-12 13:18:06,899 - regression_helper - INFO -    ExpDetecting: VIF = 18.19
+2026-06-12 13:18:06,899 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.26
+2026-06-12 13:18:06,899 - regression_helper - INFO -    ExpImageSearch: VIF = 6.68
+2026-06-12 13:18:06,899 - regression_helper - INFO -    ExpGenAI: VIF = 6.19
+2026-06-12 13:18:06,908 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,908 - regression_helper - INFO - Intercept: Coefficient: 67.3700 (p = 0.0000)
+2026-06-12 13:18:06,909 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Age: VIF = 6.66
+2026-06-12 13:18:06,910 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.32
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Income: VIF = 4.69
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Education: VIF = 4.43
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Gender: VIF = 2.18
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Intervention: VIF = 2.00
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Religion: VIF = 1.86
+2026-06-12 13:18:06,910 - regression_helper - INFO -    Ethnicity: VIF = 1.24
+2026-06-12 13:18:06,914 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,915 - regression_helper - INFO - Intercept: Coefficient: 62.7680 (p = 0.0000)
+2026-06-12 13:18:06,917 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,917 - regression_helper - INFO -    PlatformCount: VIF = 5.73
+2026-06-12 13:18:06,917 - regression_helper - INFO -    SharingCount: VIF = 4.22
+2026-06-12 13:18:06,917 - regression_helper - INFO -    TimeOnline: VIF = 3.13
+2026-06-12 13:18:06,917 - regression_helper - INFO -    Intervention: VIF = 1.71
+2026-06-12 13:18:06,922 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,922 - regression_helper - INFO - Intercept: Coefficient: 54.9553 (p = 0.0000)
+2026-06-12 13:18:06,925 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,925 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 22.97
+2026-06-12 13:18:06,925 - regression_helper - INFO -    ExpDetecting: VIF = 16.83
+2026-06-12 13:18:06,925 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.57
+2026-06-12 13:18:06,925 - regression_helper - INFO -    ExpImageSearch: VIF = 6.45
+2026-06-12 13:18:06,925 - regression_helper - INFO -    ExpGenAI: VIF = 5.22
+2026-06-12 13:18:06,925 - regression_helper - INFO -    Intervention: VIF = 1.98
+2026-06-12 13:18:06,933 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,933 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:06,938 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,938 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:06,945 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,945 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
+2026-06-12 13:18:06,952 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,952 - regression_helper - INFO - Intercept: Coefficient: 64.3231 (p = 0.0000)
+2026-06-12 13:18:06,955 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,955 - regression_helper - INFO -    Age: VIF = 7.18
+2026-06-12 13:18:06,955 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.74
+2026-06-12 13:18:06,956 - regression_helper - INFO -    Income: VIF = 4.39
+2026-06-12 13:18:06,956 - regression_helper - INFO -    Education: VIF = 4.37
+2026-06-12 13:18:06,956 - regression_helper - INFO -    Gender: VIF = 2.16
+2026-06-12 13:18:06,956 - regression_helper - INFO -    Intervention: VIF = 2.01
+2026-06-12 13:18:06,956 - regression_helper - INFO -    Religion: VIF = 1.85
+2026-06-12 13:18:06,957 - regression_helper - INFO -    Ethnicity: VIF = 1.23
+2026-06-12 13:18:06,961 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,961 - regression_helper - INFO - Intercept: Coefficient: 65.8249 (p = 0.0000)
+2026-06-12 13:18:06,962 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,962 - regression_helper - INFO -    PlatformCount: VIF = 5.27
+2026-06-12 13:18:06,962 - regression_helper - INFO -    SharingCount: VIF = 4.32
+2026-06-12 13:18:06,962 - regression_helper - INFO -    TimeOnline: VIF = 2.07
+2026-06-12 13:18:06,962 - regression_helper - INFO -    Intervention: VIF = 1.74
+2026-06-12 13:18:06,969 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,969 - regression_helper - INFO - Intercept: Coefficient: 54.7843 (p = 0.0000)
+2026-06-12 13:18:06,970 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:06,970 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 23.19
+2026-06-12 13:18:06,970 - regression_helper - INFO -    ExpDetecting: VIF = 19.53
+2026-06-12 13:18:06,970 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.96
+2026-06-12 13:18:06,970 - regression_helper - INFO -    ExpImageSearch: VIF = 7.13
+2026-06-12 13:18:06,970 - regression_helper - INFO -    ExpGenAI: VIF = 5.39
+2026-06-12 13:18:06,970 - regression_helper - INFO -    Intervention: VIF = 2.03
+2026-06-12 13:18:06,978 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,978 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:06,984 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,984 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:06,989 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,990 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
+2026-06-12 13:18:06,998 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:06,998 - regression_helper - INFO - Intercept: Coefficient: 67.9542 (p = 0.0000)
+2026-06-12 13:18:07,000 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,001 - regression_helper - INFO -    Age: VIF = 7.45
+2026-06-12 13:18:07,001 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.32
+2026-06-12 13:18:07,001 - regression_helper - INFO -    Income: VIF = 4.92
+2026-06-12 13:18:07,001 - regression_helper - INFO -    Education: VIF = 4.41
+2026-06-12 13:18:07,001 - regression_helper - INFO -    Gender: VIF = 2.29
+2026-06-12 13:18:07,001 - regression_helper - INFO -    Intervention: VIF = 2.02
+2026-06-12 13:18:07,002 - regression_helper - INFO -    Religion: VIF = 1.95
+2026-06-12 13:18:07,002 - regression_helper - INFO -    Ethnicity: VIF = 1.22
+2026-06-12 13:18:07,007 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,007 - regression_helper - INFO - Intercept: Coefficient: 63.5067 (p = 0.0000)
+2026-06-12 13:18:07,008 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,008 - regression_helper - INFO -    PlatformCount: VIF = 4.57
+2026-06-12 13:18:07,008 - regression_helper - INFO -    SharingCount: VIF = 4.15
+2026-06-12 13:18:07,008 - regression_helper - INFO -    Intervention: VIF = 1.75
+2026-06-12 13:18:07,008 - regression_helper - INFO -    TimeOnline: VIF = 1.60
+2026-06-12 13:18:07,013 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,013 - regression_helper - INFO - Intercept: Coefficient: 44.7836 (p = 0.0000)
+2026-06-12 13:18:07,014 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,015 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 26.68
+2026-06-12 13:18:07,015 - regression_helper - INFO -    ExpDetecting: VIF = 20.34
+2026-06-12 13:18:07,015 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.82
+2026-06-12 13:18:07,015 - regression_helper - INFO -    ExpImageSearch: VIF = 7.17
+2026-06-12 13:18:07,015 - regression_helper - INFO -    ExpGenAI: VIF = 5.93
+2026-06-12 13:18:07,015 - regression_helper - INFO -    Intervention: VIF = 1.98
+2026-06-12 13:18:07,023 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,023 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:07,028 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,028 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:07,034 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,034 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
+2026-06-12 13:18:07,042 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,042 - regression_helper - INFO - Intercept: Coefficient: 66.5262 (p = 0.0000)
+2026-06-12 13:18:07,044 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,044 - regression_helper - INFO -    Age: VIF = 7.32
+2026-06-12 13:18:07,045 - regression_helper - INFO -    PoliticalOrientation: VIF = 4.94
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Income: VIF = 4.58
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Education: VIF = 4.33
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Gender: VIF = 2.11
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Intervention: VIF = 1.95
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Religion: VIF = 1.71
+2026-06-12 13:18:07,045 - regression_helper - INFO -    Ethnicity: VIF = 1.29
+2026-06-12 13:18:07,051 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,051 - regression_helper - INFO - Intercept: Coefficient: 62.6330 (p = 0.0000)
+2026-06-12 13:18:07,052 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,052 - regression_helper - INFO -    PlatformCount: VIF = 4.96
+2026-06-12 13:18:07,052 - regression_helper - INFO -    SharingCount: VIF = 4.15
+2026-06-12 13:18:07,052 - regression_helper - INFO -    TimeOnline: VIF = 2.06
+2026-06-12 13:18:07,052 - regression_helper - INFO -    Intervention: VIF = 1.69
+2026-06-12 13:18:07,057 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,057 - regression_helper - INFO - Intercept: Coefficient: 48.1897 (p = 0.0000)
+2026-06-12 13:18:07,058 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,058 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 28.44
+2026-06-12 13:18:07,058 - regression_helper - INFO -    ExpDetecting: VIF = 22.50
+2026-06-12 13:18:07,058 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.85
+2026-06-12 13:18:07,058 - regression_helper - INFO -    ExpImageSearch: VIF = 6.96
+2026-06-12 13:18:07,058 - regression_helper - INFO -    ExpGenAI: VIF = 5.53
+2026-06-12 13:18:07,060 - regression_helper - INFO -    Intervention: VIF = 2.01
+2026-06-12 13:18:07,067 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,068 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:07,072 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,072 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:07,078 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,078 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
+2026-06-12 13:18:07,088 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,088 - regression_helper - INFO - Intercept: Coefficient: 55.8505 (p = 0.0000)
+2026-06-12 13:18:07,089 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,089 - regression_helper - INFO -    Age: VIF = 6.62
+2026-06-12 13:18:07,089 - regression_helper - INFO -    PoliticalOrientation: VIF = 5.29
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Income: VIF = 4.59
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Education: VIF = 4.41
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Gender: VIF = 2.14
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Intervention: VIF = 1.95
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Religion: VIF = 1.71
+2026-06-12 13:18:07,090 - regression_helper - INFO -    Ethnicity: VIF = 1.22
+2026-06-12 13:18:07,096 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,096 - regression_helper - INFO - Intercept: Coefficient: 63.9734 (p = 0.0000)
+2026-06-12 13:18:07,097 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,097 - regression_helper - INFO -    PlatformCount: VIF = 5.20
+2026-06-12 13:18:07,097 - regression_helper - INFO -    SharingCount: VIF = 4.67
+2026-06-12 13:18:07,098 - regression_helper - INFO -    Intervention: VIF = 1.76
+2026-06-12 13:18:07,098 - regression_helper - INFO -    TimeOnline: VIF = 1.70
+2026-06-12 13:18:07,102 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,102 - regression_helper - INFO - Intercept: Coefficient: 63.1086 (p = 0.0000)
+2026-06-12 13:18:07,104 - regression_helper - INFO - 
+Multicollinearity Analysis (VIF values):
+2026-06-12 13:18:07,105 - regression_helper - INFO -    KnowledgeDeepfakes: VIF = 20.41
+2026-06-12 13:18:07,105 - regression_helper - INFO -    ExpDetecting: VIF = 15.11
+2026-06-12 13:18:07,105 - regression_helper - INFO -    ExpSearchEngine: VIF = 10.22
+2026-06-12 13:18:07,105 - regression_helper - INFO -    ExpImageSearch: VIF = 6.54
+2026-06-12 13:18:07,105 - regression_helper - INFO -    ExpGenAI: VIF = 6.05
+2026-06-12 13:18:07,105 - regression_helper - INFO -    Intervention: VIF = 1.95
+2026-06-12 13:18:07,112 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,113 - regression_helper - INFO - Intercept: Coefficient: 66.6217 (p = 0.0000)
+2026-06-12 13:18:07,118 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,118 - regression_helper - INFO - Intercept: Coefficient: 62.3259 (p = 0.0000)
+2026-06-12 13:18:07,124 - regression_helper - INFO - 
+Significant predictors:
+2026-06-12 13:18:07,125 - regression_helper - INFO - Intercept: Coefficient: 56.4342 (p = 0.0000)
