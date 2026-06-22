@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepfake Discernment Interventions — Demo</title>
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 2px 14px rgba(0,0,0,.09);
+  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Nav ── */
+  #nav {
+    background: var(--primary);
+    color: #fff;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    min-height: 54px;
+  }
+  #nav h1 { font-size: 14px; font-weight: 800; white-space: nowrap; margin-right: 12px; letter-spacing: .01em; }
+  .nav-btn {
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    padding: 5px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12.5px;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,.28); }
+  .nav-btn.active { background: #fff; color: var(--primary); font-weight: 700; }
+
+  /* ── Layout ── */
+  #main { max-width: 800px; margin: 28px auto; padding: 0 16px 80px; }
+
+  /* ── Card ── */
+  .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 20px; }
+  .card h2 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
+  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+  .card p  { line-height: 1.72; margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin-left: 20px; }
+  .card li { line-height: 2; }
+  .badge { display: inline-block; padding: 3px 11px; border-radius: 20px; font-size: 12px; font-weight: 700; background: #dbeafe; color: var(--primary); margin-bottom: 14px; }
+
+  /* ── Tip card ── */
+  .tip-card { border-left: 4px solid var(--primary); background: #f8faff; padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 14px; }
+  .tip-card h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .06em; }
+  .tip-card p { margin: 0; font-size: 14.5px; line-height: 1.65; }
+
+  /* ── Image placeholder ── */
+  .img-placeholder {
+    width: 100%; max-width: 480px; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    border-radius: 10px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; margin: 14px auto;
+    position: relative; overflow: hidden; user-select: none;
+    border: 2px dashed #94a3b8;
+  }
+  .img-placeholder .img-label { font-size: 12.5px; color: var(--muted); text-align: center; padding: 6px 12px; pointer-events: none; line-height: 1.4; }
+  .img-placeholder .img-icon  { font-size: 36px; opacity: .45; pointer-events: none; }
+  .img-placeholder .img-note  { font-size: 11px; color: #94a3b8; margin-top: 4px; pointer-events: none; }
+
+  /* ── Error region overlay (game) ── */
+  .error-region {
+    position: absolute; border: 3px solid; border-radius: 50%;
+    pointer-events: none; opacity: 0; transition: opacity .3s;
+  }
+  .error-region.rect { border-radius: 8px; }
+  .error-region.visible { opacity: 1; }
+  .error-region.green { border-color: #16a34a; background: rgba(22,163,74,.15); }
+  .error-region.red   { border-color: #dc2626; background: rgba(220,38,38,.12); }
+
+  /* ── Game HUD ── */
+  .game-hud { display: flex; gap: 20px; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .hud-box  { background: var(--bg); border-radius: 8px; padding: 8px 18px; text-align: center; min-width: 90px; }
+  .hud-box .hud-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .hud-box .hud-value { font-size: 24px; font-weight: 900; color: var(--text); }
+  .hud-box .hud-value.danger  { color: var(--danger); }
+  .hud-box .hud-value.success { color: var(--success); }
+
+  .game-feedback {
+    text-align: center; min-height: 30px; padding: 6px 12px;
+    font-weight: 700; font-size: 14px; border-radius: 6px; margin-top: 8px; transition: all .15s;
+  }
+  .game-feedback.correct { color: var(--success); background: #dcfce7; }
+  .game-feedback.wrong   { color: var(--danger);  background: #fee2e2; }
+  .game-feedback.timeout { color: var(--warning); background: #fef9c3; }
+
+  /* ── Score banner ── */
+  .score-banner {
+    text-align: center; padding: 28px;
+    background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+    color: #fff; border-radius: var(--radius); margin-bottom: 20px;
+  }
+  .score-banner .score-big { font-size: 60px; font-weight: 900; line-height: 1; }
+  .score-banner p { opacity: .88; font-size: 15px; margin-top: 8px; margin-bottom: 0; }
+
+  /* ── Detection task ── */
+  .scale-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+  .scale-btn {
+    flex: 1; min-width: 120px; padding: 11px 6px;
+    border: 2px solid var(--border); border-radius: 8px; background: var(--card);
+    cursor: pointer; font-size: 13.5px; font-weight: 500; text-align: center;
+    transition: border-color .12s, background .12s;
+  }
+  .scale-btn:hover:not(:disabled) { border-color: var(--primary); background: #eff6ff; }
+  .scale-btn.selected    { border-color: var(--primary);  background: #dbeafe; color: var(--primary);  font-weight: 700; }
+  .scale-btn.correct-sel { border-color: var(--success);  background: #dcfce7; color: var(--success);  font-weight: 700; }
+  .scale-btn.wrong-sel   { border-color: var(--danger);   background: #fee2e2; color: var(--danger);   font-weight: 700; }
+  .scale-btn:disabled    { cursor: default; }
+
+  .share-row { display: flex; gap: 10px; margin: 10px 0; }
+  .share-btn {
+    flex: 1; padding: 10px; border: 2px solid var(--border); border-radius: 8px;
+    background: var(--card); cursor: pointer; font-size: 14px; font-weight: 500;
+    text-align: center; transition: border-color .12s, background .12s;
+  }
+  .share-btn:hover { border-color: var(--primary); }
+  .share-btn.selected { border-color: var(--primary); background: #dbeafe; color: var(--primary); font-weight: 700; }
+
+  .fb-reveal { padding: 11px 15px; border-radius: 8px; font-weight: 600; font-size: 14px; display: none; margin-top: 10px; }
+  .fb-reveal.correct { background: #dcfce7; color: var(--success); display: block; }
+  .fb-reveal.wrong   { background: #fee2e2; color: var(--danger);  display: block; }
+
+  .seen-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .seen-row input { cursor: pointer; width: 15px; height: 15px; }
+
+  /* ── Progress ── */
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .progress-bar { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width .3s; }
+  .progress-label { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+
+  /* ── Buttons ── */
+  .btn { display: inline-block; padding: 10px 22px; background: var(--primary); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 14.5px; font-weight: 700; transition: background .12s; margin-top: 10px; }
+  .btn:hover { background: var(--primary-dark); }
+  .btn:disabled { background: var(--muted); cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+  .btn-ghost:hover { background: #eff6ff; }
+
+  /* ── Shake animation ── */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    15%      { transform: translateX(-8px); }
+    30%      { transform: translateX(8px); }
+    45%      { transform: translateX(-6px); }
+    60%      { transform: translateX(6px); }
+    75%      { transform: translateX(-3px); }
+    90%      { transform: translateX(3px); }
+  }
+  .shake { animation: shake .5s ease-in-out; }
+
+  /* ── Overview grid ── */
+  .grid-6 { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+  .ov-cell {
+    background: var(--card); border-radius: 10px; padding: 20px 18px;
+    border-top: 4px solid var(--primary); cursor: pointer;
+    transition: box-shadow .15s, transform .12s; box-shadow: var(--shadow);
+  }
+  .ov-cell:hover { box-shadow: 0 6px 22px rgba(0,0,0,.13); transform: translateY(-2px); }
+  .ov-cell .ov-icon { font-size: 26px; margin-bottom: 8px; }
+  .ov-cell h3 { font-size: 14px; font-weight: 800; margin-bottom: 5px; }
+  .ov-cell p  { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin: 0; }
+  .ov-cell .ov-result { font-size: 12px; font-weight: 700; margin-top: 8px; padding: 3px 8px; border-radius: 20px; display: inline-block; }
+  .ov-result.sig   { background: #dcfce7; color: var(--success); }
+  .ov-result.insig { background: #f1f5f9; color: var(--muted); }
+
+  /* ── Results strip ── */
+  .results-strip { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .result-pill {
+    flex: 1; min-width: 130px; padding: 12px 14px; border-radius: 8px; text-align: center;
+  }
+  .result-pill .rp-val { font-size: 22px; font-weight: 900; }
+  .result-pill .rp-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .result-pill.sig-pos  { background: #dcfce7; color: var(--success); }
+  .result-pill.neutral  { background: #f1f5f9; color: var(--muted); }
+
+  /* ── Divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  /* ── Inline note ── */
+  .note { font-size: 12px; color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<div id="nav">
+  <h1>🕵️ Deepfake Discernment Study</h1>
+  <button class="nav-btn active" onclick="go('overview')">Overview</button>
+  <button class="nav-btn" onclick="go('control')">Control</button>
+  <button class="nav-btn" onclick="go('int1')">1 · Knowledge</button>
+  <button class="nav-btn" onclick="go('int2')">2 · Textual</button>
+  <button class="nav-btn" onclick="go('int3')">3 · Visual</button>
+  <button class="nav-btn" onclick="go('int4')">4 · Gamified</button>
+  <button class="nav-btn" onclick="go('int5')">5 · Feedback</button>
+</div>
+
+<div id="main">
+
+<!-- ════════════════════════════════════════════
+     OVERVIEW
+═════════════════════════════════════════════ -->
+<div id="sec-overview">
+  <div class="card">
+    <div class="badge">CHI 2026 · Geissler, Robertson & Feuerriegel</div>
+    <h2>Designing Effective Digital Literacy Interventions for Deepfake Discernment</h2>
+    <p>N = 1,200 U.S. participants, randomly assigned to one of six conditions. After their assigned training (or none), all participants completed a 15-image detection task. Two weeks later they repeated the task with a new image set.</p>
+    <p><strong>Key result:</strong> The Textual (+7.5 pp) and Visual (+13 pp) interventions significantly improved deepfake detection accuracy. Gamified, Feedback, and Knowledge showed no significant improvement at T1. No intervention significantly reduced trust in real images.</p>
+    <div class="results-strip">
+      <div class="result-pill neutral"><div class="rp-val">61.3%</div><div class="rp-lbl">Control baseline</div></div>
+      <div class="result-pill neutral"><div class="rp-val">–</div><div class="rp-lbl">Knowledge (n.s.)</div></div>
+      <div class="result-pill sig-pos"><div class="rp-val">+7.5 pp**</div><div class="rp-lbl">Textual</div></div>
+      <div class="result-pill sig-pos"><div class="rp-val">+13 pp***</div><div class="rp-lbl">Visual</div></div>
+      <div class="result-pill neutral"><div class="rp-val">–</div><div class="rp-lbl">Gamified (n.s.)</div></div>
+      <div class="result-pill neutral"><div class="rp-val">–</div><div class="rp-lbl">Feedback (n.s.)</div></div>
+    </div>
+    <p class="note" style="margin-top:10px;">Demo uses placeholder images. Actual study images hosted on Qualtrics via Loop & Merge.</p>
+  </div>
+  <div class="grid-6">
+    <div class="ov-cell" onclick="go('control')">
+      <div class="ov-icon">🔵</div>
+      <h3>Control</h3>
+      <p>No training — proceed directly to the 15-image detection task.</p>
+      <div class="ov-result insig">Baseline</div>
+    </div>
+    <div class="ov-cell" onclick="go('int1')">
+      <div class="ov-icon">📖</div>
+      <h3>1 · Knowledge</h3>
+      <p>Single paragraph explaining how AI generates deepfake images.</p>
+      <div class="ov-result insig">n.s. at T1</div>
+    </div>
+    <div class="ov-cell" onclick="go('int2')">
+      <div class="ov-icon">📝</div>
+      <h3>2 · Textual</h3>
+      <p>5 text-only tips on deepfake errors, shown one per page in random order.</p>
+      <div class="ov-result sig">+7.5 pp**</div>
+    </div>
+    <div class="ov-cell" onclick="go('int3')">
+      <div class="ov-icon">🖼️</div>
+      <h3>3 · Visual</h3>
+      <p>Same 5 tips, each paired with an annotated deepfake example image.</p>
+      <div class="ov-result sig">+13 pp***</div>
+    </div>
+    <div class="ov-cell" onclick="go('int4')">
+      <div class="ov-icon">🎮</div>
+      <h3>4 · Gamified</h3>
+      <p>Click the error in 30 s. Retry until correct or time runs out. Up to 50 pts.</p>
+      <div class="ov-result insig">n.s. at T1</div>
+    </div>
+    <div class="ov-cell" onclick="go('int5')">
+      <div class="ov-icon">💡</div>
+      <h3>5 · Feedback</h3>
+      <p>Judge 10 images (5 real + 5 fake). Immediate correct/wrong feedback, no tips.</p>
+      <div class="ov-result insig">n.s. at T1</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CONTROL
+═════════════════════════════════════════════ -->
+<div id="sec-control" style="display:none">
+  <div class="card">
+    <div class="badge">Condition: Control</div>
+    <h2>No Intervention</h2>
+    <p>Participants in the control condition receive no training. They proceed immediately to the image discernment task. In the actual study, they saw the same introduction text as all other participants (explaining that real = shot by a human; fake = AI-generated), then classified 15 images.</p>
+  </div>
+  <div id="control-task"></div>
+  <button class="btn" id="ctrl-start-btn" onclick="startTask('control-task', false); this.style.display='none'">▶ Start Detection Task (demo: 5 images)</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     INT 1: KNOWLEDGE
+═════════════════════════════════════════════ -->
+<div id="sec-int1" style="display:none">
+  <div class="card">
+    <div class="badge">Intervention 1 · Knowledge</div>
+    <h2>AI-Image Generation</h2>
+    <p>Some of the images you see online could be generated by artificial intelligence (AI) and are hence <strong>fake</strong>. Here, we want to teach you how AI generates fake images. Later, we will ask you to apply your knowledge in a fake image detection task.</p>
+    <p><em>Please <strong>read the following paragraph carefully</strong>:</em></p>
+    <div style="background:#f8faff;border:1.5px solid #bfdbfe;border-radius:8px;padding:20px 22px;margin:14px 0;line-height:1.75;">
+      AI can learn how to generate realistic images by looking at millions of example pictures. After inputting the example images into the AI, they are transformed into representations that only computers can understand and that don't mean anything to humans. From those, AI then learns patterns of how the world, such as objects, people, and places look like. After training, humans can ask AI models to generate images through simple input text, this is called <strong>prompting</strong>. The possibilities for AI-generated images are endless, for example, AI can generate things that have never been seen before such as made-up scenarios or even attempt to imitate real people or places.
+    </div>
+    <p class="note">This is the complete text shown to participants (Table 4 in the paper). No images are shown. The paper found no significant improvement in deepfake detection accuracy (p<sub>adj</sub> = 0.980).</p>
+  </div>
+  <div id="int1-task"></div>
+  <button class="btn" id="int1-start-btn" onclick="startTask('int1-task', false); this.style.display='none'">▶ Continue to Detection Task</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     INT 2: TEXTUAL
+═════════════════════════════════════════════ -->
+<div id="sec-int2" style="display:none">
+  <div class="card">
+    <div class="badge">Intervention 2 · Textual</div>
+    <h2>How to Detect Fake Images</h2>
+    <p>Some of the images you see online could be generated by artificial intelligence (AI) and are hence <strong>fake</strong>. Here, we show you <strong>5 ways</strong> to detect fake images that were generated by AI. Please read the following hints very carefully.</p>
+    <p class="note">In the actual study, each hint appeared on its own separate page in <strong>randomised order</strong>. No images are shown in this condition. Result: +7.5 pp (p<sub>adj</sub> &lt; 0.01).</p>
+  </div>
+  <div id="int2-steps"></div>
+  <div id="int2-task"></div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     INT 3: VISUAL
+═════════════════════════════════════════════ -->
+<div id="sec-int3" style="display:none">
+  <div class="card">
+    <div class="badge">Intervention 3 · Visual</div>
+    <h2>How to Detect Fake Images</h2>
+    <p>Some of the images you see online could be generated by artificial intelligence (AI) and are hence <strong>fake</strong>. Here, we show you <strong>5 ways</strong> to detect fake images that were generated by AI. Each hint is accompanied by an example image. Please read the following hints very carefully.</p>
+    <p class="note">Each hint appeared on its own page in randomised order. Example images were generated with DALL-E 3 (except tip 5: the viral Pope Francis deepfake). Result: +13 pp (p<sub>adj</sub> &lt; 0.001).</p>
+  </div>
+  <div id="int3-steps"></div>
+  <div id="int3-task"></div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     INT 4: GAMIFIED
+═════════════════════════════════════════════ -->
+<div id="sec-int4" style="display:none">
+  <div class="card">
+    <div class="badge">Intervention 4 · Gamified</div>
+    <h2>🎮 Let's Play a Game!</h2>
+    <p>Some of the images you see online could be generated by AI and are hence fake. Here, we show you <strong>5 ways</strong> to detect fake images. Each hint is accompanied by an example image.</p>
+    <p><strong>How the game works:</strong></p>
+    <ul>
+      <li>📕 Read the hint.</li>
+      <li>🖱️ Click on the area of the image where you locate the mentioned error.</li>
+      <li>✅ If you find the error, you receive <strong>10 points</strong> and a green circle marks the correct area.</li>
+      <li>❌ If you click the wrong area, you see <em>"Not quite! Try again."</em> in red — keep clicking until you find it or the timer runs out.</li>
+      <li>⏳ If the timer runs out, you receive <strong>no points</strong> for that round.</li>
+      <li>🏆 You can collect up to <strong>50 points</strong> in total. You have <strong>30 seconds</strong> per image.</li>
+    </ul>
+    <p class="note">Result: no significant improvement (p<sub>adj</sub> = 0.310). Possible explanation: gamification may have diverted attention from learning the cues.</p>
+  </div>
+  <div id="game-root"></div>
+  <div id="int4-task"></div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     INT 5: FEEDBACK
+═════════════════════════════════════════════ -->
+<div id="sec-int5" style="display:none">
+  <div class="card">
+    <div class="badge">Intervention 5 · Feedback</div>
+    <h2>Training: How to Detect Fake Images</h2>
+    <p>Welcome to our fake image detection training module! In this training session:</p>
+    <ul>
+      <li>We'll show you <strong>10 images</strong> (5 real + 5 fake).</li>
+      <li>For each image, decide if it's <strong>real</strong> or <strong>fake</strong>.</li>
+      <li>You'll receive <strong>immediate feedback</strong> after each answer.</li>
+    </ul>
+    <p>After completing this training, you'll apply your new skills in the actual detection task.</p>
+    <p class="note">Unlike the other interventions, <strong>no descriptions of errors are provided</strong> — only exposure and feedback. This tests whether repeated exposure alone supports learning. Result: no significant improvement (p<sub>adj</sub> = 1.000).</p>
+  </div>
+  <div id="fb-train-root"></div>
+  <div id="int5-task"></div>
+</div>
+
+</div><!-- /#main -->
+
+<!-- ════════════════════════════════════════════
+     SHARED DATA
+═════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── 5 Tips (identical content across interventions 2, 3, 4) ── */
+var TIPS = [
+  {
+    title: 'Anatomical Errors',
+    shortTitle: 'Anatomical',
+    text: 'Fake images often have anatomical errors. For example, people often have missing, extra, or merged fingers, nonexistent fingernails, and unlikely hand proportions.',
+    visual_note: 'In the image below, you can see that the hands are merged together and that the hand on the right should have been a left hand, so the thumb should not be visible.',
+    imageDesc: 'Two people holding hands — fingers are merged together unnaturally',
+    source: 'DALL-E 3',
+    icon: '🤝',
+    errorRegion: { type: 'circle', xPct: 0.50, yPct: 0.75, rPct: 0.12 }
+  },
+  {
+    title: 'Too Perfect',
+    shortTitle: 'Stylistic',
+    text: 'Fake images often look a bit too perfect. People may have glossy, shiny skin, windswept hair, and they may look like a photo in a magazine or a scene from a movie. Sometimes, parts of an image have a different level of detail or vibrancy compared to the rest.',
+    visual_note: 'In the image below, you can see that the face of the woman is not realistic.',
+    imageDesc: 'Portrait of a woman with unnaturally smooth, plastic-looking skin',
+    source: 'DALL-E 3',
+    icon: '✨',
+    errorRegion: { type: 'circle', xPct: 0.525, yPct: 0.485, rPct: 0.075 }
+  },
+  {
+    title: 'Functional Errors',
+    shortTitle: 'Functional',
+    text: 'Fake images often have functional errors. Image generators do not have a structural understanding of how objects in the world work and interact with each other. This can cause composition errors, dysfunctional objects, and atypical designs. Looking closely may also reveal distorted and unresolved details or incomprehensible text and logos.',
+    visual_note: 'In the image below, the saucer seems to be floating underneath the cup on the left with no hand holding it.',
+    imageDesc: 'Coffee cup and saucer — the saucer floats with no hand supporting it',
+    source: 'DALL-E 3',
+    icon: '☕',
+    errorRegion: { type: 'circle', xPct: 0.43, yPct: 0.60, rPct: 0.0675 }
+  },
+  {
+    title: 'Physics Artifacts',
+    shortTitle: 'Physics',
+    text: 'Fake images can produce subtle artifacts that are inconsistent with the laws of physics. These include inaccurate shadows, reflections of alternative realities, and depth and perspective issues.',
+    visual_note: 'In the image below, the reflection of the man doesn\'t match the man in front of the mirror. The wrong arm is holding the toothbrush and the toothbrush should be facing a different direction.',
+    imageDesc: 'Man brushing teeth — mirror reflection shows wrong arm and wrong toothbrush direction',
+    source: 'DALL-E 3',
+    icon: '🪞',
+    errorRegion: { type: 'rect', xPct: 0.00, yPct: 0.09, wPct: 0.55, hPct: 0.67 }
+  },
+  {
+    title: 'Sociocultural Errors',
+    shortTitle: 'Sociocultural',
+    text: 'Fake images may have sociocultural errors. For example, the images may show scenarios that are inappropriate, unlikely to be seen in the real world, violate subtle rules specific to different cultures, or are historically inaccurate.',
+    visual_note: 'In the image below, the scenario is highly unlikely.',
+    imageDesc: 'Pope Francis wearing a fashionable white puffer jacket (viral deepfake)',
+    source: 'Viral deepfake (real example used in the study)',
+    icon: '🌍',
+    errorRegion: { type: 'rect', xPct: 0.033, yPct: 0.075, wPct: 0.80, hPct: 0.95 }
+  }
+];
+
+/* ── Simulated detection task images (5 real + 10 fake) ── */
+var TASK_IMAGES = [
+  { label:'Image A1', isReal:true,  desc:'Portrait in natural outdoor light',             icon:'📷' },
+  { label:'Image A2', isReal:false, desc:'Studio portrait — overly smooth skin',           icon:'🤖' },
+  { label:'Image A3', isReal:false, desc:'Group photo — fingers merged unnaturally',       icon:'🤖' },
+  { label:'Image A4', isReal:true,  desc:'Candid street photograph',                       icon:'📷' },
+  { label:'Image A5', isReal:false, desc:'Profile shot — hyper-realistic hair texture',    icon:'🤖' },
+  { label:'Image A6', isReal:true,  desc:'Workplace environment, natural lighting',        icon:'📷' },
+  { label:'Image A7', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖' },
+  { label:'Image A8', isReal:true,  desc:'Beach sunset candid',                            icon:'📷' },
+  { label:'Image A9', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖' },
+  { label:'Image A10',isReal:true,  desc:'Sports action shot',                             icon:'📷' },
+  { label:'Image A11',isReal:false, desc:'Politician in unusual clothing (viral-style)',   icon:'🤖' },
+  { label:'Image A12',isReal:false, desc:'Night scene — impossible shadows',               icon:'🤖' },
+  { label:'Image A13',isReal:false, desc:'Portrait — extra finger on left hand',           icon:'🤖' },
+  { label:'Image A14',isReal:false, desc:'Crowd scene — background figures distorted',     icon:'🤖' },
+  { label:'Image A15',isReal:false, desc:'Celebrity in a fabricated context',              icon:'🤖' }
+];
+
+/* ── Feedback training images (5 real + 5 fake, same deepfakes as Visual/Gamified) ── */
+var FB_TRAIN_IMAGES = [
+  { label:'Training 1', isReal:false, desc:'Hands merged — anatomical error',          icon:'🤖' },
+  { label:'Training 2', isReal:true,  desc:'Real portrait (natural outdoor setting)',  icon:'📷' },
+  { label:'Training 3', isReal:false, desc:'Too-perfect face — stylistic artifact',    icon:'🤖' },
+  { label:'Training 4', isReal:true,  desc:'Real candid photo (everyday scene)',       icon:'📷' },
+  { label:'Training 5', isReal:false, desc:'Floating saucer — functional error',       icon:'🤖' },
+  { label:'Training 6', isReal:true,  desc:'Real portrait (natural indoor light)',     icon:'📷' },
+  { label:'Training 7', isReal:false, desc:'Mirror reflection inconsistency — physics', icon:'🤖' },
+  { label:'Training 8', isReal:true,  desc:'Real sports photograph',                   icon:'📷' },
+  { label:'Training 9', isReal:false, desc:'Pope Francis puffer jacket (viral deepfake)', icon:'🤖' },
+  { label:'Training 10',isReal:true,  desc:'Real workplace photograph',                icon:'📷' }
+];
+
+/* ── Helpers ── */
+function mkPlaceholder(maxW, label, icon, note) {
+  return '<div class="img-placeholder" style="max-width:' + maxW + 'px">' +
+    '<div class="img-icon">' + (icon||'🖼') + '</div>' +
+    '<div class="img-label">' + label + '</div>' +
+    (note ? '<div class="img-note">' + note + '</div>' : '') +
+    '</div>';
+}
+
+function go(id) {
+  ['overview','control','int1','int2','int3','int4','int5'].forEach(function(s){
+    document.getElementById('sec-'+s).style.display = s===id ? '' : 'none';
+  });
+  document.querySelectorAll('.nav-btn').forEach(function(b){
+    b.classList.toggle('active',
+      b.textContent.trim() === (
+        id==='overview'?'Overview': id==='control'?'Control':
+        id==='int1'?'1 · Knowledge': id==='int2'?'2 · Textual':
+        id==='int3'?'3 · Visual':    id==='int4'?'4 · Gamified':'5 · Feedback'));
+  });
+  window.scrollTo(0,0);
+  // Reset sections that use a start button so they always begin fresh
+  if (id === 'control') {
+    document.getElementById('control-task').innerHTML = '';
+    var b1 = document.getElementById('ctrl-start-btn'); if (b1) b1.style.display = '';
+  }
+  if (id === 'int1') {
+    document.getElementById('int1-task').innerHTML = '';
+    var b2 = document.getElementById('int1-start-btn'); if (b2) b2.style.display = '';
+  }
+  if (id==='int2') buildTextual();
+  if (id==='int3') buildVisual();
+  if (id==='int4') startGame();
+  if (id==='int5') startFeedbackTraining();
+}
+
+/* ═══════════════════════════════════════════
+   DETECTION TASK (shared by all conditions)
+═══════════════════════════════════════════ */
+function startTask(containerId, withFeedback) {
+  var container = document.getElementById(containerId);
+  container.innerHTML = '';
+  var imgs = TASK_IMAGES.slice();
+
+  function render(i) {
+    if (i >= imgs.length) {
+      container.innerHTML =
+        '<div class="card"><h2>✅ Detection Task Complete</h2>' +
+        '<p>In the actual study, participants classified all 15 images (5 real + 10 fake) then answered a confidence slider (0–100).</p>' +
+        '<button class="btn btn-ghost" onclick="go(\'overview\')">← Back to Overview</button></div>';
+      return;
+    }
+    var img = imgs[i];
+    var answered = false;
+
+    // No inline onclick — event listeners are attached below
+    container.innerHTML =
+      '<div class="card">' +
+      '<div class="progress-row"><span class="progress-label">Image '+(i+1)+' / '+imgs.length+'</span>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(i/imgs.length*100)+'%"></div></div></div>' +
+      mkPlaceholder(480, img.desc, img.icon, 'Real images: 5 · Deepfake images: 10 · Total: 15') +
+      '<p style="font-weight:700;margin-top:14px;">Is this image <strong>real</strong> or <strong>fake</strong>?</p>' +
+      '<div class="scale-row">' +
+      ['Definitely real','Probably real','Probably fake','Definitely fake'].map(function(opt,oi){
+        return '<button class="scale-btn" data-oi="'+oi+'">' + opt + '</button>';
+      }).join('') + '</div>' +
+      '<p style="font-weight:700;margin-top:12px;">Would you <strong>share</strong> this image on social media?</p>' +
+      '<div class="share-row">' +
+      ["Yes","No","Don't know"].map(function(s){ return '<button class="share-btn">'+s+'</button>'; }).join('') +
+      '</div>' +
+      '<div class="seen-row"><input type="checkbox" id="seen-cb-'+i+'"><label for="seen-cb-'+i+'">I have seen this image before, or it failed to load</label></div>' +
+      '<div class="fb-reveal" id="task-fb-msg"></div>' +
+      '<button class="btn" id="task-next-btn" style="display:none;margin-top:14px">Next →</button>' +
+      '</div>';
+
+    var nextBtn = container.querySelector('#task-next-btn');
+    var fbMsg   = container.querySelector('#task-fb-msg');
+
+    container.querySelectorAll('.scale-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered && !withFeedback) return;
+        container.querySelectorAll('.scale-btn').forEach(function(b){ b.classList.remove('selected','correct-sel','wrong-sel'); });
+        btn.classList.add('selected');
+        var oi      = parseInt(btn.dataset.oi);
+        var correct = img.isReal ? oi <= 1 : oi >= 2;
+        if (withFeedback) {
+          answered = true;
+          container.querySelectorAll('.scale-btn').forEach(function(b){ b.disabled = true; });
+          btn.classList.remove('selected');
+          btn.classList.add(correct ? 'correct-sel' : 'wrong-sel');
+          fbMsg.className = 'fb-reveal ' + (correct ? 'correct' : 'wrong');
+          fbMsg.textContent = correct
+            ? '✅ Correct! This image is ' + (img.isReal ? 'real' : 'fake') + '.'
+            : '❌ Incorrect. This image is actually ' + (img.isReal ? 'real' : 'fake') + '.';
+          if (!correct) { btn.classList.add('shake'); setTimeout(function(){ btn.classList.remove('shake'); }, 600); }
+        }
+        nextBtn.style.display = 'inline-block';
+      });
+    });
+
+    container.querySelectorAll('.share-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        container.querySelectorAll('.share-btn').forEach(function(b){ b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+    });
+
+    nextBtn.addEventListener('click', function() { render(i + 1); });
+  }
+  render(0);
+}
+
+/* ═══════════════════════════════════════════
+   INT 2: TEXTUAL (stepped, one per "page")
+═══════════════════════════════════════════ */
+function buildTextual() {
+  var root = document.getElementById('int2-steps');
+  root.innerHTML = '';
+  document.getElementById('int2-task').innerHTML = '';
+  var step = 0;
+
+  function showStep(s) {
+    if (s >= TIPS.length) {
+      root.innerHTML = '<div class="card"><p>✅ You have read all 5 hints. In the actual study, participants now proceed to the image detection task.</p>' +
+        '<button class="btn" onclick="startTask(\'int2-task\',false)">▶ Continue to Detection Task</button></div>';
+      document.getElementById('int2-task').innerHTML = '';
+      return;
+    }
+    var t = TIPS[s];
+    root.innerHTML =
+      '<div class="card">' +
+      '<div class="progress-row"><span class="progress-label">Hint '+(s+1)+' of 5</span>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+((s)/5*100)+'%"></div></div></div>' +
+      '<div class="tip-card"><h4>Hint · ' + t.title + '</h4><p>' + t.text + '</p></div>' +
+      '<button class="btn" onclick="document.getElementById(\'int2-steps\')._step='+(s+1)+';showTxtStep('+(s+1)+')">' +
+        (s < 4 ? 'Next hint →' : '✅ Continue to Detection Task') + '</button>' +
+      '</div>';
+
+    if (s === 4) {
+      root.querySelector('.btn').onclick = function(){ startTask('int2-task', false); root.innerHTML=''; };
+    }
+  }
+
+  window.showTxtStep = showStep;
+  showStep(0);
+}
+
+/* ═══════════════════════════════════════════
+   INT 3: VISUAL (stepped, one per "page")
+═══════════════════════════════════════════ */
+function buildVisual() {
+  var root = document.getElementById('int3-steps');
+  root.innerHTML = '';
+  document.getElementById('int3-task').innerHTML = '';
+
+  function showVStep(s) {
+    if (s >= TIPS.length) {
+      root.innerHTML = '<div class="card"><p>✅ You have viewed all 5 illustrated hints. Continue to the detection task.</p>' +
+        '<button class="btn" onclick="startTask(\'int3-task\',false)">▶ Continue to Detection Task</button></div>';
+      document.getElementById('int3-task').innerHTML = '';
+      return;
+    }
+    var t = TIPS[s];
+    root.innerHTML =
+      '<div class="card">' +
+      '<div class="progress-row"><span class="progress-label">Hint '+(s+1)+' of 5</span>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+((s)/5*100)+'%"></div></div></div>' +
+      '<div class="tip-card"><h4>Hint · ' + t.title + '</h4><p>' + t.text + '</p></div>' +
+      mkPlaceholder(480, t.imageDesc, t.icon, 'Source: ' + t.source) +
+      '<p style="font-size:14px;color:var(--text);margin-top:4px;font-style:italic;">' + t.visual_note + '</p>' +
+      '<button class="btn" style="margin-top:14px">' + (s < 4 ? 'Next →' : '✅ Continue to Detection Task') + '</button>' +
+      '</div>';
+
+    root.querySelector('.btn').onclick = s < 4
+      ? function(){ showVStep(s+1); }
+      : function(){ startTask('int3-task', false); root.innerHTML=''; };
+  }
+
+  showVStep(0);
+}
+
+/* ═══════════════════════════════════════════
+   INT 4: GAMIFIED
+═══════════════════════════════════════════ */
+(function(){
+  var gs = { round:0, score:0, timer:null, ended:false };
+
+  function startGame() {
+    if (gs.timer) clearInterval(gs.timer);
+    gs.round = 0; gs.score = 0; gs.ended = false;
+    document.getElementById('int4-task').innerHTML = '';
+    renderRound();
+  }
+
+  function renderRound() {
+    var root = document.getElementById('game-root');
+    if (!root) return;
+    if (gs.round >= TIPS.length) { renderEnd(); return; }
+
+    var tip = TIPS[gs.round];
+    var r   = gs.round;
+    var timeLeft = 30;
+    var roundEnded = false;
+
+    root.innerHTML =
+      '<div class="card">' +
+      '<div class="progress-row"><span class="progress-label">Round '+(r+1)+' of 5</span>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(r/5*100)+'%"></div></div></div>' +
+      '<div class="game-hud">' +
+      '<div class="hud-box"><div class="hud-label">Points</div><div class="hud-value success" id="g-pts">'+gs.score+'</div></div>' +
+      '<div class="hud-box"><div class="hud-label">Time left</div><div class="hud-value" id="g-time">'+timeLeft+'</div></div>' +
+      '</div>' +
+      '<div class="tip-card"><h4>Hint · ' + tip.title + '</h4><p>' + tip.text + '</p>' +
+      '<p style="margin-top:8px;font-weight:700;color:var(--primary);">Can you spot the error in the image? Click on it to earn points!</p></div>' +
+      '<div style="position:relative;display:inline-block;width:100%;max-width:480px;display:flex;justify-content:center;">' +
+      '<div style="position:relative;display:inline-block;width:100%;max-width:480px;">' +
+      '<div class="img-placeholder" id="g-img" onclick="handleClick(event)" style="cursor:crosshair;max-width:480px">' +
+      '<div class="img-icon">'+tip.icon+'</div><div class="img-label">'+tip.imageDesc+'</div>' +
+      '<div class="img-note">Source: '+tip.source+'</div>' +
+      '<div class="error-region" id="g-region"></div>' +
+      '</div></div></div>' +
+      '<div class="game-feedback" id="g-fb"></div>' +
+      '</div>';
+
+    var imgEl   = document.getElementById('g-img');
+    var region  = document.getElementById('g-region');
+    var er      = tip.errorRegion;
+
+    function positionRegion(color) {
+      var rect = imgEl.getBoundingClientRect();
+      var w = rect.width, h = rect.height;
+      region.className = 'error-region' + (er.type==='rect'?' rect':'') + ' ' + (color||'');
+      if (er.type === 'circle') {
+        var cx = w*er.xPct, cy = h*er.yPct, rad = Math.min(w,h)*er.rPct;
+        region.style.left   = (cx-rad)+'px'; region.style.top   = (cy-rad)+'px';
+        region.style.width  = (rad*2)+'px';  region.style.height = (rad*2)+'px';
+      } else {
+        region.style.left   = (w*er.xPct)+'px';  region.style.top    = (h*er.yPct)+'px';
+        region.style.width  = (w*er.wPct)+'px';  region.style.height = (h*er.hPct)+'px';
+      }
+    }
+    positionRegion('');
+    window.addEventListener('resize', function(){ if(document.getElementById('g-img')) positionRegion(''); });
+
+    gs.timer = setInterval(function(){
+      timeLeft--;
+      var te = document.getElementById('g-time');
+      if (!te) { clearInterval(gs.timer); return; }
+      te.textContent = timeLeft;
+      te.className   = 'hud-value' + (timeLeft <= 10 ? ' danger' : '');
+      if (timeLeft <= 0) {
+        clearInterval(gs.timer);
+        endRound(false, true);
+      }
+    }, 1000);
+
+    function hitTest(e) {
+      var rect = imgEl.getBoundingClientRect();
+      var x = e.clientX - rect.left, y = e.clientY - rect.top;
+      var w = rect.width, h = rect.height;
+      if (er.type === 'circle') {
+        var cx = w*er.xPct, cy = h*er.yPct, rad = Math.min(w,h)*er.rPct;
+        return Math.sqrt(Math.pow(x-cx,2)+Math.pow(y-cy,2)) <= rad;
+      } else {
+        var rx=w*er.xPct, ry=h*er.yPct, rw=w*er.wPct, rh=h*er.hPct;
+        return x>=rx && x<=rx+rw && y>=ry && y<=ry+rh;
+      }
+    }
+
+    window.handleClick = function(e) {
+      if (roundEnded) return;
+      var hit = hitTest(e);
+      var fb = document.getElementById('g-fb');
+      if (hit) {
+        clearInterval(gs.timer);
+        gs.score += 10;
+        var pts = document.getElementById('g-pts');
+        if(pts){ pts.textContent = gs.score; pts.classList.add('shake'); setTimeout(function(){pts.classList.remove('shake');},600); }
+        positionRegion('green');
+        region.classList.add('visible');
+        if (fb) { fb.className='game-feedback correct'; fb.textContent='✅ Correct! You found the error. You earned 10 points!'; }
+        endRound(true, false);
+      } else {
+        if (fb) { fb.className='game-feedback wrong'; fb.textContent='❌ Not quite! Try again.'; }
+        setTimeout(function(){ if(fb && !roundEnded) { fb.className='game-feedback'; fb.textContent=''; } }, 900);
+      }
+    };
+
+    function endRound(success, timeout) {
+      roundEnded = true;
+      if (!success) {
+        positionRegion('red');
+        region.classList.add('visible');
+        var fb = document.getElementById('g-fb');
+        if (fb) {
+          fb.className = 'game-feedback timeout';
+          fb.textContent = timeout ? '⏰ Time\'s up! The error region is shown in red.' : '❌ Not quite! Try again.';
+        }
+      }
+      setTimeout(function(){ gs.round++; renderRound(); }, success ? 1800 : 2200);
+    }
+  }
+
+  function renderEnd() {
+    var root = document.getElementById('game-root');
+    var pts  = gs.score;
+    var msg  = pts <= 10
+      ? 'Thanks for participating! Spotting errors in fake images can be challenging. With more exposure, you\'ll likely get better at it.'
+      : pts <= 30
+      ? 'Good eye! You\'ve shown a solid ability to spot errors in fake images.'
+      : 'Impressive results! You\'ve demonstrated a keen ability to spot errors in fake images.';
+
+    root.innerHTML =
+      '<div class="score-banner"><div class="score-big">'+pts+'/50</div><p>'+msg+'</p></div>' +
+      '<div class="card"><h2>Training Complete!</h2>' +
+      '<p>In the actual study, participants now continue to the 15-image detection task.</p>' +
+      '<button class="btn" onclick="startTask(\'int4-task\',false)">▶ Continue to Detection Task</button>&nbsp;&nbsp;' +
+      '<button class="btn btn-ghost" onclick="startGame()">↺ Play Again</button></div>';
+  }
+
+  window.startGame = startGame;
+
+  /* Hook into go() so game starts automatically */
+  var _origGo = window.go;
+  window.go = function(id) {
+    _origGo(id);
+    if (id === 'int4') startGame();
+    if (id === 'int5') startFeedbackTraining();
+  };
+})();
+
+/* ═══════════════════════════════════════════
+   INT 5: FEEDBACK TRAINING
+═══════════════════════════════════════════ */
+function startFeedbackTraining() {
+  var root = document.getElementById('fb-train-root');
+  root.innerHTML = '';
+  document.getElementById('int5-task').innerHTML = '';
+  var imgs = FB_TRAIN_IMAGES.slice();
+
+  function renderFB(i) {
+    if (i >= imgs.length) {
+      root.innerHTML =
+        '<div class="card"><h2>✅ Training Complete!</h2>' +
+        '<p>You completed 10 rounds of exposure + feedback. In the actual study, participants now continue to the main 15-image detection task.</p>' +
+        '<button class="btn" onclick="startTask(\'int5-task\',false)">▶ Continue to Detection Task</button></div>';
+      return;
+    }
+    var img     = imgs[i];
+    var answered = false;
+
+    // No inline onclick — event listeners attached below
+    root.innerHTML =
+      '<div class="card">' +
+      '<div class="progress-row"><span class="progress-label">Training image '+(i+1)+' of '+imgs.length+'</span>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(i/imgs.length*100)+'%"></div></div></div>' +
+      mkPlaceholder(480, img.desc, img.icon) +
+      '<p style="font-weight:700;margin-top:14px;">Is this image <strong>real</strong> or <strong>fake</strong>?</p>' +
+      '<div class="scale-row">' +
+      ['Definitely real','Probably real','Probably fake','Definitely fake'].map(function(opt,oi){
+        return '<button class="scale-btn" data-oi="'+oi+'">' + opt + '</button>';
+      }).join('') + '</div>' +
+      '<div class="fb-reveal" id="fbt-result"></div>' +
+      '<button class="btn" id="fbt-next" style="display:none;margin-top:12px">Next →</button>' +
+      '</div>';
+
+    var fbtNext = root.querySelector('#fbt-next');
+    var fbtRes  = root.querySelector('#fbt-result');
+
+    root.querySelectorAll('.scale-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        root.querySelectorAll('.scale-btn').forEach(function(b){ b.disabled = true; });
+        var oi      = parseInt(btn.dataset.oi);
+        var correct = img.isReal ? oi <= 1 : oi >= 2;
+        btn.classList.add(correct ? 'correct-sel' : 'wrong-sel');
+        if (!correct) { btn.classList.add('shake'); setTimeout(function(){ btn.classList.remove('shake'); }, 600); }
+        fbtRes.className = 'fb-reveal ' + (correct ? 'correct' : 'wrong');
+        fbtRes.textContent = correct
+          ? '✅ Correct! This image is ' + (img.isReal ? 'real' : 'fake') + '.'
+          : '❌ Incorrect. This image is actually ' + (img.isReal ? 'real' : 'fake') + '.';
+        fbtNext.style.display = 'inline-block';
+      });
+    });
+
+    fbtNext.addEventListener('click', function() { renderFB(i + 1); });
+  }
+
+  renderFB(0);
+}
+
+/* ── Boot: hook go() overrides needed before any click ── */
+/* go() is already defined and patched by the IIFE above, so Control/Int1 start buttons work fine */
+</script>
+
+</body>
+</html>

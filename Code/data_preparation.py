@@ -71,7 +71,7 @@ def clean_column_data_type(df):
 
     # Apply mapping to ideology columns if they exist and contain string values
     for col in ['social_issues', 'economic_issues']:
-        if col in df.columns and df[col].dtype == 'object':
+        if col in df.columns and pd.api.types.is_string_dtype(df[col]):
             df[col] = df[col].map(ideology_mapping)
 
     numeric_columns = ['slider_confidence_1', 'time_social_media', 'experience_deepfakes_1', 'experience_detecting_1',

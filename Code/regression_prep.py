@@ -48,7 +48,6 @@ def recode_demographics(df):
 
     df['political_orientation'] = ((df['social_issues'] + df['economic_issues']) / 2).astype(
         'float64')
-    # df['political_orientation'] = df['political_orientation'].apply(recode_political_orientation).astype('float64')
 
 
     # Recode Age

@@ -124,15 +124,17 @@ for group in ['intervention_1', 'intervention_5', 'intervention_2', 'interventio
     group_models = {}
     for name, formula in formulas.items():
         group_name = f"{group}_control_{name}"
-        print(formula)
-        # Remove intervention_group from formula for group-specific regressions
-        group_models[name] = run_regression(group_data, formula, group=group_name, check_multicollinearity=True)
+        # intervention_group is now binary (0/1 int), so drop C() wrapper
+        group_formula = formula.replace('C(intervention_group)', 'intervention_group')
+        print(group_formula)
+        group_models[name] = run_regression(group_data, group_formula, group=group_name, check_multicollinearity=True)
     intervention_models[group] = group_models
     group_models = {}
     for name, formula in formulas_with_interactions.items():
         group_name = f"{group}_control_{name}_interactions"
-        print(formula)
-        group_models[name] = run_regression(group_data, formula, group=group_name)
+        group_formula = formula.replace('C(intervention_group)', 'intervention_group')
+        print(group_formula)
+        group_models[name] = run_regression(group_data, group_formula, group=group_name)
     interaction_models[group] = group_models
 
 # save models
@@ -163,7 +165,7 @@ for group, group_models in interaction_models.items():
 dependent_var = 'fake accuracy'
 
 # Demographics table
-file_name = '../../Results/pilot2/regression_table_demographics.txt'
+file_name = '../Results/pilot2/regression_table_demographics.txt'
 demographic_models = [all_models['overall']['demographics'],
                       all_models['intervention_2']['demographics'], all_models['intervention_3']['demographics'],
                       all_models['intervention_4']['demographics'], all_models['intervention_5']['demographics'],
@@ -171,7 +173,7 @@ demographic_models = [all_models['overall']['demographics'],
 latex_table_demographics = create_regression_table(demographic_models, list(group_names.values()), dependent_var,
                                                    config.variable_display_names, file_name=file_name)
 
-file_name = '../../Results/pilot2/regression_table_demographics_interactions.txt'
+file_name = '../Results/pilot2/regression_table_demographics_interactions.txt'
 demographic_interaction_models = [interaction_models['intervention_2']['demographics'],
                                   interaction_models['intervention_3']['demographics'],
                                   interaction_models['intervention_4']['demographics'],
@@ -181,7 +183,7 @@ latex_table_demographics_interactions = create_regression_table(demographic_inte
                                                                 config.variable_display_names, file_name=file_name)
 
 # Social Media table
-file_name = '../../Results/pilot2/regression_table_social_media.txt'
+file_name = '../Results/pilot2/regression_table_social_media.txt'
 social_media_models = [all_models['overall']['social_media'],
                        all_models['intervention_2']['social_media'], all_models['intervention_3']['social_media'],
                        all_models['intervention_4']['social_media'], all_models['intervention_5']['social_media'],
@@ -189,7 +191,7 @@ social_media_models = [all_models['overall']['social_media'],
 latex_table_social_media = create_regression_table(social_media_models, list(group_names.values()), dependent_var,
                                                    config.variable_display_names, file_name=file_name)
 
-file_name = '../../Results/pilot2/regression_table_social_media_interactions.txt'
+file_name = '../Results/pilot2/regression_table_social_media_interactions.txt'
 social_media_interaction_models = [interaction_models['intervention_2']['social_media'],
                                    interaction_models['intervention_3']['social_media'],
                                    interaction_models['intervention_4']['social_media'],
@@ -199,7 +201,7 @@ latex_table_social_media_interactions = create_regression_table(social_media_int
                                                                 config.variable_display_names, file_name=file_name)
 
 # Media Literacy table
-file_name = '../../Results/pilot2/regression_table_media_literacy.txt'
+file_name = '../Results/pilot2/regression_table_media_literacy.txt'
 media_literacy_models = [all_models['overall']['media_literacy'],
                        all_models['intervention_2']['media_literacy'], all_models['intervention_3']['media_literacy'],
                        all_models['intervention_4']['media_literacy'], all_models['intervention_5']['media_literacy'],
@@ -207,7 +209,7 @@ media_literacy_models = [all_models['overall']['media_literacy'],
 latex_table_media_literacy = create_regression_table(media_literacy_models, list(group_names.values()), dependent_var,
                                                      config.variable_display_names, file_name=file_name)
 
-file_name = '../../Results/pilot2/regression_table_media_literacy_interactions.txt'
+file_name = '../Results/pilot2/regression_table_media_literacy_interactions.txt'
 media_literacy_interaction_models = [interaction_models['intervention_2']['media_literacy'],
                                    interaction_models['intervention_3']['media_literacy'],
                                    interaction_models['intervention_4']['media_literacy'],

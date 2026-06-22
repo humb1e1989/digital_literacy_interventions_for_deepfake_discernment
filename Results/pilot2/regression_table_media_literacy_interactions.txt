@@ -1,0 +1,47 @@
+\begin{longtable}{lccccc}
+\hline
+ & \textsc{Textual} & \textsc{Visual} & \textsc{Gamified} & \textsc{Feedback} & \textsc{Knowledge} \\
+\hline
+\endfirsthead
+
+\multicolumn{6}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline
+ & Textual & Visual & Gamified & Feedback & Knowledge \\
+\hline
+\endhead
+
+\hline \multicolumn{6}{r}{Continued on next page} \\
+\endfoot
+
+\hline
+\caption{Regression results for fake accuracy. Parentheses represent standard errors. Significance levels:  $^*p<0.05$, $^{**}p<0.01$, $^{***}p<0.001$} \\
+\endlastfoot
+
+Intercept & 56.434$^{***}$ & 56.434$^{***}$ & 56.434$^{***}$ & 56.434$^{***}$ & 56.434$^{***}$ \\
+ & (8.673) & (8.158) & (8.730) & (8.599) & (8.571) \\
+intervention_group & -19.022 & -3.892 & 18.568 & -5.560 & -1.501 \\
+ & (12.925) & (12.272) & (13.355) & (12.876) & (13.119) \\
+KnowledgeDeepfakes & -2.122 & -2.122 & -2.122 & -2.122 & -2.122 \\
+ & (2.197) & (2.067) & (2.211) & (2.178) & (2.171) \\
+ExpDetecting & -0.067 & -0.067 & -0.067 & -0.067 & -0.067 \\
+ & (2.074) & (1.951) & (2.087) & (2.056) & (2.050) \\
+ExpSearchEngine & 0.896 & 0.896 & 0.896 & 0.896 & 0.896 \\
+ & (1.730) & (1.627) & (1.741) & (1.715) & (1.710) \\
+ExpImageSearch & 0.978 & 0.978 & 0.978 & 0.978 & 0.978 \\
+ & (1.167) & (1.098) & (1.175) & (1.157) & (1.153) \\
+ExpGenAI & 1.793 & 1.793 & 1.793 & 1.793 & 1.793 \\
+ & (1.325) & (1.246) & (1.334) & (1.314) & (1.309) \\
+intervention_group × KnowledgeDeepfakes & 4.324 & 5.327 & 0.693 & -1.305 & 2.423 \\
+ & (3.326) & (3.280) & (2.984) & (3.019) & (3.081) \\
+intervention_group × ExpDetecting & 0.101 & -1.537 & 1.737 & 2.089 & -0.741 \\
+ & (3.046) & (3.005) & (2.735) & (2.923) & (2.821) \\
+intervention_group × ExpSearchEngine & 4.887 & 1.624 & -1.332 & 1.179 & 1.636 \\
+ & (2.562) & (2.526) & (2.530) & (2.525) & (2.624) \\
+intervention_group × ExpImageSearch & -0.376 & -0.112 & -2.917 & 0.146 & -1.798 \\
+ & (1.696) & (1.634) & (1.678) & (1.717) & (1.657) \\
+intervention_group × ExpGenAI & -4.926$^{**}$ & -1.796 & -2.205 & -1.644 & -1.626 \\
+ & (1.811) & (1.654) & (1.867) & (1.732) & (1.759) \\
+R-squared & 0.084 & 0.117 & 0.036 & 0.024 & 0.024 \\
+R-squared Adj. & 0.056 & 0.090 & 0.007 & -0.005 & -0.006 \\
+N & 375 & 370 & 371 & 372 & 372 \\
+\end{longtable}

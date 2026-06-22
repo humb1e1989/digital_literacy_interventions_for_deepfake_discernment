@@ -1,0 +1,43 @@
+\begin{longtable}{lccccccc}
+\hline
+ & \textsc{Overall} & \textsc{Textual} & \textsc{Visual} & \textsc{Gamified} & \textsc{Feedback} & \textsc{Knowledge} & \textsc{Control} \\
+\hline
+\endfirsthead
+
+\multicolumn{8}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline
+ & Overall & Textual & Visual & Gamified & Feedback & Knowledge & Control \\
+\hline
+\endhead
+
+\hline \multicolumn{8}{r}{Continued on next page} \\
+\endfoot
+
+\hline
+\caption{Regression results for fake accuracy. Parentheses represent standard errors. Significance levels:  $^*p<0.05$, $^{**}p<0.01$, $^{***}p<0.001$} \\
+\endlastfoot
+
+Intercept & 64.708$^{***}$ & 63.507$^{***}$ & 62.633$^{***}$ & 63.973$^{***}$ & 65.825$^{***}$ & 62.768$^{***}$ & 62.326$^{***}$ \\
+ & (2.253) & (3.310) & (3.164) & (3.227) & (3.181) & (3.215) & (4.393) \\
+Knowledge & 2.939 &  &  &  &  &  &  \\
+ & (2.308) &  &  &  &  &  &  \\
+Textual & 7.702$^{***}$ &  &  &  &  &  &  \\
+ & (2.299) &  &  &  &  &  &  \\
+Visual & 13.056$^{***}$ &  &  &  &  &  &  \\
+ & (2.315) &  &  &  &  &  &  \\
+Gamified & 4.650$^{*}$ &  &  &  &  &  &  \\
+ & (2.311) &  &  &  &  &  &  \\
+Feedback & -1.391 &  &  &  &  &  &  \\
+ & (2.310) &  &  &  &  &  &  \\
+PlatformCount & 0.521 & 1.296 & 0.763 & 0.860 & 0.759 & 1.447 & 1.690 \\
+ & (0.465) & (0.811) & (0.820) & (0.828) & (0.843) & (0.845) & (1.219) \\
+SharingCount & -1.493$^{**}$ & -1.992$^{*}$ & -0.986 & -2.132$^{*}$ & -2.106$^{*}$ & -1.579 & -2.242 \\
+ & (0.476) & (0.861) & (0.820) & (0.900) & (0.863) & (0.839) & (1.279) \\
+TimeOnline & -0.496$^{**}$ & -0.603$^{*}$ & -0.520 & -0.119 & -0.639 & -0.885 & -0.468 \\
+ & (0.170) & (0.296) & (0.361) & (0.319) & (0.367) & (0.580) & (0.792) \\
+intervention_group &  & 7.761$^{**}$ & 13.136$^{***}$ & 4.537 & -1.443 & 2.902 &  \\
+ &  & (2.414) & (2.285) & (2.417) & (2.365) & (2.356) &  \\
+R-squared & 0.061 & 0.052 & 0.091 & 0.025 & 0.030 & 0.023 & 0.021 \\
+R-squared Adj. & 0.054 & 0.041 & 0.081 & 0.014 & 0.019 & 0.013 & 0.005 \\
+N & 1112 & 375 & 370 & 371 & 372 & 372 & 187 \\
+\end{longtable}
