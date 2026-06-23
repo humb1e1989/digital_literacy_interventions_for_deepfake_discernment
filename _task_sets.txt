@@ -1,0 +1,20 @@
+var TASK_SETS = {
+  "control": [
+  { label:'Image A1', isReal:true, desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/16.jpg' },
+  { label:'Image A2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/1b4021c888.jpg' },
+  { label:'Image A3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/0c00dee9f9.jpg' },
+  { label:'Image A4', isReal:true, desc:'Candid street photograph', icon:'📷', src:'images/Real/37.jpg' },
+  { label:'Image A5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0fa6d29036.jpg' },
+  { label:'Image A6', isReal:true, desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/5.jpg' },
+  { label:'Image A7', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/0a93ca4c14.jpg' },
+  { label:'Image A8', isReal:true, desc:'Beach sunset candid', icon:'📷', src:'images/Real/34.jpg' },
+  { label:'Image A9', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/1b73a4fa14.jpg' },
+  { label:'Image A10', isReal:true, desc:'Sports action shot', icon:'📷', src:'images/Real/2.jpg' },
+  { label:'Image A11', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/0d168a892a.jpg' },
+  { label:'Image A12', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/0b1a124f7b.jpg' },
+  { label:'Image A13', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0ae9125362.jpg' },
+  { label:'Image A14', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0f6b94fb8a.jpg' },
+  { label:'Image A15', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/0fa47997c1.jpg' }
+],
+  "int1": [
+  { label:'Image K1', isReal:true, desc:'Por

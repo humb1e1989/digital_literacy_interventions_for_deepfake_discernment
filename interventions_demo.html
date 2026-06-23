@@ -388,6 +388,8 @@
 'use strict';
 
 /* ── 5 Tips (identical content across interventions 2, 3, 4) ── */
+/* HOW TO ADD IMAGES: set src to a relative path, e.g. 'images/tips/tip1.jpg'
+   Leave src as '' to keep the grey placeholder.                              */
 var TIPS = [
   {
     title: 'Anatomical Errors',
@@ -397,6 +399,8 @@ var TIPS = [
     imageDesc: 'Two people holding hands — fingers are merged together unnaturally',
     source: 'DALL-E 3',
     icon: '🤝',
+    src:     'images/tips/Tip1.png',   // Visual
+    gameSrc: 'images/tips/Game1.png',  // Gamified (error at center-bottom)
     errorRegion: { type: 'circle', xPct: 0.50, yPct: 0.75, rPct: 0.12 }
   },
   {
@@ -407,6 +411,8 @@ var TIPS = [
     imageDesc: 'Portrait of a woman with unnaturally smooth, plastic-looking skin',
     source: 'DALL-E 3',
     icon: '✨',
+    src:     'images/tips/Tip2.png',   // Visual
+    gameSrc: 'images/tips/Tip2.png',  // Gamified (same — face already centered)
     errorRegion: { type: 'circle', xPct: 0.525, yPct: 0.485, rPct: 0.075 }
   },
   {
@@ -417,6 +423,8 @@ var TIPS = [
     imageDesc: 'Coffee cup and saucer — the saucer floats with no hand supporting it',
     source: 'DALL-E 3',
     icon: '☕',
+    src:     'images/tips/Tip3.png',   // Visual
+    gameSrc: 'images/tips/Game3.png',  // Gamified (error at left-center)
     errorRegion: { type: 'circle', xPct: 0.43, yPct: 0.60, rPct: 0.0675 }
   },
   {
@@ -427,6 +435,8 @@ var TIPS = [
     imageDesc: 'Man brushing teeth — mirror reflection shows wrong arm and wrong toothbrush direction',
     source: 'DALL-E 3',
     icon: '🪞',
+    src:     'images/tips/Tip4.png',   // Visual
+    gameSrc: 'images/tips/Game4.png',  // Gamified (mirror on left side)
     errorRegion: { type: 'rect', xPct: 0.00, yPct: 0.09, wPct: 0.55, hPct: 0.67 }
   },
   {
@@ -437,47 +447,166 @@ var TIPS = [
     imageDesc: 'Pope Francis wearing a fashionable white puffer jacket (viral deepfake)',
     source: 'Viral deepfake (real example used in the study)',
     icon: '🌍',
+    src:     'images/tips/tip5.jpg',   // Visual
+    gameSrc: 'images/tips/tip5.jpg',  // Gamified (same)
     errorRegion: { type: 'rect', xPct: 0.033, yPct: 0.075, wPct: 0.80, hPct: 0.95 }
   }
 ];
 
-/* ── Simulated detection task images (5 real + 10 fake) ── */
+/* ── Detection task images (5 real + 10 fake) ── */
+/* HOW TO ADD IMAGES: set src to a relative path, e.g. 'images/task/real_1.jpg' */
 var TASK_IMAGES = [
-  { label:'Image A1', isReal:true,  desc:'Portrait in natural outdoor light',             icon:'📷' },
-  { label:'Image A2', isReal:false, desc:'Studio portrait — overly smooth skin',           icon:'🤖' },
-  { label:'Image A3', isReal:false, desc:'Group photo — fingers merged unnaturally',       icon:'🤖' },
-  { label:'Image A4', isReal:true,  desc:'Candid street photograph',                       icon:'📷' },
-  { label:'Image A5', isReal:false, desc:'Profile shot — hyper-realistic hair texture',    icon:'🤖' },
-  { label:'Image A6', isReal:true,  desc:'Workplace environment, natural lighting',        icon:'📷' },
-  { label:'Image A7', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖' },
-  { label:'Image A8', isReal:true,  desc:'Beach sunset candid',                            icon:'📷' },
-  { label:'Image A9', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖' },
-  { label:'Image A10',isReal:true,  desc:'Sports action shot',                             icon:'📷' },
-  { label:'Image A11',isReal:false, desc:'Politician in unusual clothing (viral-style)',   icon:'🤖' },
-  { label:'Image A12',isReal:false, desc:'Night scene — impossible shadows',               icon:'🤖' },
-  { label:'Image A13',isReal:false, desc:'Portrait — extra finger on left hand',           icon:'🤖' },
-  { label:'Image A14',isReal:false, desc:'Crowd scene — background figures distorted',     icon:'🤖' },
-  { label:'Image A15',isReal:false, desc:'Celebrity in a fabricated context',              icon:'🤖' }
+  { label:'Image A1',  isReal:true,  desc:'Portrait in natural outdoor light',              icon:'📷', src:'images/Real/16.jpg' },
+  { label:'Image A2',  isReal:false, desc:'Studio portrait — overly smooth skin',            icon:'🤖', src:'images/TempImage/1b4021c888.jpg' },
+  { label:'Image A3',  isReal:false, desc:'Group photo — fingers merged unnaturally',        icon:'🤖', src:'images/TempImage/0c00dee9f9.jpg' },
+  { label:'Image A4',  isReal:true,  desc:'Candid street photograph',                        icon:'📷', src:'images/Real/37.jpg' },
+  { label:'Image A5',  isReal:false, desc:'Profile shot — hyper-realistic hair texture',     icon:'🤖', src:'images/TempImage/0fa6d29036.jpg' },
+  { label:'Image A6',  isReal:true,  desc:'Workplace environment, natural lighting',         icon:'📷', src:'images/Real/5.jpg' },
+  { label:'Image A7',  isReal:false, desc:'Kitchen scene — floating utensil, logo distorted',icon:'🤖', src:'images/TempImage/0a93ca4c14.jpg' },
+  { label:'Image A8',  isReal:true,  desc:'Beach sunset candid',                             icon:'📷', src:'images/Real/34.jpg' },
+  { label:'Image A9',  isReal:false, desc:'Indoor portrait — mirror reflection inconsistent',icon:'🤖', src:'images/TempImage/1b73a4fa14.jpg' },
+  { label:'Image A10', isReal:true,  desc:'Sports action shot',                              icon:'📷', src:'images/Real/2.jpg' },
+  { label:'Image A11', isReal:false, desc:'Politician in unusual clothing (viral-style)',    icon:'🤖', src:'images/TempImage/0d168a892a.jpg' },
+  { label:'Image A12', isReal:false, desc:'Night scene — impossible shadows',                icon:'🤖', src:'images/TempImage/0b1a124f7b.jpg' },
+  { label:'Image A13', isReal:false, desc:'Portrait — extra finger on left hand',            icon:'🤖', src:'images/TempImage/0ae9125362.jpg' },
+  { label:'Image A14', isReal:false, desc:'Crowd scene — background figures distorted',      icon:'🤖', src:'images/TempImage/0f6b94fb8a.jpg' },
+  { label:'Image A15', isReal:false, desc:'Celebrity in a fabricated context',               icon:'🤖', src:'images/TempImage/0fa47997c1.jpg' }
 ];
 
+var TASK_SETS = {
+  "control": [
+  { label:'Image A1', isReal:true, desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/16.jpg' },
+  { label:'Image A2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/1b4021c888.jpg' },
+  { label:'Image A3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/0c00dee9f9.jpg' },
+  { label:'Image A4', isReal:true, desc:'Candid street photograph', icon:'📷', src:'images/Real/37.jpg' },
+  { label:'Image A5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0fa6d29036.jpg' },
+  { label:'Image A6', isReal:true, desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/5.jpg' },
+  { label:'Image A7', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/0a93ca4c14.jpg' },
+  { label:'Image A8', isReal:true, desc:'Beach sunset candid', icon:'📷', src:'images/Real/34.jpg' },
+  { label:'Image A9', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/1b73a4fa14.jpg' },
+  { label:'Image A10', isReal:true, desc:'Sports action shot', icon:'📷', src:'images/Real/2.jpg' },
+  { label:'Image A11', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/0d168a892a.jpg' },
+  { label:'Image A12', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/0b1a124f7b.jpg' },
+  { label:'Image A13', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0ae9125362.jpg' },
+  { label:'Image A14', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0f6b94fb8a.jpg' },
+  { label:'Image A15', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/0fa47997c1.jpg' }
+],
+  "int1": [
+  { label:'K1', isReal:true,  desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/10.jpg' },
+  { label:'K2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/0c1fdc50e0.jpg' },
+  { label:'K3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/1af04ca4d2.jpg' },
+  { label:'K4', isReal:true,  desc:'Candid street photograph', icon:'📷', src:'images/Real/30.jpg' },
+  { label:'K5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0f59b6477c.jpg' },
+  { label:'K6', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/1ab83b9fea.jpg' },
+  { label:'K7', isReal:true,  desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/4.jpg' },
+  { label:'K8', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/1b5e96c154.jpg' },
+  { label:'K9', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/0fcde040fb.jpg' },
+  { label:'K10', isReal:true,  desc:'Beach sunset candid', icon:'📷', src:'images/Real/1.jpg' },
+  { label:'K11', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/0c48bfe792.jpg' },
+  { label:'K12', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0d1094625b.jpg' },
+  { label:'K13', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0d7c70440c.jpg' },
+  { label:'K14', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/1c07e04add.jpg' },
+  { label:'K15', isReal:true,  desc:'Sports action shot', icon:'📷', src:'images/Real/33.jpg' }
+],
+  "int2": [
+  { label:'T1', isReal:true,  desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/15.jpg' },
+  { label:'T2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/0ab2c6e37f.jpg' },
+  { label:'T3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/0d3c231556.jpg' },
+  { label:'T4', isReal:true,  desc:'Candid street photograph', icon:'📷', src:'images/Real/11.jpg' },
+  { label:'T5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0ccd0fd647.jpg' },
+  { label:'T6', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/0a94310bfa.jpg' },
+  { label:'T7', isReal:true,  desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/36.jpg' },
+  { label:'T8', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/0ef293f728.jpg' },
+  { label:'T9', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/1befb3a78e.jpg' },
+  { label:'T10', isReal:true,  desc:'Beach sunset candid', icon:'📷', src:'images/Real/37.jpg' },
+  { label:'T11', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/1c0836a2c7.jpg' },
+  { label:'T12', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/1c65b2e72f.jpg' },
+  { label:'T13', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0e601dfdf3.jpg' },
+  { label:'T14', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/0b3e5ea1d4.jpg' },
+  { label:'T15', isReal:true,  desc:'Sports action shot', icon:'📷', src:'images/Real/5.jpg' }
+],
+  "int3": [
+  { label:'V1', isReal:true,  desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/2.jpg' },
+  { label:'V2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/0f82ffc8c7.jpg' },
+  { label:'V3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/0f771443d1.jpg' },
+  { label:'V4', isReal:true,  desc:'Candid street photograph', icon:'📷', src:'images/Real/29.jpg' },
+  { label:'V5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0a40e073f0.jpg' },
+  { label:'V6', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/1af147bbf8.jpg' },
+  { label:'V7', isReal:true,  desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/28.jpg' },
+  { label:'V8', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/0e386ccaf7.jpg' },
+  { label:'V9', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/1ad6c2e153.jpg' },
+  { label:'V10', isReal:true,  desc:'Beach sunset candid', icon:'📷', src:'images/Real/12.jpg' },
+  { label:'V11', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/1c2f4a259d.jpg' },
+  { label:'V12', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0e20e13c02.jpg' },
+  { label:'V13', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0ac034c305.jpg' },
+  { label:'V14', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/01bc64e5d5.jpg' },
+  { label:'V15', isReal:true,  desc:'Sports action shot', icon:'📷', src:'images/Real/9.jpg' }
+],
+  "int4": [
+  { label:'G1', isReal:true,  desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/26.jpg' },
+  { label:'G2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/0ff1ccf2b4.jpg' },
+  { label:'G3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/0cf3a49408.jpg' },
+  { label:'G4', isReal:true,  desc:'Candid street photograph', icon:'📷', src:'images/Real/32.jpg' },
+  { label:'G5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0f36fb6a58.jpg' },
+  { label:'G6', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/0b17d5396a.jpg' },
+  { label:'G7', isReal:true,  desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/17.jpg' },
+  { label:'G8', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/0bf79eea42.jpg' },
+  { label:'G9', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/1c6bc051d0.jpg' },
+  { label:'G10', isReal:true,  desc:'Beach sunset candid', icon:'📷', src:'images/Real/27.jpg' },
+  { label:'G11', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/0c004c19f2.jpg' },
+  { label:'G12', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0c407831fe.jpg' },
+  { label:'G13', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/0dd9d16e98.jpg' },
+  { label:'G14', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/1b5269d662.jpg' },
+  { label:'G15', isReal:true,  desc:'Sports action shot', icon:'📷', src:'images/Real/38.jpg' }
+],
+  "int5": [
+  { label:'F1', isReal:true,  desc:'Portrait in natural outdoor light', icon:'📷', src:'images/Real/16.jpg' },
+  { label:'F2', isReal:false, desc:'Studio portrait — overly smooth skin', icon:'🤖', src:'images/TempImage/1a004ec21b.jpg' },
+  { label:'F3', isReal:false, desc:'Group photo — fingers merged unnaturally', icon:'🤖', src:'images/TempImage/1a65b5000b.jpg' },
+  { label:'F4', isReal:true,  desc:'Candid street photograph', icon:'📷', src:'images/Real/34.jpg' },
+  { label:'F5', isReal:false, desc:'Profile shot — hyper-realistic hair texture', icon:'🤖', src:'images/TempImage/0bc1eb99b0.jpg' },
+  { label:'F6', isReal:false, desc:'Kitchen scene — floating utensil, logo distorted', icon:'🤖', src:'images/TempImage/0ffa527077.jpg' },
+  { label:'F7', isReal:true,  desc:'Workplace environment, natural lighting', icon:'📷', src:'images/Real/10.jpg' },
+  { label:'F8', isReal:false, desc:'Indoor portrait — mirror reflection inconsistent', icon:'🤖', src:'images/TempImage/0c1fe89636.jpg' },
+  { label:'F9', isReal:false, desc:'Politician in unusual clothing (viral-style)', icon:'🤖', src:'images/TempImage/1c992db31f.jpg' },
+  { label:'F10', isReal:true,  desc:'Beach sunset candid', icon:'📷', src:'images/Real/30.jpg' },
+  { label:'F11', isReal:false, desc:'Night scene — impossible shadows', icon:'🤖', src:'images/TempImage/0bb4811b17.jpg' },
+  { label:'F12', isReal:false, desc:'Portrait — extra finger on left hand', icon:'🤖', src:'images/TempImage/0d1dcb1c2d.jpg' },
+  { label:'F13', isReal:false, desc:'Crowd scene — background figures distorted', icon:'🤖', src:'images/TempImage/1c675f0252.jpg' },
+  { label:'F14', isReal:false, desc:'Celebrity in a fabricated context', icon:'🤖', src:'images/TempImage/0c829023fa.jpg' },
+  { label:'F15', isReal:true,  desc:'Sports action shot', icon:'📷', src:'images/Real/4.jpg' }
+],
+};
+
+
 /* ── Feedback training images (5 real + 5 fake, same deepfakes as Visual/Gamified) ── */
+/* HOW TO ADD IMAGES: set src to a relative path, e.g. 'images/feedback/fb_fake_1.jpg' */
 var FB_TRAIN_IMAGES = [
-  { label:'Training 1', isReal:false, desc:'Hands merged — anatomical error',          icon:'🤖' },
-  { label:'Training 2', isReal:true,  desc:'Real portrait (natural outdoor setting)',  icon:'📷' },
-  { label:'Training 3', isReal:false, desc:'Too-perfect face — stylistic artifact',    icon:'🤖' },
-  { label:'Training 4', isReal:true,  desc:'Real candid photo (everyday scene)',       icon:'📷' },
-  { label:'Training 5', isReal:false, desc:'Floating saucer — functional error',       icon:'🤖' },
-  { label:'Training 6', isReal:true,  desc:'Real portrait (natural indoor light)',     icon:'📷' },
-  { label:'Training 7', isReal:false, desc:'Mirror reflection inconsistency — physics', icon:'🤖' },
-  { label:'Training 8', isReal:true,  desc:'Real sports photograph',                   icon:'📷' },
-  { label:'Training 9', isReal:false, desc:'Pope Francis puffer jacket (viral deepfake)', icon:'🤖' },
-  { label:'Training 10',isReal:true,  desc:'Real workplace photograph',                icon:'📷' }
+  { label:'Training 1',  isReal:false, desc:'Hands merged — anatomical error',           icon:'🤖', src:'images/TempImage/0e4653c1ab.jpg' },
+  { label:'Training 2',  isReal:true,  desc:'Real portrait (natural outdoor setting)',   icon:'📷', src:'images/Real/33.jpg' },
+  { label:'Training 3',  isReal:false, desc:'Too-perfect face — stylistic artifact',     icon:'🤖', src:'images/TempImage/0e5c3dfcc2.jpg' },
+  { label:'Training 4',  isReal:true,  desc:'Real candid photo (everyday scene)',        icon:'📷', src:'images/Real/9.jpg' },
+  { label:'Training 5',  isReal:false, desc:'Floating saucer — functional error',        icon:'🤖', src:'images/TempImage/1a1f399c06.jpg' },
+  { label:'Training 6',  isReal:true,  desc:'Real portrait (natural indoor light)',      icon:'📷', src:'images/Real/4.jpg' },
+  { label:'Training 7',  isReal:false, desc:'Mirror reflection inconsistency — physics', icon:'🤖', src:'images/TempImage/0d8f9dd281.jpg' },
+  { label:'Training 8',  isReal:true,  desc:'Real sports photograph',                    icon:'📷', src:'images/Real/17.jpg' },
+  { label:'Training 9',  isReal:false, desc:'Pope Francis puffer jacket (viral deepfake)',icon:'🤖', src:'images/TempImage/1ab68a310d.jpg' },
+  { label:'Training 10', isReal:true,  desc:'Real workplace photograph',                 icon:'📷', src:'images/Real/38.jpg' }
 ];
 
 /* ── Helpers ── */
-function mkPlaceholder(maxW, label, icon, note) {
-  return '<div class="img-placeholder" style="max-width:' + maxW + 'px">' +
-    '<div class="img-icon">' + (icon||'🖼') + '</div>' +
+/* mkImg: renders a real <img> when src is provided, grey placeholder otherwise.
+   The container keeps position:relative so the game's error-region overlay still works. */
+function mkPlaceholder(maxW, label, icon, note, src) {
+  var style = 'max-width:' + maxW + 'px';
+  if (src) {
+    return '<div class="img-placeholder" style="' + style + ';background:#000;border:none;">' +
+      '<img src="' + src + '" alt="' + label.replace(/"/g, '&quot;') + '" ' +
+      'style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;border-radius:8px;">' +
+      '</div>';
+  }
+  return '<div class="img-placeholder" style="' + style + '">' +
+    '<div class="img-icon">' + (icon || '🖼') + '</div>' +
     '<div class="img-label">' + label + '</div>' +
     (note ? '<div class="img-note">' + note + '</div>' : '') +
     '</div>';
@@ -516,7 +645,8 @@ function go(id) {
 function startTask(containerId, withFeedback) {
   var container = document.getElementById(containerId);
   container.innerHTML = '';
-  var imgs = TASK_IMAGES.slice();
+  var condKey = containerId.replace('-task', '');
+  var imgs = (TASK_SETS && TASK_SETS[condKey] ? TASK_SETS[condKey] : TASK_IMAGES).slice();
 
   function render(i) {
     if (i >= imgs.length) {
@@ -534,7 +664,7 @@ function startTask(containerId, withFeedback) {
       '<div class="card">' +
       '<div class="progress-row"><span class="progress-label">Image '+(i+1)+' / '+imgs.length+'</span>' +
       '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(i/imgs.length*100)+'%"></div></div></div>' +
-      mkPlaceholder(480, img.desc, img.icon, 'Real images: 5 · Deepfake images: 10 · Total: 15') +
+      mkPlaceholder(480, img.desc, img.icon, 'Real images: 5 · Deepfake images: 10 · Total: 15', img.src) +
       '<p style="font-weight:700;margin-top:14px;">Is this image <strong>real</strong> or <strong>fake</strong>?</p>' +
       '<div class="scale-row">' +
       ['Definitely real','Probably real','Probably fake','Definitely fake'].map(function(opt,oi){
@@ -642,7 +772,7 @@ function buildVisual() {
       '<div class="progress-row"><span class="progress-label">Hint '+(s+1)+' of 5</span>' +
       '<div class="progress-bar"><div class="progress-fill" style="width:'+((s)/5*100)+'%"></div></div></div>' +
       '<div class="tip-card"><h4>Hint · ' + t.title + '</h4><p>' + t.text + '</p></div>' +
-      mkPlaceholder(480, t.imageDesc, t.icon, 'Source: ' + t.source) +
+      mkPlaceholder(480, t.imageDesc, t.icon, 'Source: ' + t.source, t.src) +
       '<p style="font-size:14px;color:var(--text);margin-top:4px;font-style:italic;">' + t.visual_note + '</p>' +
       '<button class="btn" style="margin-top:14px">' + (s < 4 ? 'Next →' : '✅ Continue to Detection Task') + '</button>' +
       '</div>';
@@ -690,9 +820,8 @@ function buildVisual() {
       '<p style="margin-top:8px;font-weight:700;color:var(--primary);">Can you spot the error in the image? Click on it to earn points!</p></div>' +
       '<div style="position:relative;display:inline-block;width:100%;max-width:480px;display:flex;justify-content:center;">' +
       '<div style="position:relative;display:inline-block;width:100%;max-width:480px;">' +
-      '<div class="img-placeholder" id="g-img" onclick="handleClick(event)" style="cursor:crosshair;max-width:480px">' +
-      '<div class="img-icon">'+tip.icon+'</div><div class="img-label">'+tip.imageDesc+'</div>' +
-      '<div class="img-note">Source: '+tip.source+'</div>' +
+      '<div class="img-placeholder" id="g-img" onclick="handleClick(event)" style="cursor:crosshair;max-width:480px' + (tip.gameSrc ? ';background:#000;border:none' : '') + '">' +
+      (tip.gameSrc ? '<img src="'+tip.gameSrc+'" alt="'+tip.imageDesc.replace(/"/g,'&quot;')+'" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;border-radius:8px;pointer-events:none;">' : '<div class="img-icon">'+tip.icon+'</div><div class="img-label">'+tip.imageDesc+'</div><div class="img-note">Source: '+tip.source+'</div>') +
       '<div class="error-region" id="g-region"></div>' +
       '</div></div></div>' +
       '<div class="game-feedback" id="g-fb"></div>' +
@@ -830,7 +959,7 @@ function startFeedbackTraining() {
       '<div class="card">' +
       '<div class="progress-row"><span class="progress-label">Training image '+(i+1)+' of '+imgs.length+'</span>' +
       '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(i/imgs.length*100)+'%"></div></div></div>' +
-      mkPlaceholder(480, img.desc, img.icon) +
+      mkPlaceholder(480, img.desc, img.icon, null, img.src) +
       '<p style="font-weight:700;margin-top:14px;">Is this image <strong>real</strong> or <strong>fake</strong>?</p>' +
       '<div class="scale-row">' +
       ['Definitely real','Probably real','Probably fake','Definitely fake'].map(function(opt,oi){
