@@ -1,0 +1,25 @@
+打开终端，进入项目目录，启动后端：
+
+
+python server.py
+看到 Tracking server ready 说明成功。
+
+浏览器打开 http://localhost:5001/（不要直接双击打开 HTML 文件，否则后端追踪不会生效）。
+
+（可选）先清空旧测试数据，让演示数据干净：
+
+
+# 关掉 server 后执行，再重新启动
+del tracking.db
+python server.py
+
+Data Storage:
+
+1. How long for staying every pages, click count
+http://localhost:5001/api/data
+
+2. In every page which answer is chosen, Correct or Not, Interaction time.
+http://localhost:5001/api/data/results
+
+3. Full trace of the mouse
+http://localhost:5001/api/data/interactions

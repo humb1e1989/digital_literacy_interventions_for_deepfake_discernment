@@ -613,6 +613,7 @@ function mkPlaceholder(maxW, label, icon, note, src) {
 }
 
 function go(id) {
+  Tracker.enterPage(id);
   ['overview','control','int1','int2','int3','int4','int5'].forEach(function(s){
     document.getElementById('sec-'+s).style.display = s===id ? '' : 'none';
   });
@@ -650,14 +651,18 @@ function startTask(containerId, withFeedback) {
 
   function render(i) {
     if (i >= imgs.length) {
+      Tracker.enterPage(condKey + '-task-done');
       container.innerHTML =
         '<div class="card"><h2>✅ Detection Task Complete</h2>' +
         '<p>In the actual study, participants classified all 15 images (5 real + 10 fake) then answered a confidence slider (0–100).</p>' +
         '<button class="btn btn-ghost" onclick="go(\'overview\')">← Back to Overview</button></div>';
       return;
     }
+    Tracker.enterPage(condKey + '-task-img-' + (i + 1));
     var img = imgs[i];
     var answered = false;
+    var renderTime = Date.now();
+    var reactionTimeMs = null;
 
     // No inline onclick — event listeners are attached below
     container.innerHTML =
@@ -685,6 +690,7 @@ function startTask(containerId, withFeedback) {
     container.querySelectorAll('.scale-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         if (answered && !withFeedback) return;
+        if (reactionTimeMs === null) reactionTimeMs = Date.now() - renderTime;
         container.querySelectorAll('.scale-btn').forEach(function(b){ b.classList.remove('selected','correct-sel','wrong-sel'); });
         btn.classList.add('selected');
         var oi      = parseInt(btn.dataset.oi);
@@ -711,7 +717,26 @@ function startTask(containerId, withFeedback) {
       });
     });
 
-    nextBtn.addEventListener('click', function() { render(i + 1); });
+    nextBtn.addEventListener('click', function() {
+      var scaleSel  = container.querySelector('.scale-btn.selected, .scale-btn.correct-sel, .scale-btn.wrong-sel');
+      var shareSel  = container.querySelector('.share-btn.selected');
+      var seenCb    = container.querySelector('#seen-cb-' + i);
+      var choiceIdx = scaleSel ? parseInt(scaleSel.dataset.oi) : null;
+      var correct   = choiceIdx === null ? null : (img.isReal ? choiceIdx <= 1 : choiceIdx >= 2);
+      Tracker.logResult({
+        page:                 condKey + '-task-img-' + (i + 1),
+        image_label:          img.label,
+        is_real:              img.isReal ? 1 : 0,
+        detection_choice:     scaleSel ? scaleSel.textContent.trim() : null,
+        detection_choice_idx: choiceIdx,
+        is_correct:           correct === null ? null : (correct ? 1 : 0),
+        share_choice:         shareSel ? shareSel.textContent.trim() : null,
+        seen_before:          seenCb && seenCb.checked ? 1 : 0,
+        reaction_time_ms:     reactionTimeMs,
+        total_time_ms:        Date.now() - renderTime
+      });
+      render(i + 1);
+    });
   }
   render(0);
 }
@@ -726,6 +751,7 @@ function buildTextual() {
   var step = 0;
 
   function showStep(s) {
+    Tracker.enterPage(s < TIPS.length ? ('int2-tip-' + (s + 1)) : 'int2-tip-done');
     if (s >= TIPS.length) {
       root.innerHTML = '<div class="card"><p>✅ You have read all 5 hints. In the actual study, participants now proceed to the image detection task.</p>' +
         '<button class="btn" onclick="startTask(\'int2-task\',false)">▶ Continue to Detection Task</button></div>';
@@ -760,6 +786,7 @@ function buildVisual() {
   document.getElementById('int3-task').innerHTML = '';
 
   function showVStep(s) {
+    Tracker.enterPage(s < TIPS.length ? ('int3-tip-' + (s + 1)) : 'int3-tip-done');
     if (s >= TIPS.length) {
       root.innerHTML = '<div class="card"><p>✅ You have viewed all 5 illustrated hints. Continue to the detection task.</p>' +
         '<button class="btn" onclick="startTask(\'int3-task\',false)">▶ Continue to Detection Task</button></div>';
@@ -803,10 +830,14 @@ function buildVisual() {
     if (!root) return;
     if (gs.round >= TIPS.length) { renderEnd(); return; }
 
+    Tracker.enterPage('int4-round-' + (gs.round + 1));
     var tip = TIPS[gs.round];
     var r   = gs.round;
     var timeLeft = 30;
     var roundEnded = false;
+    var roundStartTime = Date.now();
+    var roundReactionMs = null;
+    var attempts = 0;
 
     root.innerHTML =
       '<div class="card">' +
@@ -874,6 +905,8 @@ function buildVisual() {
 
     window.handleClick = function(e) {
       if (roundEnded) return;
+      attempts++;
+      if (roundReactionMs === null) roundReactionMs = Date.now() - roundStartTime;
       var hit = hitTest(e);
       var fb = document.getElementById('g-fb');
       if (hit) {
@@ -893,6 +926,20 @@ function buildVisual() {
 
     function endRound(success, timeout) {
       roundEnded = true;
+      var outcome = timeout ? 'timeout' : (success ? 'hit' : 'miss');
+      Tracker.logResult({
+        page:                 'int4-round-' + (r + 1),
+        image_label:          tip.title,
+        is_real:              null,
+        detection_choice:     outcome,
+        detection_choice_idx: null,
+        is_correct:           success ? 1 : 0,
+        share_choice:         null,
+        seen_before:          null,
+        reaction_time_ms:     roundReactionMs,
+        total_time_ms:        Date.now() - roundStartTime,
+        attempts:             attempts
+      });
       if (!success) {
         positionRegion('red');
         region.classList.add('visible');
@@ -944,6 +991,7 @@ function startFeedbackTraining() {
   var imgs = FB_TRAIN_IMAGES.slice();
 
   function renderFB(i) {
+    Tracker.enterPage(i < imgs.length ? ('int5-train-' + (i + 1)) : 'int5-train-done');
     if (i >= imgs.length) {
       root.innerHTML =
         '<div class="card"><h2>✅ Training Complete!</h2>' +
@@ -953,6 +1001,8 @@ function startFeedbackTraining() {
     }
     var img     = imgs[i];
     var answered = false;
+    var fbRenderTime = Date.now();
+    var fbReactionTime = null;
 
     // No inline onclick — event listeners attached below
     root.innerHTML =
@@ -975,6 +1025,7 @@ function startFeedbackTraining() {
     root.querySelectorAll('.scale-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         if (answered) return;
+        if (fbReactionTime === null) fbReactionTime = Date.now() - fbRenderTime;
         answered = true;
         root.querySelectorAll('.scale-btn').forEach(function(b){ b.disabled = true; });
         var oi      = parseInt(btn.dataset.oi);
@@ -989,7 +1040,24 @@ function startFeedbackTraining() {
       });
     });
 
-    fbtNext.addEventListener('click', function() { renderFB(i + 1); });
+    fbtNext.addEventListener('click', function() {
+      var scaleSel  = root.querySelector('.scale-btn.correct-sel, .scale-btn.wrong-sel');
+      var choiceIdx = scaleSel ? parseInt(scaleSel.dataset.oi) : null;
+      var correct   = choiceIdx === null ? null : (img.isReal ? choiceIdx <= 1 : choiceIdx >= 2);
+      Tracker.logResult({
+        page:                 'int5-train-' + (i + 1),
+        image_label:          img.label,
+        is_real:              img.isReal ? 1 : 0,
+        detection_choice:     scaleSel ? scaleSel.textContent.trim() : null,
+        detection_choice_idx: choiceIdx,
+        is_correct:           correct === null ? null : (correct ? 1 : 0),
+        share_choice:         null,
+        seen_before:          null,
+        reaction_time_ms:     fbReactionTime,
+        total_time_ms:        Date.now() - fbRenderTime
+      });
+      renderFB(i + 1);
+    });
   }
 
   renderFB(0);
@@ -997,6 +1065,182 @@ function startFeedbackTraining() {
 
 /* ── Boot: hook go() overrides needed before any click ── */
 /* go() is already defined and patched by the IIFE above, so Control/Int1 start buttons work fine */
+
+/* ═══════════════════════════════════════════════════════════════
+   BEHAVIOUR TRACKER  (requires server.py running at port 5001)
+
+   Records per page:
+     • dwell time (ms)            → /api/log
+     • raw click count            → /api/log
+
+   Records per task image:
+     • detection choice + correctness
+     • share choice, seen-before checkbox
+     • reaction time (ms to first detection click)
+     • total time (ms to Next click)             → /api/result
+
+   Records every interaction event (batched):
+     • click    – element type/label + viewport x/y
+     • mouseenter / mouseleave – on buttons, images
+     • mousemove – throttled (≥30 px moved, ≤1 per 500 ms)
+     • change   – checkboxes                    → /api/interactions
+
+   Silent no-op when opened as file:// (no server).
+════════════════════════════════════════════════════════════════ */
+var Tracker = (function() {
+  var BASE        = window.location.origin;
+  var sessionId   = null;
+  var currentPage = null;
+  var enterTime   = null;
+  var clickCount  = 0;
+  var dwellQueue  = [];   // page-dwell events pending session creation
+  var ixBatch     = [];   // interaction events pending send
+  var ixTimer     = null;
+  var active      = window.location.protocol !== 'file:';
+
+  var MOVE_PX_THRESHOLD = 30;
+  var MOVE_MS_THROTTLE  = 500;
+  var BATCH_FLUSH_MS    = 5000;
+  var BATCH_MAX         = 80;
+  var lastMX = -999, lastMY = -999, lastMoveT = 0;
+
+  /* ── low-level POST ── */
+  function _post(url, payload) {
+    if (!active) return;
+    try { fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }).catch(function(){}); }
+    catch(e) {}
+  }
+
+  /* ── flush dwell (page-level) event ── */
+  function _flushDwell() {
+    if (!currentPage) return;
+    var evt = { session_id: sessionId, page: currentPage,
+                entered_at: new Date(enterTime).toISOString(),
+                duration_ms: Date.now() - enterTime, click_count: clickCount };
+    if (sessionId) { _post(BASE + '/api/log', evt); }
+    else           { dwellQueue.push(evt); }
+  }
+
+  /* ── flush interaction batch ── */
+  function _flushIx() {
+    if (!ixBatch.length) return;
+    var toSend = ixBatch.splice(0);
+    if (sessionId) {
+      toSend.forEach(function(e){ e.session_id = sessionId; });
+      _post(BASE + '/api/interactions', toSend);
+    }
+    // if no sessionId yet, discard old events to avoid memory growth
+  }
+
+  /* ── add one interaction event ── */
+  function _ix(evtType, elemType, elemLabel, xPct, yPct) {
+    if (!active) return;
+    ixBatch.push({ session_id: sessionId, page: currentPage,
+                   event_type: evtType, element_type: elemType,
+                   element_label: String(elemLabel || '').substring(0, 80),
+                   x_pct: xPct, y_pct: yPct,
+                   time_on_page_ms: enterTime ? (Date.now() - enterTime) : 0,
+                   ts: new Date().toISOString() });
+    if (ixBatch.length >= BATCH_MAX) _flushIx();
+  }
+
+  /* ── classify a DOM element ── */
+  function _elemInfo(el) {
+    if (!el || !el.matches) return { type: 'other', label: '' };
+    if (el.matches('.scale-btn'))              return { type:'scale-btn',   label: el.textContent.trim() };
+    if (el.matches('.share-btn'))              return { type:'share-btn',   label: el.textContent.trim() };
+    if (el.matches('.nav-btn'))                return { type:'nav-btn',     label: el.textContent.trim() };
+    if (el.matches('#task-next-btn,#fbt-next')) return { type:'next-btn',   label:'Next' };
+    if (el.matches('.btn'))                    return { type:'btn',         label: el.textContent.trim().substring(0,60) };
+    if (el.id === 'g-img' || el.closest('#g-img')) return { type:'game-image', label:'game-img' };
+    if (el.matches('img'))                     return { type:'image',       label: (el.alt||'').substring(0,60) };
+    if (el.matches('input[type="checkbox"]'))  return { type:'checkbox',    label: el.id||'' };
+    if (el.matches('button'))                  return { type:'button',      label: el.textContent.trim().substring(0,60) };
+    return { type: (el.tagName||'').toLowerCase(), label: (el.textContent||'').trim().substring(0,60) };
+  }
+
+  /* ── public: enter a new page ── */
+  function enterPage(page) {
+    _flushDwell();
+    _flushIx();
+    currentPage = page;
+    enterTime   = Date.now();
+    clickCount  = 0;
+  }
+
+  /* ── public: log a task/training result ── */
+  function logResult(data) {
+    if (!active || !sessionId) return;
+    _post(BASE + '/api/result', Object.assign({ session_id: sessionId }, data));
+  }
+
+  /* ── init: create session, wire up global listeners ── */
+  function init() {
+    if (!active) return;
+
+    fetch(BASE + '/api/session', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({condition:'demo'})
+    }).then(function(r){ return r.json(); })
+      .then(function(d) {
+        sessionId = d.session_id;
+        // flush buffered dwell events
+        dwellQueue.forEach(function(e){ e.session_id = sessionId; _post(BASE + '/api/log', e); });
+        dwellQueue = [];
+      }).catch(function(){});
+
+    /* global click */
+    document.addEventListener('click', function(e) {
+      clickCount++;
+      var info = _elemInfo(e.target.closest('button,[class*="btn"],img,input') || e.target);
+      _ix('click', info.type, info.label,
+          Math.round(e.clientX / window.innerWidth  * 100) / 100,
+          Math.round(e.clientY / window.innerHeight * 100) / 100);
+    }, true);
+
+    /* mousemove (throttled) */
+    document.addEventListener('mousemove', function(e) {
+      var now = Date.now();
+      if (now - lastMoveT < MOVE_MS_THROTTLE) return;
+      var dx = e.clientX - lastMX, dy = e.clientY - lastMY;
+      if (dx*dx + dy*dy < MOVE_PX_THRESHOLD * MOVE_PX_THRESHOLD) return;
+      lastMX = e.clientX; lastMY = e.clientY; lastMoveT = now;
+      _ix('mousemove', 'document', '',
+          Math.round(e.clientX / window.innerWidth  * 100) / 100,
+          Math.round(e.clientY / window.innerHeight * 100) / 100);
+    });
+
+    /* hover on interactive elements */
+    var HOVER_SEL = '.scale-btn,.share-btn,.nav-btn,.btn,#g-img,img,input[type="checkbox"]';
+    document.addEventListener('mouseover', function(e) {
+      var el = e.target.closest(HOVER_SEL); if (!el) return;
+      var info = _elemInfo(el);
+      _ix('mouseenter', info.type, info.label, null, null);
+    });
+    document.addEventListener('mouseout', function(e) {
+      var el = e.target.closest(HOVER_SEL); if (!el) return;
+      if (el.contains(e.relatedTarget)) return;
+      var info = _elemInfo(el);
+      _ix('mouseleave', info.type, info.label, null, null);
+    });
+
+    /* checkbox change */
+    document.addEventListener('change', function(e) {
+      if (e.target.type !== 'checkbox') return;
+      _ix('change', 'checkbox', (e.target.id || '') + ':' + e.target.checked, null, null);
+    });
+
+    /* batch timer + unload flush */
+    ixTimer = setInterval(_flushIx, BATCH_FLUSH_MS);
+    window.addEventListener('beforeunload', function(){ _flushDwell(); _flushIx(); });
+
+    enterPage('overview');
+  }
+
+  return { init: init, enterPage: enterPage, logResult: logResult };
+})();
+
+window.addEventListener('load', function() { Tracker.init(); });
 </script>
 
 </body>

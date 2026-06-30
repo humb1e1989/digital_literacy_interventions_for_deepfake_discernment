@@ -1,0 +1,18 @@
+session_id,page,image_label,is_real,detection_choice,detection_choice_idx,is_correct,share_choice,seen_before,reaction_time_ms,total_time_ms,attempts
+6929e65f-0f3d-4b32-9998-73c15dfcfed0,control-task-img-1,Image C1,0,Probably fake,2,1,No,0,3200,5400,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,control-task-img-1,Image A1,1,Definitely real,0,1,Yes,1,1700,4286,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,control-task-img-2,Image A2,0,Probably real,1,0,Yes,0,717,1729,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,control-task-img-3,Image A3,0,Probably fake,2,1,No,0,772,1627,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,control-task-img-4,Image A4,1,Definitely real,0,1,Yes,1,627,2686,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int3-task-img-1,V1,1,Definitely real,0,1,Yes,1,1333,2567,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int3-task-img-2,V2,0,Probably real,1,0,Yes,1,1261,2878,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int3-task-img-3,V3,0,Probably real,1,0,Yes,1,2492,3837,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int3-task-img-4,V4,1,Probably real,1,1,Yes,0,1494,3780,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int4-round-1,Anatomical Errors,,hit,,1,,,1557,4264,10
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int5-train-1,Training 1,0,Definitely real,0,0,,,1521,2285,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int5-train-2,Training 2,1,Probably real,1,1,,,478,2684,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int5-train-3,Training 3,0,Probably real,1,0,,,645,1239,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int5-train-4,Training 4,1,Probably fake,2,0,,,761,1323,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int5-train-5,Training 5,0,Definitely real,0,0,,,702,1201,
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int4-round-2,Too Perfect,,timeout,,0,,,3186,30149,17
+2bf51caa-5459-4a0f-bfe2-0e41ff09bc96,int4-round-3,Functional Errors,,timeout,,0,,,,49010,0
