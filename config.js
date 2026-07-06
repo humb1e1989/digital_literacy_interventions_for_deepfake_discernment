@@ -8,6 +8,10 @@
  * Local dev (python server.py on port 5001) works without changing anything.
  */
 
+// // Railway/Render backend URL — set this after deploying the backend
+// window.TRACKING_API  = 'http://localhost:5001';   // ← replace with https://your-app.railway.app
+// window.IMAGES_BASE   = 'http://localhost:5001';   // ← same URL (Railway serves images too)
+
 // Railway/Render backend URL — set this after deploying the backend
-window.TRACKING_API  = 'http://localhost:5001';   // ← replace with https://your-app.railway.app
-window.IMAGES_BASE   = 'http://localhost:5001';   // ← same URL (Railway serves images too)
+window.TRACKING_API  = 'https://web-production-c881e.up.railway.app/';   // ← replace with https://your-app.railway.app
+window.IMAGES_BASE   = 'https://web-production-c881e.up.railway.app/';   // ← same URL (Railway serves images too)
