@@ -1089,7 +1089,7 @@ function startFeedbackTraining() {
    Silent no-op when opened as file:// (no server).
 ════════════════════════════════════════════════════════════════ */
 var Tracker = (function() {
-  var BASE        = (window.TRACKING_API || window.location.origin);
+  var BASE        = (window.TRACKING_API || window.location.origin).replace(/\/+$/, '');
   var sessionId   = null;
   var currentPage = null;
   var enterTime   = null;
@@ -1243,7 +1243,9 @@ var Tracker = (function() {
 
 /* Rewrite relative image paths to absolute when IMAGES_BASE is set (production) */
 function patchImgBase(base) {
-  if (!base || base === window.location.origin) return;
+  if (!base) return;
+  base = base.replace(/\/+$/, '');   // strip trailing slash
+  if (base === window.location.origin) return;
   function fix(obj) {
     if (!obj || typeof obj !== 'object') return;
     if (Array.isArray(obj)) { obj.forEach(fix); return; }
