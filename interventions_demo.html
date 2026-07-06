@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deepfake Discernment Interventions — Demo</title>
+<script src="config.js"></script>
 <style>
   /* ── Reset ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1088,7 +1089,7 @@ function startFeedbackTraining() {
    Silent no-op when opened as file:// (no server).
 ════════════════════════════════════════════════════════════════ */
 var Tracker = (function() {
-  var BASE        = window.location.origin;
+  var BASE        = (window.TRACKING_API || window.location.origin);
   var sessionId   = null;
   var currentPage = null;
   var enterTime   = null;
@@ -1240,7 +1241,27 @@ var Tracker = (function() {
   return { init: init, enterPage: enterPage, logResult: logResult };
 })();
 
-window.addEventListener('load', function() { Tracker.init(); });
+/* Rewrite relative image paths to absolute when IMAGES_BASE is set (production) */
+function patchImgBase(base) {
+  if (!base || base === window.location.origin) return;
+  function fix(obj) {
+    if (!obj || typeof obj !== 'object') return;
+    if (Array.isArray(obj)) { obj.forEach(fix); return; }
+    ['src','gameSrc'].forEach(function(k) {
+      if (typeof obj[k] === 'string' && obj[k] && !/^https?:\/\//.test(obj[k]))
+        obj[k] = base + '/' + obj[k];
+    });
+  }
+  fix(TASK_IMAGES);
+  fix(TASK_SETS);
+  fix(FB_TRAIN_IMAGES);
+  fix(TIPS);
+}
+
+window.addEventListener('load', function() {
+  patchImgBase(window.IMAGES_BASE);
+  Tracker.init();
+});
 </script>
 
 </body>

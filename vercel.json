@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/config.js",  "dest": "/config.js" },
+    { "src": "/",           "dest": "/interventions_demo.html" },
+    { "handle": "filesystem" }
+  ]
+}

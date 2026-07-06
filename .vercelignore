@@ -1,0 +1,27 @@
+# Images are served from Railway — exclude from Vercel to stay under 100 MB
+images/
+
+# Python backend (runs on Railway)
+*.py
+*.pyc
+__pycache__/
+tracking.db
+Procfile
+requirements.txt
+
+# Research data & analysis (not needed for frontend)
+Data/
+Code/
+Survey/
+Results/
+Paper/
+Pictures/
+processed/
+pilot2/
+*.zip
+*.csv
+*.log
+*.ipynb
+*.qsf
+*.pdf
+_task_sets.txt
