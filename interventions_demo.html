@@ -1255,7 +1255,7 @@ function patchImgBase(base) {
     });
   }
   fix(TASK_IMAGES);
-  fix(TASK_SETS);
+  Object.values(TASK_SETS).forEach(fix);   // TASK_SETS is {key:array}, must unwrap first
   fix(FB_TRAIN_IMAGES);
   fix(TIPS);
 }
