@@ -654,9 +654,29 @@ function startTask(containerId, withFeedback) {
     var renderTime = Date.now();
     var reactionTimeMs = null;
 
+    // Build collapsible hints panel (Textual / int2 only)
+    var hintsPanel = '';
+    if (condKey === 'int2') {
+      hintsPanel =
+        '<details style="margin-bottom:18px;border:1px solid var(--primary);border-radius:10px;overflow:hidden;">' +
+        '<summary style="cursor:pointer;padding:11px 16px;font-weight:700;font-size:15px;' +
+        'background:rgba(100,149,237,0.12);display:flex;align-items:center;gap:8px;list-style:none;-webkit-appearance:none;">' +
+        '📋 Review Hints <span style="margin-left:auto;font-size:12px;font-weight:400;opacity:0.65;">click to expand ▾</span>' +
+        '</summary>' +
+        '<div style="display:flex;flex-direction:column;gap:8px;padding:12px;">' +
+        TIPS.map(function(t, idx) {
+          return '<div style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;">' +
+            '<strong>Hint ' + (idx + 1) + ' · ' + t.title + '</strong>' +
+            '<p style="margin-top:4px;font-size:14px;line-height:1.5;">' + t.text + '</p>' +
+            '</div>';
+        }).join('') +
+        '</div></details>';
+    }
+
     // No inline onclick — event listeners are attached below
     container.innerHTML =
       '<div class="card">' +
+      hintsPanel +
       '<div class="progress-row"><span class="progress-label">Image '+(i+1)+' / '+imgs.length+'</span>' +
       '<div class="progress-bar"><div class="progress-fill" style="width:'+Math.round(i/imgs.length*100)+'%"></div></div></div>' +
       mkPlaceholder(480, img.desc, img.icon, 'Real images: 5 · Deepfake images: 10 · Total: 15', img.src) +
