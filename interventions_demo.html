@@ -225,7 +225,10 @@
 <div id="sec-overview">
   <div class="card" style="border:2px solid #4a90d9;box-shadow:0 0 0 1px rgba(74,144,217,0.3);">
     <h2 style="margin-bottom:16px;">Introduction</h2>
-    <p>This study evaluates an interactive educational tool designed to support learning about AI-generated media. Participants will first complete a set of pre-study activities before interacting with the tool. Depending on the assigned study condition, participants will engage in different educational interventions individually or collaboratively. After the learning activities, participants will complete post-study tasks, questionnaires, and interviews. The collected data will be used to evaluate the educational tool and explore how different learning settings influence users' engagement and learning experiences.</p>
+    <p style="margin-bottom:24px;">This study evaluates an interactive educational tool designed to support learning about AI-generated media. Participants will first complete a set of pre-study activities before interacting with the tool. Depending on the assigned study condition, participants will engage in different educational interventions individually or collaboratively. After the learning activities, participants will complete post-study tasks, questionnaires, and interviews. The collected data will be used to evaluate the educational tool and explore how different learning settings influence users' engagement and learning experiences.</p>
+    <div style="text-align:center;">
+      <button class="btn" style="font-size:18px;padding:14px 48px;letter-spacing:0.5px;" onclick="go('control')">▶ Start</button>
+    </div>
   </div>
   <div class="grid-6">
     <div class="ov-cell" onclick="go('control')">
@@ -587,6 +590,11 @@ var FB_TRAIN_IMAGES = [
 /* ── Helpers ── */
 /* mkImg: renders a real <img> when src is provided, grey placeholder otherwise.
    The container keeps position:relative so the game's error-region overlay still works. */
+/* ── Linear flow order ── */
+var FLOW_NEXT = { control:'int1', int1:'int2', int2:'int3', int3:'int4', int4:'int5', int5:null };
+var FLOW_LABEL = { control:'Control', int1:'1 · Knowledge', int2:'2 · Textual',
+                   int3:'3 · Visual', int4:'4 · Gamified', int5:'5 · Feedback' };
+
 function mkPlaceholder(maxW, label, icon, note, src) {
   var style = 'max-width:' + maxW + 'px';
   if (src) {
@@ -642,10 +650,18 @@ function startTask(containerId, withFeedback) {
   function render(i) {
     if (i >= imgs.length) {
       Tracker.enterPage(condKey + '-task-done');
+      var nextCond  = FLOW_NEXT[condKey];
+      var nextBtnHtml = nextCond
+        ? '<button class="btn" style="font-size:16px;padding:12px 32px;" onclick="go(\'' + nextCond + '\')">Next: ' + FLOW_LABEL[nextCond] + ' →</button>'
+        : '<div style="text-align:center;margin-top:8px;">' +
+          '<p style="font-size:16px;font-weight:700;color:var(--primary);margin-bottom:12px;">🎉 You have completed all conditions!</p>' +
+          '<button class="btn btn-ghost" onclick="go(\'overview\')">← Back to Overview</button></div>';
       container.innerHTML =
-        '<div class="card"><h2>✅ Detection Task Complete</h2>' +
-        '<p>In the actual study, participants classified all 15 images (5 real + 10 fake) then answered a confidence slider (0–100).</p>' +
-        '<button class="btn btn-ghost" onclick="go(\'overview\')">← Back to Overview</button></div>';
+        '<div class="card" style="text-align:center;">' +
+        '<h2 style="margin-bottom:12px;">✅ Detection Task Complete</h2>' +
+        '<p style="margin-bottom:24px;">In the actual study, participants classified all 15 images (5 real + 10 fake) then answered a confidence slider (0–100).</p>' +
+        nextBtnHtml +
+        '</div>';
       return;
     }
     Tracker.enterPage(condKey + '-task-img-' + (i + 1));
