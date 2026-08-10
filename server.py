@@ -87,6 +87,16 @@ def db_all(sql, params=()):
 
 AUTO_PK = 'SERIAL PRIMARY KEY' if USE_PG else 'INTEGER PRIMARY KEY'
 
+def _ensure_column(table, column, coltype):
+    """Add a column to an already-existing table if it isn't there yet (SQLite/Postgres)."""
+    if USE_PG:
+        exists = db_all('''SELECT 1 FROM information_schema.columns
+                            WHERE table_name=%s AND column_name=%s''', (table, column))
+    else:
+        exists = [r for r in db_all(f'PRAGMA table_info({table})') if r[1] == column]
+    if not exists:
+        db_exec(f'ALTER TABLE {table} ADD COLUMN {column} {coltype}')
+
 def init_db():
     db_exec('''CREATE TABLE IF NOT EXISTS sessions (
         id          TEXT PRIMARY KEY,
@@ -94,6 +104,7 @@ def init_db():
         started_at  TEXT,
         user_agent  TEXT
     )''')
+    _ensure_column('sessions', 'participant_id', 'TEXT')
     db_exec(f'''CREATE TABLE IF NOT EXISTS page_events (
         id          {AUTO_PK},
         session_id  TEXT,
@@ -148,10 +159,12 @@ def create_session():
     if request.method == 'OPTIONS': return '', 204
     d   = request.get_json(silent=True) or {}
     sid = str(uuid.uuid4())
-    db_exec('INSERT INTO sessions VALUES (?,?,?,?)',
+    db_exec('''INSERT INTO sessions (id,condition,started_at,user_agent,participant_id)
+               VALUES (?,?,?,?,?)''',
             (sid, d.get('condition', 'unknown'),
              datetime.datetime.now().isoformat(),
-             request.headers.get('User-Agent', '')))
+             request.headers.get('User-Agent', ''),
+             d.get('participant_id')))
     return jsonify({'session_id': sid})
 
 @app.route('/api/log', methods=['POST', 'OPTIONS'])
@@ -205,30 +218,32 @@ def _csv(rows, cols, filename):
 
 @app.route('/api/data')
 def export_page_events():
-    rows = db_all('''SELECT s.id,s.condition,s.started_at,
+    rows = db_all('''SELECT s.id,s.participant_id,s.condition,s.started_at,
                             e.page,e.entered_at,e.duration_ms,e.click_count
                      FROM sessions s LEFT JOIN page_events e ON s.id=e.session_id
                      ORDER BY s.started_at,e.entered_at''')
-    return _csv(rows, ['session_id','condition','session_started',
+    return _csv(rows, ['session_id','participant_id','condition','session_started',
                        'page','entered_at','duration_ms','click_count'], 'page_events.csv')
 
 @app.route('/api/data/results')
 def export_results():
-    rows = db_all('''SELECT session_id,page,image_label,is_real,
-                            detection_choice,detection_choice_idx,is_correct,
-                            share_choice,seen_before,reaction_time_ms,total_time_ms,attempts
-                     FROM task_results ORDER BY id''')
-    return _csv(rows, ['session_id','page','image_label','is_real',
+    rows = db_all('''SELECT s.participant_id,t.session_id,t.page,t.image_label,t.is_real,
+                            t.detection_choice,t.detection_choice_idx,t.is_correct,
+                            t.share_choice,t.seen_before,t.reaction_time_ms,t.total_time_ms,t.attempts
+                     FROM task_results t LEFT JOIN sessions s ON t.session_id=s.id
+                     ORDER BY t.id''')
+    return _csv(rows, ['participant_id','session_id','page','image_label','is_real',
                        'detection_choice','detection_choice_idx','is_correct',
                        'share_choice','seen_before','reaction_time_ms',
                        'total_time_ms','attempts'], 'task_results.csv')
 
 @app.route('/api/data/interactions')
 def export_interactions():
-    rows = db_all('''SELECT session_id,page,event_type,element_type,element_label,
-                            x_pct,y_pct,time_on_page_ms,ts
-                     FROM interactions ORDER BY id''')
-    return _csv(rows, ['session_id','page','event_type','element_type','element_label',
+    rows = db_all('''SELECT s.participant_id,i.session_id,i.page,i.event_type,i.element_type,i.element_label,
+                            i.x_pct,i.y_pct,i.time_on_page_ms,i.ts
+                     FROM interactions i LEFT JOIN sessions s ON i.session_id=s.id
+                     ORDER BY i.id''')
+    return _csv(rows, ['participant_id','session_id','page','event_type','element_type','element_label',
                        'x_pct','y_pct','time_on_page_ms','ts'], 'interactions.csv')
 
 

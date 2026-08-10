@@ -201,9 +201,50 @@
 
   /* ── Inline note ── */
   .note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  /* ── Participant ID modal ── */
+  #pid-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; padding: 16px;
+  }
+  #pid-modal {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    max-width: 420px; width: 100%; padding: 30px 32px;
+  }
+  #pid-modal h2 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
+  #pid-modal p  { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  #pid-input {
+    width: 100%; padding: 11px 14px; border: 2px solid var(--border); border-radius: 8px;
+    font-size: 15px; margin-bottom: 6px; font-family: inherit; transition: border-color .12s;
+  }
+  #pid-input:focus { outline: none; border-color: var(--primary); }
+  #pid-error { font-size: 12.5px; color: var(--danger); min-height: 16px; margin-bottom: 8px; }
+  #pid-modal .btn { width: 100%; text-align: center; }
+
+  /* ── Participant badge (nav) ── */
+  #pid-badge {
+    margin-left: auto; background: rgba(255,255,255,.15); border-radius: 20px;
+    padding: 4px 12px; font-size: 12px; display: none; align-items: center; gap: 6px;
+  }
+  #pid-badge button {
+    background: none; border: none; color: #fff; opacity: .75; cursor: pointer; font-size: 12px; padding: 0;
+  }
+  #pid-badge button:hover { opacity: 1; text-decoration: underline; }
 </style>
 </head>
 <body>
+
+<!-- ── Participant ID Modal ── -->
+<div id="pid-modal-overlay" style="display:none">
+  <div id="pid-modal">
+    <h2>Welcome to the Study</h2>
+    <p>Please enter your <strong>Participant ID</strong> before you begin. You can find this in the study invitation you received.</p>
+    <input type="text" id="pid-input" placeholder="e.g. P1023" autocomplete="off">
+    <div id="pid-error"></div>
+    <button class="btn" id="pid-submit-btn">Continue →</button>
+  </div>
+</div>
 
 <!-- ── Nav ── -->
 <div id="nav">
@@ -215,6 +256,10 @@
   <button class="nav-btn" onclick="go('int3')">3 · Visual</button>
   <button class="nav-btn" onclick="go('int4')">4 · Gamified</button>
   <button class="nav-btn" onclick="go('int5')">5 · Feedback</button>
+  <div id="pid-badge">
+    <span id="pid-badge-text"></span>
+    <button type="button" onclick="ParticipantGate.reopen()">change</button>
+  </div>
 </div>
 
 <div id="main">
@@ -1114,11 +1159,12 @@ function startFeedbackTraining() {
    Silent no-op when opened as file:// (no server).
 ════════════════════════════════════════════════════════════════ */
 var Tracker = (function() {
-  var BASE        = (window.TRACKING_API || window.location.origin).replace(/\/+$/, '');
-  var sessionId   = null;
-  var currentPage = null;
-  var enterTime   = null;
-  var clickCount  = 0;
+  var BASE          = (window.TRACKING_API || window.location.origin).replace(/\/+$/, '');
+  var sessionId     = null;
+  var participantId = null;
+  var currentPage   = null;
+  var enterTime     = null;
+  var clickCount    = 0;
   var dwellQueue  = [];   // page-dwell events pending session creation
   var ixBatch     = [];   // interaction events pending send
   var ixTimer     = null;
@@ -1201,12 +1247,13 @@ var Tracker = (function() {
   }
 
   /* ── init: create session, wire up global listeners ── */
-  function init() {
+  function init(pid) {
     if (!active) return;
+    participantId = pid || null;
 
     fetch(BASE + '/api/session', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({condition:'demo'})
+      body: JSON.stringify({condition:'demo', participant_id: participantId})
     }).then(function(r){ return r.json(); })
       .then(function(d) {
         sessionId = d.session_id;
@@ -1266,6 +1313,70 @@ var Tracker = (function() {
   return { init: init, enterPage: enterPage, logResult: logResult };
 })();
 
+/* ═══════════════════════════════════════════
+   PARTICIPANT ID GATE
+   Blocks the app behind a modal until a Participant ID is entered.
+   The ID is persisted in localStorage (pre-filled on return visits)
+   and passed into Tracker.init() so every session/event row can be
+   traced back to a participant.
+═══════════════════════════════════════════ */
+var ParticipantGate = (function() {
+  var STORAGE_KEY = 'df_participant_id';
+  var onReady = null;
+
+  function updateBadge(id) {
+    var badge = document.getElementById('pid-badge');
+    var text  = document.getElementById('pid-badge-text');
+    if (!badge || !text) return;
+    if (id) { text.textContent = 'ID: ' + id; badge.style.display = 'flex'; }
+    else    { badge.style.display = 'none'; }
+  }
+
+  function submit() {
+    var input   = document.getElementById('pid-input');
+    var errorEl = document.getElementById('pid-error');
+    var val     = input.value.trim();
+    if (!val) {
+      errorEl.textContent = 'Please enter a Participant ID to continue.';
+      input.classList.add('shake');
+      input.focus();
+      setTimeout(function(){ input.classList.remove('shake'); }, 500);
+      return;
+    }
+    errorEl.textContent = '';
+    try { localStorage.setItem(STORAGE_KEY, val); } catch (e) {}
+    document.getElementById('pid-modal-overlay').style.display = 'none';
+    updateBadge(val);
+    if (onReady) onReady(val);
+  }
+
+  function open() {
+    var overlay = document.getElementById('pid-modal-overlay');
+    var input   = document.getElementById('pid-input');
+    var saved   = null;
+    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    if (saved) input.value = saved;
+    document.getElementById('pid-error').textContent = '';
+    overlay.style.display = 'flex';
+    setTimeout(function(){ input.focus(); input.select(); }, 50);
+  }
+
+  function init(cb) {
+    onReady = cb;
+    document.getElementById('pid-submit-btn').addEventListener('click', submit);
+    document.getElementById('pid-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submit();
+    });
+    open();
+  }
+
+  /* Reopen the modal so the participant/researcher can correct the ID.
+     Confirming starts a fresh tracking session under the new ID. */
+  function reopen() { open(); }
+
+  return { init: init, reopen: reopen };
+})();
+
 /* Rewrite relative image paths to absolute when IMAGES_BASE is set (production) */
 function patchImgBase(base) {
   if (!base) return;
@@ -1287,7 +1398,9 @@ function patchImgBase(base) {
 
 window.addEventListener('load', function() {
   patchImgBase(window.IMAGES_BASE);
-  Tracker.init();
+  ParticipantGate.init(function(participantId) {
+    Tracker.init(participantId);
+  });
 });
 </script>
 
