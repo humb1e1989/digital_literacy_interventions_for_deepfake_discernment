@@ -40,7 +40,7 @@ else:
     def get_conn():
         return sqlite3.connect(DB_PATH)
 
-app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
+app = Flask(__name__, static_folder=None)
 
 
 # ── Database helpers ────────────────────────────────────────────────────────────
