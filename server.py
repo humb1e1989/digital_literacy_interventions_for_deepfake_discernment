@@ -13,7 +13,7 @@ Endpoints:
   POST /api/result                log task result
   POST /api/interactions          log interaction batch
   GET  /api/data                  export page_events CSV
-  GET  /api/data/results          export task_results CSV
+  GET  /api/data/results          export task_results CSV (lab's Data Entry template layout)
   GET  /api/data/interactions     export interactions CSV
 """
 import os, uuid, datetime, csv, io
@@ -105,6 +105,7 @@ def init_db():
         user_agent  TEXT
     )''')
     _ensure_column('sessions', 'participant_id', 'TEXT')
+    _ensure_column('sessions', 'participation_mode', 'TEXT')
     db_exec(f'''CREATE TABLE IF NOT EXISTS page_events (
         id          {AUTO_PK},
         session_id  TEXT,
@@ -128,6 +129,10 @@ def init_db():
         total_time_ms         INTEGER,
         attempts              INTEGER
     )''')
+    # Fields for the boss's "Data Entry" template (participant/condition/trial-level export)
+    _ensure_column('task_results', 'trial_no', 'INTEGER')
+    _ensure_column('task_results', 'condition', 'TEXT')
+    _ensure_column('task_results', 'click_count', 'INTEGER')
     db_exec(f'''CREATE TABLE IF NOT EXISTS interactions (
         id              {AUTO_PK},
         session_id      TEXT,
@@ -140,6 +145,10 @@ def init_db():
         time_on_page_ms INTEGER,
         ts              TEXT
     )''')
+
+# Run at import time (not just __main__) — gunicorn imports this module without
+# executing __main__, so schema/migrations must happen here to take effect on Railway.
+init_db()
 
 
 # ── CORS ───────────────────────────────────────────────────────────────────────
@@ -159,12 +168,13 @@ def create_session():
     if request.method == 'OPTIONS': return '', 204
     d   = request.get_json(silent=True) or {}
     sid = str(uuid.uuid4())
-    db_exec('''INSERT INTO sessions (id,condition,started_at,user_agent,participant_id)
-               VALUES (?,?,?,?,?)''',
+    db_exec('''INSERT INTO sessions (id,condition,started_at,user_agent,participant_id,participation_mode)
+               VALUES (?,?,?,?,?,?)''',
             (sid, d.get('condition', 'unknown'),
              datetime.datetime.now().isoformat(),
              request.headers.get('User-Agent', ''),
-             d.get('participant_id')))
+             d.get('participant_id'),
+             d.get('participation_mode')))
     return jsonify({'session_id': sid})
 
 @app.route('/api/log', methods=['POST', 'OPTIONS'])
@@ -183,12 +193,13 @@ def log_result():
     db_exec('''INSERT INTO task_results
                (session_id,page,image_label,is_real,detection_choice,
                 detection_choice_idx,is_correct,share_choice,seen_before,
-                reaction_time_ms,total_time_ms,attempts)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
+                reaction_time_ms,total_time_ms,attempts,trial_no,condition,click_count)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
             (d.get('session_id'), d.get('page'), d.get('image_label'),
              d.get('is_real'), d.get('detection_choice'), d.get('detection_choice_idx'),
              d.get('is_correct'), d.get('share_choice'), d.get('seen_before'),
-             d.get('reaction_time_ms'), d.get('total_time_ms'), d.get('attempts')))
+             d.get('reaction_time_ms'), d.get('total_time_ms'), d.get('attempts'),
+             d.get('trial_no'), d.get('condition'), d.get('click_count')))
     return jsonify({'ok': True})
 
 @app.route('/api/interactions', methods=['POST', 'OPTIONS'])
@@ -218,24 +229,32 @@ def _csv(rows, cols, filename):
 
 @app.route('/api/data')
 def export_page_events():
-    rows = db_all('''SELECT s.id,s.participant_id,s.condition,s.started_at,
+    rows = db_all('''SELECT s.id,s.participant_id,s.participation_mode,s.condition,s.started_at,
                             e.page,e.entered_at,e.duration_ms,e.click_count
                      FROM sessions s LEFT JOIN page_events e ON s.id=e.session_id
                      ORDER BY s.started_at,e.entered_at''')
-    return _csv(rows, ['session_id','participant_id','condition','session_started',
+    return _csv(rows, ['session_id','participant_id','participation_mode','condition','session_started',
                        'page','entered_at','duration_ms','click_count'], 'page_events.csv')
+
+def _yes_no(v):
+    if v is None or v == '':
+        return ''
+    return 'Yes' if v in (1, '1', True, 'true') else 'No'
 
 @app.route('/api/data/results')
 def export_results():
-    rows = db_all('''SELECT s.participant_id,t.session_id,t.page,t.image_label,t.is_real,
-                            t.detection_choice,t.detection_choice_idx,t.is_correct,
-                            t.share_choice,t.seen_before,t.reaction_time_ms,t.total_time_ms,t.attempts
+    """Exports one row per trial in the lab's 'Data Entry' template layout:
+       Participant ID | Condition | Trial No. | Time (ms) | Click | Choice Button | Share | Correct Answer
+       plus a trailing Participation Mode column (Individual/Group) not in the original template."""
+    rows = db_all('''SELECT s.participant_id,t.condition,t.trial_no,t.total_time_ms,
+                            t.click_count,t.detection_choice,t.share_choice,t.is_correct,
+                            s.participation_mode
                      FROM task_results t LEFT JOIN sessions s ON t.session_id=s.id
-                     ORDER BY t.id''')
-    return _csv(rows, ['participant_id','session_id','page','image_label','is_real',
-                       'detection_choice','detection_choice_idx','is_correct',
-                       'share_choice','seen_before','reaction_time_ms',
-                       'total_time_ms','attempts'], 'task_results.csv')
+                     ORDER BY s.participant_id,t.id''')
+    formatted = [(r[0], r[1], r[2], r[3], r[4], r[5], r[6], _yes_no(r[7]), r[8]) for r in rows]
+    return _csv(formatted, ['Participant ID','Condition','Trial No.','Time (ms)',
+                            'Click','Choice Button','Share','Correct Answer',
+                            'Participation Mode'], 'Deepfake_Study_Data.csv')
 
 @app.route('/api/data/interactions')
 def export_interactions():
@@ -265,7 +284,6 @@ def serve_image(filename):
 # ── Entry point ────────────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
-    init_db()
     mode = 'PostgreSQL' if USE_PG else f'SQLite ({DB_PATH})'
     print(f'\n  Tracking server — {mode}')
     print('  Demo:             http://localhost:5001/')

@@ -221,6 +221,18 @@
   #pid-input:focus { outline: none; border-color: var(--primary); }
   #pid-error { font-size: 12.5px; color: var(--danger); min-height: 16px; margin-bottom: 8px; }
   #pid-modal .btn { width: 100%; text-align: center; }
+  #pid-modal .field-label { font-size: 12.5px; font-weight: 700; color: var(--text); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+  #pid-mode-row { display: flex; gap: 10px; margin-bottom: 6px; }
+  .mode-btn {
+    flex: 1; padding: 14px 10px; border: 2px solid var(--border); border-radius: 8px;
+    background: var(--card); cursor: pointer; text-align: center; transition: border-color .12s, background .12s;
+  }
+  .mode-btn:hover { border-color: var(--primary); background: #eff6ff; }
+  .mode-btn.selected { border-color: var(--primary); background: #dbeafe; }
+  .mode-btn .mode-icon { font-size: 20px; margin-bottom: 4px; }
+  .mode-btn .mode-label { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .mode-btn.selected .mode-label { color: var(--primary); }
+  #pid-mode-error { font-size: 12.5px; color: var(--danger); min-height: 16px; margin-bottom: 8px; }
 
   /* ── Participant badge (nav) ── */
   #pid-badge {
@@ -242,6 +254,12 @@
     <p>Please enter your <strong>Participant ID</strong> before you begin. You can find this in the study invitation you received.</p>
     <input type="text" id="pid-input" placeholder="e.g. P1023" autocomplete="off">
     <div id="pid-error"></div>
+    <div class="field-label">Participation Mode</div>
+    <div id="pid-mode-row">
+      <div class="mode-btn" data-mode="Individual"><div class="mode-icon">🧑</div><div class="mode-label">Individual</div></div>
+      <div class="mode-btn" data-mode="Group"><div class="mode-icon">👥</div><div class="mode-label">Group</div></div>
+    </div>
+    <div id="pid-mode-error"></div>
     <button class="btn" id="pid-submit-btn">Continue →</button>
   </div>
 </div>
@@ -640,6 +658,10 @@ var FLOW_NEXT = { control:'int1', int1:'int2', int2:'int3', int3:'int4', int4:'i
 var FLOW_LABEL = { control:'Control', int1:'1 · Knowledge', int2:'2 · Textual',
                    int3:'3 · Visual', int4:'4 · Gamified', int5:'5 · Feedback' };
 
+/* Clean condition names for the "Data Entry" export (matches lab template, e.g. "Control-Task") */
+var CONDITION_LABELS = { control:'Control', int1:'Knowledge', int2:'Textual',
+                         int3:'Visual', int4:'Gamified', int5:'Feedback' };
+
 function mkPlaceholder(maxW, label, icon, note, src) {
   var style = 'max-width:' + maxW + 'px';
   if (src) {
@@ -796,6 +818,9 @@ function startTask(containerId, withFeedback) {
       var correct   = choiceIdx === null ? null : (img.isReal ? choiceIdx <= 1 : choiceIdx >= 2);
       Tracker.logResult({
         page:                 condKey + '-task-img-' + (i + 1),
+        condition:            (CONDITION_LABELS[condKey] || condKey) + '-Task',
+        trial_no:             i + 1,
+        click_count:          Tracker.getClickCount(),
         image_label:          img.label,
         is_real:              img.isReal ? 1 : 0,
         detection_choice:     scaleSel ? scaleSel.textContent.trim() : null,
@@ -1000,6 +1025,9 @@ function buildVisual() {
       var outcome = timeout ? 'timeout' : (success ? 'hit' : 'miss');
       Tracker.logResult({
         page:                 'int4-round-' + (r + 1),
+        condition:            'Gamified-Game',
+        trial_no:             r + 1,
+        click_count:          Tracker.getClickCount(),
         image_label:          tip.title,
         is_real:              null,
         detection_choice:     outcome,
@@ -1117,6 +1145,9 @@ function startFeedbackTraining() {
       var correct   = choiceIdx === null ? null : (img.isReal ? choiceIdx <= 1 : choiceIdx >= 2);
       Tracker.logResult({
         page:                 'int5-train-' + (i + 1),
+        condition:            'Feedback-Training',
+        trial_no:             i + 1,
+        click_count:          Tracker.getClickCount(),
         image_label:          img.label,
         is_real:              img.isReal ? 1 : 0,
         detection_choice:     scaleSel ? scaleSel.textContent.trim() : null,
@@ -1247,13 +1278,13 @@ var Tracker = (function() {
   }
 
   /* ── init: create session, wire up global listeners ── */
-  function init(pid) {
+  function init(pid, mode) {
     if (!active) return;
     participantId = pid || null;
 
     fetch(BASE + '/api/session', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({condition:'demo', participant_id: participantId})
+      body: JSON.stringify({condition:'demo', participant_id: participantId, participation_mode: mode || null})
     }).then(function(r){ return r.json(); })
       .then(function(d) {
         sessionId = d.session_id;
@@ -1310,7 +1341,8 @@ var Tracker = (function() {
     enterPage('overview');
   }
 
-  return { init: init, enterPage: enterPage, logResult: logResult };
+  return { init: init, enterPage: enterPage, logResult: logResult,
+            getClickCount: function() { return clickCount; } };
 })();
 
 /* ═══════════════════════════════════════════
@@ -1321,42 +1353,76 @@ var Tracker = (function() {
    traced back to a participant.
 ═══════════════════════════════════════════ */
 var ParticipantGate = (function() {
-  var STORAGE_KEY = 'df_participant_id';
-  var onReady = null;
+  var ID_KEY   = 'df_participant_id';
+  var MODE_KEY = 'df_participation_mode';
+  var onReady    = null;
+  var selectedMode = null;
 
-  function updateBadge(id) {
+  function updateBadge(id, mode) {
     var badge = document.getElementById('pid-badge');
     var text  = document.getElementById('pid-badge-text');
     if (!badge || !text) return;
-    if (id) { text.textContent = 'ID: ' + id; badge.style.display = 'flex'; }
+    if (id) { text.textContent = 'ID: ' + id + (mode ? ' · ' + mode : ''); badge.style.display = 'flex'; }
     else    { badge.style.display = 'none'; }
   }
 
+  function selectMode(mode) {
+    selectedMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(function(b) {
+      b.classList.toggle('selected', b.dataset.mode === mode);
+    });
+    document.getElementById('pid-mode-error').textContent = '';
+  }
+
   function submit() {
-    var input   = document.getElementById('pid-input');
-    var errorEl = document.getElementById('pid-error');
-    var val     = input.value.trim();
+    var input     = document.getElementById('pid-input');
+    var errorEl   = document.getElementById('pid-error');
+    var modeError = document.getElementById('pid-mode-error');
+    var val       = input.value.trim();
+    var ok = true;
+
     if (!val) {
       errorEl.textContent = 'Please enter a Participant ID to continue.';
       input.classList.add('shake');
-      input.focus();
       setTimeout(function(){ input.classList.remove('shake'); }, 500);
+      ok = false;
+    } else {
+      errorEl.textContent = '';
+    }
+
+    if (!selectedMode) {
+      modeError.textContent = 'Please select Individual or Group.';
+      ok = false;
+    } else {
+      modeError.textContent = '';
+    }
+
+    if (!ok) {
+      if (!val) input.focus();
       return;
     }
-    errorEl.textContent = '';
-    try { localStorage.setItem(STORAGE_KEY, val); } catch (e) {}
+
+    try {
+      localStorage.setItem(ID_KEY, val);
+      localStorage.setItem(MODE_KEY, selectedMode);
+    } catch (e) {}
     document.getElementById('pid-modal-overlay').style.display = 'none';
-    updateBadge(val);
-    if (onReady) onReady(val);
+    updateBadge(val, selectedMode);
+    if (onReady) onReady(val, selectedMode);
   }
 
   function open() {
     var overlay = document.getElementById('pid-modal-overlay');
     var input   = document.getElementById('pid-input');
-    var saved   = null;
-    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
-    if (saved) input.value = saved;
+    var savedId = null, savedMode = null;
+    try {
+      savedId   = localStorage.getItem(ID_KEY);
+      savedMode = localStorage.getItem(MODE_KEY);
+    } catch (e) {}
+    if (savedId) input.value = savedId;
+    selectMode(savedMode || null);
     document.getElementById('pid-error').textContent = '';
+    document.getElementById('pid-mode-error').textContent = '';
     overlay.style.display = 'flex';
     setTimeout(function(){ input.focus(); input.select(); }, 50);
   }
@@ -1367,11 +1433,14 @@ var ParticipantGate = (function() {
     document.getElementById('pid-input').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') submit();
     });
+    document.querySelectorAll('.mode-btn').forEach(function(b) {
+      b.addEventListener('click', function() { selectMode(b.dataset.mode); });
+    });
     open();
   }
 
-  /* Reopen the modal so the participant/researcher can correct the ID.
-     Confirming starts a fresh tracking session under the new ID. */
+  /* Reopen the modal so the participant/researcher can correct the ID/mode.
+     Confirming starts a fresh tracking session under the new values. */
   function reopen() { open(); }
 
   return { init: init, reopen: reopen };
@@ -1398,8 +1467,8 @@ function patchImgBase(base) {
 
 window.addEventListener('load', function() {
   patchImgBase(window.IMAGES_BASE);
-  ParticipantGate.init(function(participantId) {
-    Tracker.init(participantId);
+  ParticipantGate.init(function(participantId, participationMode) {
+    Tracker.init(participantId, participationMode);
   });
 });
 </script>
