@@ -88,14 +88,24 @@ def db_all(sql, params=()):
 AUTO_PK = 'SERIAL PRIMARY KEY' if USE_PG else 'INTEGER PRIMARY KEY'
 
 def _ensure_column(table, column, coltype):
-    """Add a column to an already-existing table if it isn't there yet (SQLite/Postgres)."""
+    """Add a column to an already-existing table if it isn't there yet (SQLite/Postgres).
+
+    Multiple gunicorn workers run this at import time concurrently, so two
+    workers can both see the column missing and both try to add it. Whichever
+    one loses that race gets a "column already exists" error from the ALTER —
+    harmless, since the column is there either way, so it's swallowed here
+    instead of crashing the worker.
+    """
     if USE_PG:
         exists = db_all('''SELECT 1 FROM information_schema.columns
                             WHERE table_name=%s AND column_name=%s''', (table, column))
     else:
         exists = [r for r in db_all(f'PRAGMA table_info({table})') if r[1] == column]
     if not exists:
-        db_exec(f'ALTER TABLE {table} ADD COLUMN {column} {coltype}')
+        try:
+            db_exec(f'ALTER TABLE {table} ADD COLUMN {column} {coltype}')
+        except Exception:
+            pass
 
 def init_db():
     db_exec('''CREATE TABLE IF NOT EXISTS sessions (
