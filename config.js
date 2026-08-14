@@ -1,17 +1,14 @@
 /**
  * Deployment configuration
  *
- * After deploying the backend to Railway:
- *   1. Replace the placeholder URL below with your actual Railway URL
- *   2. Commit and push — Vercel will redeploy automatically
- *
+ * Backend is hosted on Azure App Service (Basic B1, Azure for Students).
  * Local dev (python server.py on port 5001) works without changing anything.
  */
 
-// // Railway/Render backend URL — set this after deploying the backend
-// window.TRACKING_API  = 'http://localhost:5001';   // ← replace with https://your-app.railway.app
-// window.IMAGES_BASE   = 'http://localhost:5001';   // ← same URL (Railway serves images too)
+// // Local dev
+// window.TRACKING_API  = 'http://localhost:5001';
+// window.IMAGES_BASE   = 'http://localhost:5001';
 
-// Railway/Render backend URL — set this after deploying the backend
-window.TRACKING_API  = 'https://web-production-c881e.up.railway.app/';   // ← replace with https://your-app.railway.app
-window.IMAGES_BASE   = 'https://web-production-c881e.up.railway.app/';   // ← same URL (Railway serves images too)
+// Azure App Service backend URL
+window.TRACKING_API  = 'https://spotdafake-b6f0c7geecambmhv.centralus-01.azurewebsites.net/';
+window.IMAGES_BASE   = 'https://spotdafake-b6f0c7geecambmhv.centralus-01.azurewebsites.net/';
